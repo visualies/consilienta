@@ -21,20 +21,15 @@ function InteractiveHelix() {
   // Load the helix.obj model
   const obj = useLoader(OBJLoader, '/helix.obj')
 
-  // Create gradient texture for the DNA model
-  const gradientTexture = useMemo(() => {
+  // Create white texture for the DNA model
+  const whiteTexture = useMemo(() => {
     const canvas = document.createElement("canvas")
     canvas.width = 256
     canvas.height = 256
     const ctx = canvas.getContext("2d")!
     
-    // Create simple linear gradient matching brand colors
-    const gradient = ctx.createLinearGradient(0, 0, 256, 256)
-    gradient.addColorStop(0, "#e89d87")
-    gradient.addColorStop(0.3, "#4041d5")
-    gradient.addColorStop(1, "#2a1846")
-    
-    ctx.fillStyle = gradient
+    // Create solid white texture
+    ctx.fillStyle = "#ffffff"
     ctx.fillRect(0, 0, 256, 256)
     
     const texture = new THREE.CanvasTexture(canvas)
@@ -50,9 +45,9 @@ function InteractiveHelix() {
       clonedObj.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           child.material = new THREE.MeshBasicMaterial({
-            map: gradientTexture,
-            emissive: new THREE.Color("#e0e0e0"),
-            emissiveIntensity: 0.1
+            color: new THREE.Color("#ffffff"),
+            emissive: new THREE.Color("#ffffff"),
+            emissiveIntensity: 0.2
           })
         }
       })
@@ -60,7 +55,7 @@ function InteractiveHelix() {
       return clonedObj
     }
     return null
-  }, [obj, gradientTexture])
+  }, [obj, whiteTexture])
 
   useFrame((state) => {
     if (groupRef.current && dnaModel) {
@@ -108,7 +103,7 @@ function InteractiveHelix() {
   return (
     <group
       ref={groupRef}
-      position={[5, 0, 0]}
+      position={[7, 0, 0]}
       scale={[7, 7, 7]} // Scale to 7x for clipping effect
       rotation={[Math.PI / 2, -24 * Math.PI / 180, 0]} // Stand upright + tilt 24 degrees opposite direction on Y-axis
       onPointerEnter={() => setIsHovered(true)}
@@ -159,7 +154,7 @@ export default function ConsilientsLanding() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="relative z-10 px-6 py-4">
+      <header className="sticky top-0 z-50 px-6 py-4 frosted-glass-navbar">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={40} height={40} className="h-10 w-auto" />
@@ -173,7 +168,7 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 overflow-hidden">
+      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-old">
         <div className="absolute inset-0">
           <Canvas
             camera={{
@@ -193,28 +188,27 @@ export default function ConsilientsLanding() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="space-y-8 max-w-3xl">
             <div className="space-y-4">
-              <Badge className="brand-gradient text-white border-0">Pharmaceutical Consulting Excellence</Badge>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight">
-                <span className="brand-gradient-text">Guiding</span> your product from{" "}
-                <span className="brand-gradient-text">concept to approval</span>
+              <Badge className="frosted-glass-dark text-white border-0">Pharmaceutical Consulting Excellence</Badge>
+              <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight text-white">
+                Guiding your product from concept to approval
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+              <p className="text-xl text-white/90 leading-relaxed max-w-lg">
                 At Consilienta, we specialize in guiding your product from concept to approval, no matter how complex or
                 innovative your development journey may be.
               </p>
-              <p className="text-lg text-gray-500 leading-relaxed max-w-lg">
+              <p className="text-lg text-white/80 leading-relaxed max-w-lg">
                 We will help you navigate each step of product development with clarity and confidence.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="brand-gradient text-white border-0 hover:opacity-90 transition-opacity">
+              <Button size="lg" className="frosted-glass text-white border-0 hover:bg-white/20 transition-all">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-gray-300 hover:border-gray-400 bg-transparent"
+                className="frosted-glass-dark border-0 text-white hover:bg-white/20 transition-all"
               >
                 Learn More
               </Button>

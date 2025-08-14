@@ -126,11 +126,11 @@
 
 /* Custom gradient classes for brand colors */
 .brand-gradient {
-  background: linear-gradient(135deg, #e89d87 0%, #a985b3 15%, #4041d5 35%, #2a1846 80%, #191919 100%);
+  background: linear-gradient(135deg, #4041D5 0%, #1C1F72 50%, #191900 100%);
 }
 
 .brand-gradient-text {
-  background: linear-gradient(135deg, #e89d87 0%, #a985b3 15%, #4041d5 35%, #2a1846 80%, #191919 100%);
+  background: linear-gradient(135deg, #4041D5 0%, #1C1F72 50%, #191900 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -139,10 +139,31 @@
 .brand-gradient-subtle {
   background: linear-gradient(
     135deg,
-    rgba(232, 157, 135, 0.1) 0%,
-    rgba(169, 133, 179, 0.1) 15%,
-    rgba(64, 65, 213, 0.1) 35%,
-    rgba(42, 24, 70, 0.1) 80%,
-    rgba(25, 25, 25, 0.1) 100%
+    rgba(64, 65, 213, 0.1) 0%,
+    rgba(28, 31, 114, 0.1) 50%,
+    rgba(25, 25, 0, 0.1) 100%
   );
+}
+
+.brand-gradient-old {
+  background: linear-gradient(135deg, #e89d87 0%, #a985b3 15%, #4041d5 35%, #2a1846 90%, #191919 100%);
+}
+
+/* Frosted glass effects */
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.frosted-glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.frosted-glass-navbar {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
