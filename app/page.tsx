@@ -1,0 +1,295 @@
+"use client"
+
+import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber"
+import { Environment } from "@react-three/drei"
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Users, Target, Lightbulb, Globe, Zap, Award } from "lucide-react"
+import Image from "next/image"
+import { Suspense, useRef, useState, useMemo, useEffect } from "react"
+import * as THREE from "three"
+
+function InteractiveHelix() {
+  const groupRef = useRef<THREE.Group>(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [rotationSpeed, setRotationSpeed] = useState(0.2)
+  const dragStartRef = useRef({ x: 0, y: 0 })
+
+  // Load the helix.obj model
+  const obj = useLoader(OBJLoader, '/helix.obj')
+
+  // Create gradient texture for the DNA model
+  const gradientTexture = useMemo(() => {
+    const canvas = document.createElement("canvas")
+    canvas.width = 256
+    canvas.height = 256
+    const ctx = canvas.getContext("2d")!
+    
+    // Create simple linear gradient matching brand colors
+    const gradient = ctx.createLinearGradient(0, 0, 256, 256)
+    gradient.addColorStop(0, "#e89d87")
+    gradient.addColorStop(0.3, "#4041d5")
+    gradient.addColorStop(1, "#2a1846")
+    
+    ctx.fillStyle = gradient
+    ctx.fillRect(0, 0, 256, 256)
+    
+    const texture = new THREE.CanvasTexture(canvas)
+    return texture
+  }, [])
+
+  // Clone and prepare the DNA model
+  const dnaModel = useMemo(() => {
+    if (obj) {
+      const clonedObj = obj.clone()
+      
+      // Apply material to all meshes in the model
+      clonedObj.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = new THREE.MeshBasicMaterial({
+            map: gradientTexture,
+            emissive: new THREE.Color("#e0e0e0"),
+            emissiveIntensity: 0.1
+          })
+        }
+      })
+      
+      return clonedObj
+    }
+    return null
+  }, [obj, gradientTexture])
+
+  useFrame((state) => {
+    if (groupRef.current && dnaModel) {
+      // Continuous rotation with variable speed around Z-axis
+      groupRef.current.rotation.z += rotationSpeed * 0.016
+      
+      // Simple scale on hover
+      const targetScale = isHovered ? 7.7 : 7 // Scale from 7x to 7.7x on hover
+      groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * 0.1
+      groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.1
+      groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.1
+      
+      // Simple floating motion
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2
+    }
+  })
+
+  const handlePointerDown = (event: THREE.Event) => {
+    event.stopPropagation()
+    setIsDragging(true)
+    dragStartRef.current = {
+      x: 'clientX' in event ? event.clientX : event.pageX,
+      y: 'clientY' in event ? event.clientY : event.pageY
+    }
+  }
+
+  const handlePointerMove = (event: THREE.Event) => {
+    if (isDragging) {
+      const currentX = 'clientX' in event ? event.clientX : event.pageX
+      const deltaX = currentX - dragStartRef.current.x
+      const newSpeed = Math.max(-2, Math.min(2, rotationSpeed + deltaX * 0.005))
+      setRotationSpeed(newSpeed)
+      dragStartRef.current.x = currentX
+    }
+  }
+
+  const handlePointerUp = () => {
+    setIsDragging(false)
+  }
+
+  if (!dnaModel) {
+    return null // Loading fallback
+  }
+
+  return (
+    <group
+      ref={groupRef}
+      position={[5, 0, 0]}
+      scale={[7, 7, 7]} // Scale to 7x for clipping effect
+      rotation={[Math.PI / 2, -24 * Math.PI / 180, 0]} // Stand upright + tilt 24 degrees opposite direction on Y-axis
+      onPointerEnter={() => setIsHovered(true)}
+      onPointerLeave={() => setIsHovered(false)}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+    >
+      <primitive object={dnaModel} />
+    </group>
+  )
+}
+
+export default function ConsilientsLanding() {
+  const features = [
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: "Expert Team",
+      description: "Blend of ex-regulatory, industry, consulting and academic experience",
+    },
+    {
+      icon: <Globe className="h-6 w-6" />,
+      title: "Broad Experience",
+      description: "From small biotech startups to large pharmaceutical corporations",
+    },
+    {
+      icon: <Target className="h-6 w-6" />,
+      title: "Tailored Support",
+      description: "Agile, attentive and personalized service with true partnership",
+    },
+    {
+      icon: <Award className="h-6 w-6" />,
+      title: "Comprehensive Coverage",
+      description: "Broad coverage of product class & disease types",
+    },
+    {
+      icon: <Zap className="h-6 w-6" />,
+      title: "Emerging Technologies",
+      description: "Ample experience with a range of emerging technologies and medicines",
+    },
+    {
+      icon: <Lightbulb className="h-6 w-6" />,
+      title: "Novel Approaches",
+      description: "Out-of-the-box solutions for complex challenges",
+    },
+  ]
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="relative z-10 px-6 py-4">
+        <nav className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={40} height={40} className="h-10 w-auto" />
+            <span className="text-2xl font-serif font-bold brand-gradient-text">Consilienta</span>
+          </div>
+          <Button className="brand-gradient text-white border-0 hover:opacity-90 transition-opacity">
+            Get Started
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative px-6 py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <Canvas
+            camera={{
+              position: [0, 0, 10],
+              fov: 75,
+            }}
+          >
+            <Suspense fallback={null}>
+              <ambientLight intensity={0.6} />
+              <directionalLight position={[10, 10, 5]} intensity={0.5} />
+              <InteractiveHelix />
+              <Environment preset="studio" intensity={0.2} />
+            </Suspense>
+          </Canvas>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="space-y-8 max-w-3xl">
+            <div className="space-y-4">
+              <Badge className="brand-gradient text-white border-0">Pharmaceutical Consulting Excellence</Badge>
+              <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight">
+                <span className="brand-gradient-text">Guiding</span> your product from{" "}
+                <span className="brand-gradient-text">concept to approval</span>
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+                At Consilienta, we specialize in guiding your product from concept to approval, no matter how complex or
+                innovative your development journey may be.
+              </p>
+              <p className="text-lg text-gray-500 leading-relaxed max-w-lg">
+                We will help you navigate each step of product development with clarity and confidence.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="brand-gradient text-white border-0 hover:opacity-90 transition-opacity">
+                Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-gray-300 hover:border-gray-400 bg-transparent"
+              >
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="px-6 py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl font-serif font-bold">
+              Why Choose <span className="brand-gradient-text">Consilienta</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our comprehensive approach combines deep expertise with innovative solutions to accelerate your
+              pharmaceutical development journey.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-8 space-y-4">
+                  <div className="w-12 h-12 brand-gradient rounded-lg flex items-center justify-center text-white">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-serif font-semibold">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="px-6 py-20 brand-gradient">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white">
+            Ready to Transform Your Development Process?
+          </h2>
+          <p className="text-xl text-white/90 leading-relaxed">
+            Partner with Consilienta and experience the difference that expert guidance, innovative solutions, and
+            personalized service can make for your pharmaceutical development journey.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors">
+              Schedule Consultation
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors bg-transparent"
+            >
+              Download Brochure
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="px-6 py-12 bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto text-center space-y-4">
+          <div className="flex items-center justify-center space-x-3">
+            <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={32} height={32} className="h-8 w-auto" />
+            <span className="text-xl font-serif font-bold">Consilienta</span>
+          </div>
+          <p className="text-gray-400">
+            © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
+          </p>
+        </div>
+      </footer>
+    </div>
+  )
+}
