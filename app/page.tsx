@@ -16,6 +16,7 @@ function InteractiveHelix() {
   const [isHovered, setIsHovered] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [rotationSpeed, setRotationSpeed] = useState(0.2)
+  const [scrollY, setScrollY] = useState(0)
   const dragStartRef = useRef({ x: 0, y: 0 })
 
   // Load the helix.obj model
@@ -34,6 +35,16 @@ function InteractiveHelix() {
     
     const texture = new THREE.CanvasTexture(canvas)
     return texture
+  }, [])
+
+  // Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Clone and prepare the DNA model
@@ -68,8 +79,9 @@ function InteractiveHelix() {
       groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.1
       groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.1
       
-      // Simple floating motion
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2
+      // Parallax effect - move very slowly with scroll
+      const parallaxOffset = scrollY * 0.1 // Move 10% of scroll speed
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2 - parallaxOffset * 0.01
     }
   })
 
@@ -168,7 +180,7 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-old">
+      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-old min-h-[60vh]">
         <div className="absolute inset-0">
           <Canvas
             camera={{
@@ -188,27 +200,25 @@ export default function ConsilientsLanding() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="space-y-8 max-w-3xl">
             <div className="space-y-4">
-              <Badge className="frosted-glass-dark text-white border-0">Pharmaceutical Consulting Excellence</Badge>
+              <Badge className="frosted-glass text-white border-0">Pharmaceutical Consulting Excellence</Badge>
               <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight text-white">
                 Guiding your product from concept to approval
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed max-w-lg">
-                At Consilienta, we specialize in guiding your product from concept to approval, no matter how complex or
-                innovative your development journey may be.
-              </p>
+
               <p className="text-lg text-white/80 leading-relaxed max-w-lg">
+                No matter how complex or innovative your development journey may be.
                 We will help you navigate each step of product development with clarity and confidence.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="frosted-glass text-white border-0 hover:bg-white/20 transition-all">
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="frosted-glass-dark border-0 text-white hover:bg-white/20 transition-all"
+                className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
               >
                 Learn More
               </Button>
@@ -247,7 +257,7 @@ export default function ConsilientsLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-6 py-20 brand-gradient">
+      <section className="px-6 py-20 brand-gradient-old">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white">
             Ready to Transform Your Development Process?
@@ -257,14 +267,14 @@ export default function ConsilientsLanding() {
             personalized service can make for your pharmaceutical development journey.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors">
+            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
               Schedule Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-colors bg-transparent"
+              className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
             >
               Download Brochure
             </Button>
