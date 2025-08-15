@@ -12,4 +12,4 @@ const nextConfig = {
   },
 }
 
-export default withPayload(withPayload(withPayload(nextConfig)))
+export default withPayload(nextConfig)
