@@ -196,7 +196,7 @@ export default function ConsilientsLanding() {
   ]
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen brand-gradient-no-black">
       {/* Header */}
       <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
@@ -213,7 +213,7 @@ export default function ConsilientsLanding() {
               <a href="#careers" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Careers</a>
             </div>
             
-            <Button className="brand-gradient-light text-white border-0 outline outline-2 outline-white/30 hover:opacity-90 transition-opacity">
+            <Button variant="primary">
               Contact Us
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -223,7 +223,7 @@ export default function ConsilientsLanding() {
 
       {/* Hero Section */}
       <motion.section 
-        className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]"
+        className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden min-h-[60vh]"
         style={{ y: heroY }}
       >
         <div className="absolute inset-0 opacity-100">
@@ -287,14 +287,13 @@ export default function ConsilientsLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0 outline outline-2 outline-white/30">
+              <Button size="lg" variant="cta">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
+                variant="secondary"
               >
                 Learn More
               </Button>
@@ -306,7 +305,7 @@ export default function ConsilientsLanding() {
       {/* Features Section */}
       <motion.section 
         ref={featuresRef}
-        className="px-6 py-20 brand-gradient-no-black relative z-10"
+        className="px-6 py-20 relative z-10"
         style={{ 
           y: useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-5%']),
           paddingBottom: '8rem',
@@ -371,10 +370,11 @@ export default function ConsilientsLanding() {
                   ease: "easeOut" 
                 }}
               >
-                <Card className="bg-white/70 shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20">
+                <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20">
                   <CardContent className="p-8 space-y-4">
                     <motion.div 
-                      className="w-12 h-12 brand-gradient-light rounded-lg flex items-center justify-center text-white"
+                      className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
+                      style={{ backgroundColor: '#6257CA' }}
                     >
                       {feature.icon}
                     </motion.div>
@@ -389,17 +389,17 @@ export default function ConsilientsLanding() {
       </motion.section>
 
       {/* CTA Section */}
-      <motion.section 
+      <motion.section
         ref={ctaRef}
-        className="px-6 pt-32 py-20 brand-gradient-no-black"
-        style={{ 
+        className="px-6 pt-32 py-20"
+        style={{
           y: useTransform(scrollYProgress, [0.6, 1], ['0%', '-5%']),
           paddingBottom: '8rem',
           marginBottom: '-3rem'
         }}
       >
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <motion.h2 
+          <motion.h2
             className="text-4xl lg:text-5xl font-serif font-medium text-white"
             initial={{ opacity: 0, y: 50 }}
             animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -407,7 +407,7 @@ export default function ConsilientsLanding() {
           >
             Ready to Transform Your Development Process?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-white/90 leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -416,49 +416,88 @@ export default function ConsilientsLanding() {
             Partner with Consilienta and experience the difference that expert guidance, innovative solutions, and
             personalized service can make for your pharmaceutical development journey.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 30 }}
             animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Button size="lg" variant="cta">
+              Schedule Consultation
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
             >
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0 outline outline-2 outline-white/30">
-                Schedule Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                size="lg"
-                variant="outline"
-                className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
-              >
-                Download Brochure
-              </Button>
-            </motion.div>
+              Download Brochure
+            </Button>
           </motion.div>
         </div>
       </motion.section>
 
       {/* Footer */}
       <footer 
-        className="px-6 py-12 bg-gray-900 text-white relative z-10"
-        style={{ backgroundColor: '#111827' }}
-      >
-        <div className="max-w-7xl mx-auto text-center space-y-4">
-          <div className="flex items-center justify-center">
-            <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={160} height={32} className="h-8 w-auto" />
+        className="px-6 py-16 text-white relative z-10">
+        <div className="absolute inset-0 bg-white opacity-40"></div>
+        <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            {/* Logo and Company Info */}
+            <div className="col-span-2 space-y-4">
+              <div className="flex items-center">
+                <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={200} height={40} className="h-10 w-auto" />
+              </div>
+              <p className="text-white/90 max-w-md leading-relaxed">
+                Expert pharmaceutical consulting guiding your product from concept to approval. 
+                Comprehensive solutions for complex development challenges.
+              </p>
+              <div className="flex space-x-4">
+                <Button variant="secondary" size="sm">
+                  LinkedIn
+                </Button>
+                <Button variant="secondary" size="sm">
+                  Email
+                </Button>
+              </div>
+            </div>
+
+            {/* Services */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-serif font-medium">Services</h3>
+              <ul className="space-y-2 text-white/80">
+                <li><a href="#" className="hover:text-white transition-colors">Regulatory Strategy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Clinical Development</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Market Access</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Quality Assurance</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Compliance</a></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-serif font-medium">Company</h3>
+              <ul className="space-y-2 text-white/80">
+                <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#careers" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#insights" className="hover:text-white transition-colors">Insights</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
           </div>
-          <p className="text-gray-400">
-            © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
-          </p>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-white/20 pt-8 flex flex-col sm:flex-row justify-between items-center">
+            <p className="text-white/70 text-sm">
+              © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
+            </p>
+            <div className="flex space-x-6 mt-4 sm:mt-0">
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Terms of Service</a>
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Privacy Policy</a>
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Cookies</a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
