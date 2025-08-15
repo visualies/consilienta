@@ -203,7 +203,7 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]">
+      <section className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]">
         <div className="absolute inset-0 opacity-100">
           <Canvas
             camera={{
