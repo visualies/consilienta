@@ -38,7 +38,7 @@ function InteractiveHelix() {
     return texture
   }, [])
 
-  // Parallax scroll effect
+  // Track scroll for 3D movement
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
@@ -80,9 +80,9 @@ function InteractiveHelix() {
       groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.1
       groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.1
       
-      // Parallax effect - move very slowly with scroll
-      const parallaxOffset = scrollY * 0.1 // Move 10% of scroll speed
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2 - parallaxOffset * 0.01
+      // 3D scroll-based movement with floating animation
+      const scrollOffset = scrollY * 0.008 // Adjust multiplier to control movement speed
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2 - scrollOffset
     }
   })
 
@@ -133,7 +133,7 @@ function InteractiveHelix() {
 export default function ConsilientsLanding() {
   const [isOverWhite, setIsOverWhite] = useState(false)
   const { scrollYProgress } = useScroll()
-  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '35%'])
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '60%'])
   const featuresRef = useRef(null)
   const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
   const ctaRef = useRef(null)
@@ -201,16 +201,23 @@ export default function ConsilientsLanding() {
       <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
-            <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={200} height={40} className="h-10 w-auto" />
+            {isOverWhite ? (
+              <div 
+                className="logo-over-white w-[200px] h-10 transition-all duration-300"
+                aria-label="Consilienta Logo"
+              />
+            ) : (
+              <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={200} height={40} className="h-10 w-auto transition-all duration-300 drop-shadow-sm" />
+            )}
           </div>
           
           <div className="flex items-center space-x-8">
             <div className="hidden lg:flex items-center space-x-8">
-              <a href="#home" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Home</a>
-              <a href="#how-we-help" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">How We Help</a>
-              <a href="#about" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">About Us</a>
-              <a href="#insights" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Insights</a>
-              <a href="#careers" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Careers</a>
+              <a href="#home" className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}>Home</a>
+              <a href="#how-we-help" className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}>How We Help</a>
+              <a href="#about" className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}>About Us</a>
+              <a href="#insights" className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}>Insights</a>
+              <a href="#careers" className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}>Careers</a>
             </div>
             
             <Button variant="primary">
@@ -222,10 +229,7 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <motion.section 
-        className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden min-h-[60vh]"
-        style={{ y: heroY }}
-      >
+      <section className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden min-h-[60vh]">
         <div className="absolute inset-0 opacity-100">
           <Canvas
             camera={{
@@ -242,7 +246,10 @@ export default function ConsilientsLanding() {
           </Canvas>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div 
+          className="max-w-7xl mx-auto relative z-10"
+          style={{ y: heroY }}
+        >
           <motion.div 
             className="space-y-8 max-w-3xl"
             initial={{ opacity: 0, y: 50 }}
@@ -299,15 +306,14 @@ export default function ConsilientsLanding() {
               </Button>
             </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
 
       {/* Features Section */}
       <motion.section 
         ref={featuresRef}
         className="px-6 py-20 relative z-10"
-        style={{ 
-          y: useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-5%']),
+        style={{
           paddingBottom: '8rem',
           marginBottom: '-3rem'
         }}
@@ -327,7 +333,7 @@ export default function ConsilientsLanding() {
               animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Why Choose <span className="text-[#6257CA]">Consilienta</span>
+              Why Choose <span style={{ color: 'var(--brand-purple)' }}>Consilienta</span>
             </motion.h2>
             <motion.p 
               className="text-xl text-white/90 max-w-3xl mx-auto"
@@ -374,7 +380,7 @@ export default function ConsilientsLanding() {
                   <CardContent className="p-8 space-y-4">
                     <motion.div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
-                      style={{ backgroundColor: '#6257CA' }}
+                      style={{ backgroundColor: 'var(--brand-purple)' }}
                     >
                       {feature.icon}
                     </motion.div>
