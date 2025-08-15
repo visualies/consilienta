@@ -24,7 +24,7 @@ export const usePage = (slug: string) => {
   return useQuery({
     queryKey: ['page', slug],
     queryFn: async (): Promise<PageData> => {
-      const response = await fetch(`/api/pages/${slug}`)
+      const response = await fetch(`/api/frontend/pages/${slug}`)
       
       if (!response.ok) {
         const error = await response.json()

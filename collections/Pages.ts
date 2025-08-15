@@ -46,95 +46,205 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       blocks: [
         {
-          slug: 'hero',
+          slug: 'header',
           fields: [
             {
-              name: 'variant',
-              type: 'select',
-              required: true,
-              options: [
-                { label: 'High Impact', value: 'high-impact' },
-                { label: 'Medium Impact', value: 'medium-impact' },
-                { label: 'Low Impact', value: 'low-impact' },
-                { label: 'Post Hero', value: 'post' },
-              ],
-              defaultValue: 'high-impact',
-            },
-            {
-              name: 'badge',
-              type: 'text',
-            },
-            {
-              name: 'headline',
-              type: 'text',
+              name: 'logo',
+              type: 'upload',
+              relationTo: 'media',
               required: true,
             },
             {
-              name: 'description',
-              type: 'textarea',
+              name: 'logoWhite',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
             },
             {
-              name: 'background',
-              type: 'group',
+              name: 'navigation',
+              type: 'array',
               fields: [
                 {
-                  name: 'type',
-                  type: 'select',
-                  options: [
-                    { label: 'None', value: 'none' },
-                    { label: 'Image', value: 'image' },
-                    { label: 'Video', value: 'video' },
-                    { label: '3D Model', value: '3d-model' },
-                  ],
-                  defaultValue: 'none',
+                  name: 'label',
+                  type: 'text',
+                  required: true,
                 },
                 {
-                  name: 'media',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type !== 'none',
-                  },
+                  name: 'link',
+                  type: 'text',
+                  required: true,
                 },
-                {
-                  name: 'overlay',
-                  type: 'checkbox',
-                  defaultValue: false,
-                },
+              ],
+              defaultValue: [
+                { label: 'Home', link: '#home' },
+                { label: 'How We Help', link: '#how-we-help' },
+                { label: 'About Us', link: '#about' },
+                { label: 'Insights', link: '#insights' },
+                { label: 'Careers', link: '#careers' },
               ],
             },
             {
-              name: 'buttons',
-              type: 'array',
+              name: 'contactButton',
+              type: 'group',
               fields: [
                 {
                   name: 'text',
                   type: 'text',
                   required: true,
-                },
-                {
-                  name: 'variant',
-                  type: 'select',
-                  options: [
-                    { label: 'Primary', value: 'primary' },
-                    { label: 'Secondary', value: 'secondary' },
-                    { label: 'CTA', value: 'cta' },
-                  ],
-                  defaultValue: 'primary',
+                  defaultValue: 'Contact Us',
                 },
                 {
                   name: 'link',
                   type: 'text',
+                  required: true,
+                  defaultValue: '#contact',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'hero',
+          fields: [
+            {
+              name: 'badge',
+              type: 'text',
+              required: true,
+              defaultValue: 'Pharmaceutical Consulting Excellence',
+            },
+            {
+              name: 'headline',
+              type: 'text',
+              required: true,
+              defaultValue: 'Guiding your product from concept to approval',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: true,
+              defaultValue: 'No matter how complex or innovative your development journey may be. We will help you navigate each step of product development with clarity and confidence.',
+            },
+            {
+              name: 'primaryButton',
+              type: 'group',
+              fields: [
+                {
+                  name: 'text',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Get in Touch',
                 },
                 {
-                  name: 'action',
-                  type: 'select',
-                  options: [
-                    { label: 'Link', value: 'link' },
-                    { label: 'Modal', value: 'modal' },
-                    { label: 'Scroll', value: 'scroll' },
+                  name: 'link',
+                  type: 'text',
+                  required: true,
+                  defaultValue: '#contact',
+                },
+              ],
+            },
+            {
+              name: 'secondaryButton',
+              type: 'group',
+              fields: [
+                {
+                  name: 'text',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Learn More',
+                },
+                {
+                  name: 'link',
+                  type: 'text',
+                  required: true,
+                  defaultValue: '#about',
+                },
+              ],
+            },
+            {
+              name: 'showHelix',
+              type: 'checkbox',
+              defaultValue: true,
+            },
+            {
+              name: 'helixConfig',
+              type: 'group',
+              fields: [
+                {
+                  name: 'enabled',
+                  type: 'checkbox',
+                  defaultValue: true,
+                },
+                {
+                  name: 'model',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                },
+                {
+                  name: 'rotationSpeed',
+                  type: 'number',
+                  defaultValue: 0.2,
+                  min: 0,
+                  max: 2,
+                  step: 0.1,
+                },
+                {
+                  name: 'scale',
+                  type: 'number',
+                  defaultValue: 7,
+                  min: 1,
+                  max: 15,
+                  step: 0.1,
+                },
+                {
+                  name: 'hoverScale',
+                  type: 'number',
+                  defaultValue: 7.7,
+                  min: 1,
+                  max: 15,
+                  step: 0.1,
+                },
+                {
+                  name: 'position',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'x',
+                      type: 'number',
+                      defaultValue: 7,
+                    },
+                    {
+                      name: 'y',
+                      type: 'number',
+                      defaultValue: 0,
+                    },
+                    {
+                      name: 'z',
+                      type: 'number',
+                      defaultValue: 0,
+                    },
                   ],
-                  defaultValue: 'link',
+                },
+                {
+                  name: 'rotation',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'x',
+                      type: 'number',
+                      defaultValue: 90,
+                    },
+                    {
+                      name: 'y',
+                      type: 'number',
+                      defaultValue: -24,
+                    },
+                    {
+                      name: 'z',
+                      type: 'number',
+                      defaultValue: 0,
+                    },
+                  ],
                 },
               ],
             },
@@ -146,29 +256,23 @@ export const Pages: CollectionConfig = {
             {
               name: 'title',
               type: 'text',
+              required: true,
+              defaultValue: 'Why Choose Consilienta',
             },
             {
               name: 'subtitle',
               type: 'textarea',
+              required: true,
+              defaultValue: 'Our comprehensive approach combines deep expertise with innovative solutions to accelerate your pharmaceutical development journey.',
             },
             {
-              name: 'layout',
-              type: 'select',
-              options: [
-                { label: 'Grid 2x3', value: 'grid-2x3' },
-                { label: 'Grid 3x2', value: 'grid-3x2' },
-                { label: 'List', value: 'list' },
-                { label: 'Carousel', value: 'carousel' },
-              ],
-              defaultValue: 'grid-2x3',
-            },
-            {
-              name: 'features',
+              name: 'featuresList',
               type: 'array',
               fields: [
                 {
                   name: 'icon',
                   type: 'select',
+                  required: true,
                   options: [
                     { label: 'Users', value: 'Users' },
                     { label: 'Target', value: 'Target' },
@@ -176,16 +280,7 @@ export const Pages: CollectionConfig = {
                     { label: 'Globe', value: 'Globe' },
                     { label: 'Zap', value: 'Zap' },
                     { label: 'Award', value: 'Award' },
-                    { label: 'Custom', value: 'custom' },
                   ],
-                },
-                {
-                  name: 'customIcon',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.icon === 'custom',
-                  },
                 },
                 {
                   name: 'title',
@@ -195,10 +290,39 @@ export const Pages: CollectionConfig = {
                 {
                   name: 'description',
                   type: 'textarea',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                {
+                  icon: 'Users',
+                  title: 'Expert Team',
+                  description: 'Blend of ex-regulatory, industry, consulting and academic experience',
                 },
                 {
-                  name: 'link',
-                  type: 'text',
+                  icon: 'Globe',
+                  title: 'Broad Experience',
+                  description: 'From small biotech startups to large pharmaceutical corporations',
+                },
+                {
+                  icon: 'Target',
+                  title: 'Tailored Support',
+                  description: 'Agile, attentive and personalized service with true partnership',
+                },
+                {
+                  icon: 'Award',
+                  title: 'Comprehensive Coverage',
+                  description: 'Broad coverage of product class & disease types',
+                },
+                {
+                  icon: 'Zap',
+                  title: 'Emerging Technologies',
+                  description: 'Ample experience with a range of emerging technologies and medicines',
+                },
+                {
+                  icon: 'Lightbulb',
+                  title: 'Novel Approaches',
+                  description: 'Out-of-the-box solutions for complex challenges',
                 },
               ],
             },
@@ -208,259 +332,166 @@ export const Pages: CollectionConfig = {
           slug: 'cta',
           fields: [
             {
-              name: 'variant',
-              type: 'select',
-              options: [
-                { label: 'Standard', value: 'standard' },
-                { label: 'Split', value: 'split' },
-                { label: 'Full Width', value: 'full-width' },
-              ],
-              defaultValue: 'standard',
-            },
-            {
               name: 'title',
               type: 'text',
               required: true,
+              defaultValue: 'Ready to Transform Your Development Process?',
             },
             {
               name: 'description',
               type: 'textarea',
+              required: true,
+              defaultValue: 'Partner with Consilienta and experience the difference that expert guidance, innovative solutions, and personalized service can make for your pharmaceutical development journey.',
             },
             {
-              name: 'background',
+              name: 'primaryButton',
               type: 'group',
-              fields: [
-                {
-                  name: 'type',
-                  type: 'select',
-                  options: [
-                    { label: 'Solid', value: 'solid' },
-                    { label: 'Gradient', value: 'gradient' },
-                    { label: 'Image', value: 'image' },
-                  ],
-                  defaultValue: 'solid',
-                },
-                {
-                  name: 'color',
-                  type: 'text',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type === 'solid',
-                  },
-                },
-                {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type === 'image',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'buttons',
-              type: 'array',
               fields: [
                 {
                   name: 'text',
                   type: 'text',
                   required: true,
-                },
-                {
-                  name: 'variant',
-                  type: 'select',
-                  options: [
-                    { label: 'Primary', value: 'primary' },
-                    { label: 'Secondary', value: 'secondary' },
-                    { label: 'CTA', value: 'cta' },
-                  ],
-                  defaultValue: 'primary',
+                  defaultValue: 'Schedule Consultation',
                 },
                 {
                   name: 'link',
                   type: 'text',
-                },
-                {
-                  name: 'action',
-                  type: 'select',
-                  options: [
-                    { label: 'Link', value: 'link' },
-                    { label: 'Modal', value: 'modal' },
-                    { label: 'Scroll', value: 'scroll' },
-                  ],
-                  defaultValue: 'link',
+                  required: true,
+                  defaultValue: '#contact',
                 },
               ],
             },
-          ],
-        },
-        {
-          slug: 'content',
-          fields: [
             {
-              name: 'content',
-              type: 'richText',
-              editor: lexicalEditor(),
-            },
-            {
-              name: 'width',
-              type: 'select',
-              options: [
-                { label: 'Full Width', value: 'full' },
-                { label: 'Container', value: 'container' },
-                { label: 'Narrow', value: 'narrow' },
-              ],
-              defaultValue: 'container',
-            },
-            {
-              name: 'background',
+              name: 'secondaryButton',
               type: 'group',
               fields: [
                 {
-                  name: 'type',
-                  type: 'select',
-                  options: [
-                    { label: 'None', value: 'none' },
-                    { label: 'Solid', value: 'solid' },
-                    { label: 'Image', value: 'image' },
-                  ],
-                  defaultValue: 'none',
-                },
-                {
-                  name: 'color',
+                  name: 'text',
                   type: 'text',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type === 'solid',
-                  },
+                  required: true,
+                  defaultValue: 'Download Brochure',
                 },
                 {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type === 'image',
-                  },
+                  name: 'link',
+                  type: 'text',
+                  required: true,
+                  defaultValue: '#brochure',
                 },
               ],
             },
           ],
         },
         {
-          slug: 'media',
+          slug: 'footer',
           fields: [
             {
-              name: 'media',
+              name: 'logo',
               type: 'upload',
               relationTo: 'media',
               required: true,
             },
             {
-              name: 'caption',
-              type: 'text',
-            },
-            {
-              name: 'alignment',
-              type: 'select',
-              options: [
-                { label: 'Left', value: 'left' },
-                { label: 'Center', value: 'center' },
-                { label: 'Right', value: 'right' },
-                { label: 'Full Width', value: 'full' },
-              ],
-              defaultValue: 'center',
-            },
-            {
-              name: 'size',
-              type: 'select',
-              options: [
-                { label: 'Small', value: 'small' },
-                { label: 'Medium', value: 'medium' },
-                { label: 'Large', value: 'large' },
-              ],
-              defaultValue: 'medium',
-            },
-          ],
-        },
-        {
-          slug: 'form',
-          fields: [
-            {
-              name: 'title',
-              type: 'text',
-            },
-            {
               name: 'description',
               type: 'textarea',
+              required: true,
+              defaultValue: 'Expert pharmaceutical consulting guiding your product from concept to approval. Comprehensive solutions for complex development challenges.',
             },
             {
-              name: 'fields',
+              name: 'socialLinks',
               type: 'array',
               fields: [
                 {
-                  name: 'type',
+                  name: 'platform',
                   type: 'select',
                   required: true,
                   options: [
-                    { label: 'Text', value: 'text' },
+                    { label: 'LinkedIn', value: 'linkedin' },
                     { label: 'Email', value: 'email' },
-                    { label: 'Textarea', value: 'textarea' },
-                    { label: 'Select', value: 'select' },
-                    { label: 'Checkbox', value: 'checkbox' },
-                    { label: 'Number', value: 'number' },
+                    { label: 'Twitter', value: 'twitter' },
                   ],
                 },
                 {
-                  name: 'label',
+                  name: 'url',
                   type: 'text',
                   required: true,
                 },
-                {
-                  name: 'placeholder',
-                  type: 'text',
-                },
-                {
-                  name: 'required',
-                  type: 'checkbox',
-                  defaultValue: false,
-                },
-                {
-                  name: 'options',
-                  type: 'array',
-                  fields: [
-                    {
-                      name: 'label',
-                      type: 'text',
-                    },
-                    {
-                      name: 'value',
-                      type: 'text',
-                    },
-                  ],
-                  admin: {
-                    condition: (data, siblingData) => siblingData?.type === 'select',
-                  },
-                },
+              ],
+              defaultValue: [
+                { platform: 'linkedin', url: '#' },
+                { platform: 'email', url: 'mailto:contact@consilienta.com' },
               ],
             },
             {
-              name: 'submitButton',
-              type: 'group',
+              name: 'services',
+              type: 'array',
               fields: [
                 {
-                  name: 'text',
+                  name: 'name',
                   type: 'text',
-                  defaultValue: 'Submit',
+                  required: true,
                 },
                 {
-                  name: 'variant',
-                  type: 'select',
-                  options: [
-                    { label: 'Primary', value: 'primary' },
-                    { label: 'Secondary', value: 'secondary' },
-                    { label: 'CTA', value: 'cta' },
-                  ],
-                  defaultValue: 'primary',
+                  name: 'link',
+                  type: 'text',
+                  required: true,
                 },
+              ],
+              defaultValue: [
+                { name: 'Regulatory Strategy', link: '#' },
+                { name: 'Clinical Development', link: '#' },
+                { name: 'Market Access', link: '#' },
+                { name: 'Quality Assurance', link: '#' },
+                { name: 'Compliance', link: '#' },
+              ],
+            },
+            {
+              name: 'companyLinks',
+              type: 'array',
+              fields: [
+                {
+                  name: 'name',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'link',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                { name: 'About Us', link: '#about' },
+                { name: 'Careers', link: '#careers' },
+                { name: 'Insights', link: '#insights' },
+                { name: 'Contact', link: '#contact' },
+                { name: 'Privacy Policy', link: '#privacy' },
+              ],
+            },
+            {
+              name: 'copyright',
+              type: 'text',
+              required: true,
+              defaultValue: '© 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.',
+            },
+            {
+              name: 'legalLinks',
+              type: 'array',
+              fields: [
+                {
+                  name: 'name',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'link',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                { name: 'Terms of Service', link: '#terms' },
+                { name: 'Privacy Policy', link: '#privacy' },
+                { name: 'Cookies', link: '#cookies' },
               ],
             },
           ],

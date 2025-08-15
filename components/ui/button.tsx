@@ -52,13 +52,19 @@ function Button({
   }) {
   const Comp = asChild ? Slot : motion.button
 
+  const motionProps = asChild
+    ? {}
+    : {
+        whileHover: { scale: 1.05 },
+        whileTap: { scale: 0.95 },
+        transition: { duration: 0.2 },
+      }
+
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
+      {...motionProps}
       {...props}
     />
   )
