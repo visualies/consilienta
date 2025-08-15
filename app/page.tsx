@@ -164,15 +164,15 @@ export default function ConsilientsLanding() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 px-6 py-4 frosted-glass-navbar">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={40} height={40} className="h-10 w-auto" />
-            <span className="text-2xl font-serif font-bold brand-gradient-text">Consilienta</span>
+            <span className="text-2xl font-serif font-semibold brand-gradient-light-text">Consilienta</span>
           </div>
-          <Button className="brand-gradient text-white border-0 hover:opacity-90 transition-opacity">
+          <Button className="brand-gradient-light text-white border-0 hover:opacity-90 transition-opacity">
             Get Started
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
@@ -180,7 +180,7 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-old min-h-[60vh]">
+      <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]">
         <div className="absolute inset-0">
           <Canvas
             camera={{
@@ -201,7 +201,7 @@ export default function ConsilientsLanding() {
           <div className="space-y-8 max-w-3xl">
             <div className="space-y-4">
               <Badge className="frosted-glass text-white border-0">Pharmaceutical Consulting Excellence</Badge>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold leading-tight text-white">
+              <h1 className="text-5xl lg:text-6xl font-serif font-medium leading-tight text-white">
                 Guiding your product from concept to approval
               </h1>
 
@@ -228,11 +228,11 @@ export default function ConsilientsLanding() {
       </section>
 
       {/* Features Section */}
-      <section className="px-6 py-20 bg-gray-50">
+      <section className="px-6 py-20 bg-gray-200">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl font-serif font-bold">
-              Why Choose <span className="brand-gradient-text">Consilienta</span>
+            <h2 className="text-4xl font-serif font-medium">
+              Why Choose <span className="brand-gradient-light-text">Consilienta</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our comprehensive approach combines deep expertise with innovative solutions to accelerate your
@@ -242,12 +242,12 @@ export default function ConsilientsLanding() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card key={index} className="frosted-glass border-0 shadow-lg hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 brand-gradient rounded-lg flex items-center justify-center text-white">
+                  <div className="w-12 h-12 brand-gradient-light rounded-lg flex items-center justify-center text-white">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-serif font-semibold">{feature.title}</h3>
+                  <h3 className="text-xl font-serif font-medium">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
@@ -257,9 +257,9 @@ export default function ConsilientsLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-6 py-20 brand-gradient-old">
+      <section className="px-6 py-20 brand-gradient-no-black">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white">
+          <h2 className="text-4xl lg:text-5xl font-serif font-medium text-white">
             Ready to Transform Your Development Process?
           </h2>
           <p className="text-xl text-white/90 leading-relaxed">
@@ -287,7 +287,7 @@ export default function ConsilientsLanding() {
         <div className="max-w-7xl mx-auto text-center space-y-4">
           <div className="flex items-center justify-center space-x-3">
             <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={32} height={32} className="h-8 w-auto" />
-            <span className="text-xl font-serif font-bold">Consilienta</span>
+            <span className="text-xl font-serif font-semibold">Consilienta</span>
           </div>
           <p className="text-gray-400">
             © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
