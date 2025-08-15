@@ -1,37 +1,13 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { Header, HeroSection, FeaturesSection, CTASection, Footer } from "@/components/landing"
+import { Header } from '@/components/landing/header'
+import { HeroSection } from '@/components/landing/hero-section'
+import { FeaturesSection } from '@/components/landing/features-section'
+import { CTASection } from '@/components/landing/cta-section'
+import { Footer } from '@/components/landing/footer'
 
 export default function ConsilientsLanding() {
-  const [isOverWhite, setIsOverWhite] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const heroHeight = window.innerHeight * 0.55 // More precise threshold
-      setIsOverWhite(scrollY > heroHeight)
-    }
-
-    // Add throttling to prevent excessive updates
-    let ticking = false
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', throttledHandleScroll)
-    return () => window.removeEventListener('scroll', throttledHandleScroll)
-  }, [])
-
   return (
     <div className="min-h-screen brand-gradient-no-black">
-      <Header isOverWhite={isOverWhite} />
+      <Header />
       <HeroSection />
       <FeaturesSection />
       <CTASection />

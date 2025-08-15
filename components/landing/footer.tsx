@@ -3,7 +3,58 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
-export function Footer() {
+interface FooterProps {
+  data?: {
+    logo: {
+      url: string
+      alt: string
+    }
+    description: string
+    socialLinks: Array<{
+      platform: string
+      url: string
+    }>
+    services: Array<{
+      name: string
+      link: string
+    }>
+    companyLinks: Array<{
+      name: string
+      link: string
+    }>
+    copyright: string
+    legalLinks: Array<{
+      name: string
+      link: string
+    }>
+  }
+}
+
+const defaultData = {
+  logo: {
+    url: "/logo-with-claim.svg",
+    alt: "Consilienta Logo"
+  },
+  description: "Leading pharmaceutical consulting services worldwide.",
+  socialLinks: [],
+  services: [
+    { name: "Regulatory Affairs", link: "#services" },
+    { name: "Clinical Trials", link: "#services" },
+    { name: "Quality Assurance", link: "#services" }
+  ],
+  companyLinks: [
+    { name: "About", link: "#about" },
+    { name: "Contact", link: "#contact" },
+    { name: "Careers", link: "#careers" }
+  ],
+  copyright: "© 2024 Consilienta. All rights reserved.",
+  legalLinks: [
+    { name: "Privacy Policy", link: "#privacy" },
+    { name: "Terms of Service", link: "#terms" }
+  ]
+}
+
+export function Footer({ data = defaultData }: FooterProps) {
   return (
     <footer 
       className="px-6 py-16 text-white relative z-10">
@@ -14,19 +65,17 @@ export function Footer() {
           {/* Logo and Company Info */}
           <div className="col-span-2 space-y-4">
             <div className="flex items-center">
-              <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={200} height={40} className="h-10 w-auto" />
+              <Image src={data.logo.url} alt={data.logo.alt} width={200} height={40} className="h-10 w-auto" />
             </div>
             <p className="text-white/90 max-w-md leading-relaxed">
-              Expert pharmaceutical consulting guiding your product from concept to approval. 
-              Comprehensive solutions for complex development challenges.
+              {data.description}
             </p>
             <div className="flex space-x-4">
-              <Button variant="secondary" size="sm">
-                LinkedIn
-              </Button>
-              <Button variant="secondary" size="sm">
-                Email
-              </Button>
+              {data.socialLinks.map((link, index) => (
+                <Button key={index} variant="secondary" size="sm" asChild>
+                  <a href={link.url}>{link.platform}</a>
+                </Button>
+              ))}
             </div>
           </div>
 
@@ -34,11 +83,13 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-serif font-medium">Services</h3>
             <ul className="space-y-2 text-white/80">
-              <li><a href="#" className="hover:text-white transition-colors">Regulatory Strategy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Clinical Development</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Market Access</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Quality Assurance</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Compliance</a></li>
+              {data.services.map((service, index) => (
+                <li key={index}>
+                  <a href={service.link} className="hover:text-white transition-colors">
+                    {service.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -46,11 +97,13 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-serif font-medium">Company</h3>
             <ul className="space-y-2 text-white/80">
-              <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#careers" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#insights" className="hover:text-white transition-colors">Insights</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              {data.companyLinks.map((link, index) => (
+                <li key={index}>
+                  <a href={link.link} className="hover:text-white transition-colors">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -58,12 +111,14 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/20 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-white/70 text-sm">
-            © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
+            {data.copyright}
           </p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Terms of Service</a>
-            <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Privacy Policy</a>
-            <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Cookies</a>
+            {data.legalLinks.map((link, index) => (
+              <a key={index} href={link.link} className="text-white/70 hover:text-white text-sm transition-colors">
+                {link.name}
+              </a>
+            ))}
           </div>
         </div>
       </div>

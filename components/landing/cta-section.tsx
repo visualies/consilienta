@@ -5,7 +5,35 @@ import { ArrowRight } from "lucide-react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { useRef } from "react"
 
-export function CTASection() {
+interface CTASectionProps {
+  data?: {
+    title: string
+    description: string
+    primaryButton: {
+      text: string
+      link: string
+    }
+    secondaryButton: {
+      text: string
+      link: string
+    }
+  }
+}
+
+const defaultData = {
+  title: "Ready to Get Started?",
+  description: "Contact us today to discuss your pharmaceutical consulting needs.",
+  primaryButton: {
+    text: "Start Your Journey",
+    link: "#contact"
+  },
+  secondaryButton: {
+    text: "Learn More",
+    link: "#about"
+  }
+}
+
+export function CTASection({ data = defaultData }: CTASectionProps) {
   const { scrollYProgress } = useScroll()
   const ctaRef = useRef(null)
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" })
@@ -27,7 +55,7 @@ export function CTASection() {
           animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          Ready to Transform Your Development Process?
+          {data.title}
         </motion.h2>
         <motion.p
           className="text-xl text-white/90 leading-relaxed"
@@ -35,8 +63,7 @@ export function CTASection() {
           animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Partner with Consilienta and experience the difference that expert guidance, innovative solutions, and
-          personalized service can make for your pharmaceutical development journey.
+          {data.description}
         </motion.p>
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -45,14 +72,14 @@ export function CTASection() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <Button size="lg" variant="cta">
-            Schedule Consultation
+            {data.primaryButton.text}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button
             size="lg"
             variant="secondary"
           >
-            Download Brochure
+            {data.secondaryButton.text}
           </Button>
         </motion.div>
       </div>

@@ -5,40 +5,60 @@ import { Users, Target, Lightbulb, Globe, Zap, Award } from "lucide-react"
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 
-const features = [
-  {
-    icon: <Users className="h-6 w-6" />,
-    title: "Expert Team",
-    description: "Blend of ex-regulatory, industry, consulting and academic experience",
-  },
-  {
-    icon: <Globe className="h-6 w-6" />,
-    title: "Broad Experience",
-    description: "From small biotech startups to large pharmaceutical corporations",
-  },
-  {
-    icon: <Target className="h-6 w-6" />,
-    title: "Tailored Support",
-    description: "Agile, attentive and personalized service with true partnership",
-  },
-  {
-    icon: <Award className="h-6 w-6" />,
-    title: "Comprehensive Coverage",
-    description: "Broad coverage of product class & disease types",
-  },
-  {
-    icon: <Zap className="h-6 w-6" />,
-    title: "Emerging Technologies",
-    description: "Ample experience with a range of emerging technologies and medicines",
-  },
-  {
-    icon: <Lightbulb className="h-6 w-6" />,
-    title: "Novel Approaches",
-    description: "Out-of-the-box solutions for complex challenges",
-  },
-]
+const getIconComponent = (iconName: string) => {
+  switch (iconName) {
+    case 'Users':
+      return <Users className="h-6 w-6" />
+    case 'Globe':
+      return <Globe className="h-6 w-6" />
+    case 'Target':
+      return <Target className="h-6 w-6" />
+    case 'Award':
+      return <Award className="h-6 w-6" />
+    case 'Zap':
+      return <Zap className="h-6 w-6" />
+    case 'Lightbulb':
+      return <Lightbulb className="h-6 w-6" />
+    default:
+      return <Users className="h-6 w-6" />
+  }
+}
 
-export function FeaturesSection() {
+interface FeaturesSectionProps {
+  data?: {
+    title: string
+    subtitle: string
+    featuresList: Array<{
+      icon: string
+      title: string
+      description: string
+    }>
+  }
+}
+
+const defaultData = {
+  title: "Why Choose Consilienta",
+  subtitle: "Comprehensive pharmaceutical consulting services",
+  featuresList: [
+    {
+      icon: "Users",
+      title: "Expert Team",
+      description: "World-class pharmaceutical experts"
+    },
+    {
+      icon: "Globe",
+      title: "Global Reach",
+      description: "International regulatory knowledge"
+    },
+    {
+      icon: "Target",
+      title: "Proven Results",
+      description: "Successful product approvals"
+    }
+  ]
+}
+
+export function FeaturesSection({ data = defaultData }: FeaturesSectionProps) {
   const featuresRef = useRef(null)
   const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
 
@@ -66,7 +86,7 @@ export function FeaturesSection() {
             animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Why Choose <span style={{ color: 'var(--brand-purple)' }}>Consilienta</span>
+            {data.title}
           </motion.h2>
           <motion.p 
             className="text-xl text-white/90 max-w-3xl mx-auto"
@@ -74,13 +94,12 @@ export function FeaturesSection() {
             animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Our comprehensive approach combines deep expertise with innovative solutions to accelerate your
-            pharmaceutical development journey.
+            {data.subtitle}
           </motion.p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+          {data.featuresList.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
@@ -111,7 +130,7 @@ export function FeaturesSection() {
                     className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
                     style={{ backgroundColor: 'var(--brand-purple)' }}
                   >
-                    {feature.icon}
+                    {getIconComponent(feature.icon)}
                   </motion.div>
                   <h3 className="text-xl font-serif font-normal text-gray-800">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>

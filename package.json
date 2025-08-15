@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "seed": "tsx scripts/seed-landing-page.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -43,6 +44,7 @@
     "@radix-ui/react-tooltip": "1.1.6",
     "@react-three/drei": "latest",
     "@react-three/fiber": "latest",
+    "@tanstack/react-query": "^5.85.3",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

@@ -6,16 +6,42 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"
 import { Suspense, useRef, useState, useMemo, useEffect } from "react"
 import * as THREE from "three"
 
-export function InteractiveHelix() {
+interface HelixConfig {
+  enabled: boolean
+  model?: {
+    url: string
+    filename: string
+  }
+  rotationSpeed: number
+  scale: number
+  hoverScale: number
+  position: {
+    x: number
+    y: number
+    z: number
+  }
+  rotation: {
+    x: number
+    y: number
+    z: number
+  }
+}
+
+interface InteractiveHelixProps {
+  config: HelixConfig
+}
+
+export function InteractiveHelix({ config }: InteractiveHelixProps) {
   const groupRef = useRef<THREE.Group>(null)
   const [isHovered, setIsHovered] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [rotationSpeed, setRotationSpeed] = useState(0.2)
+  const [rotationSpeed, setRotationSpeed] = useState(config?.rotationSpeed ?? 0.2)
   const [scrollY, setScrollY] = useState(0)
   const dragStartRef = useRef({ x: 0, y: 0 })
 
-  // Load the helix.obj model
-  const obj = useLoader(OBJLoader, '/helix.obj')
+  // Load the helix model from config or fallback to default
+  const modelUrl = config?.model?.url || '/helix.obj'
+  const obj = useLoader(OBJLoader, modelUrl)
 
 
   // Track scroll for 3D movement
