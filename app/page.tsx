@@ -181,9 +181,8 @@ export default function ConsilientsLanding() {
       {/* Header */}
       <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 logo-purple-blue" aria-label="Consilienta Logo"></div>
-            <span className="text-2xl font-serif font-semibold text-purple-blue">Consilienta</span>
+          <div className="flex items-center">
+            <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={200} height={40} className="h-10 w-auto" />
           </div>
           
           <div className="flex items-center space-x-8">
@@ -309,9 +308,8 @@ export default function ConsilientsLanding() {
       {/* Footer */}
       <footer className="px-6 py-12 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto text-center space-y-4">
-          <div className="flex items-center justify-center space-x-3">
-            <div className="h-8 w-8 logo-purple-blue" aria-label="Consilienta Logo"></div>
-            <span className="text-xl font-serif font-semibold text-purple-blue">Consilienta</span>
+          <div className="flex items-center justify-center">
+            <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={160} height={32} className="h-8 w-auto" />
           </div>
           <p className="text-gray-400">
             © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.

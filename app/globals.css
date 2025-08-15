@@ -197,25 +197,36 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Logo and text color matching exact purple-blue shade */
-.text-purple-blue {
-  color: #816CBF;
+/* Unified gradient that spans across logo and text */
+.logo-text-unified {
+  background: linear-gradient(90deg, #e89d87 0%, #a985b3 50%, #4041d5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
 }
 
-/* Logo coloring using CSS mask for exact color match */
-.logo-purple-blue {
+.logo-text-unified .logo-mask {
   mask: url('/Logo-Transparent-Icon%20White.svg') no-repeat center;
   mask-size: contain;
-  background-color: #816CBF;
+  background: inherit;
   -webkit-mask: url('/Logo-Transparent-Icon%20White.svg') no-repeat center;
   -webkit-mask-size: contain;
 }
 
+.logo-text-unified .text-mask {
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Navbar text color changes based on scroll position */
 .navbar-over-white .nav-text {
-  color: #816CBF !important;
+  color: #4B47D2 !important;
 }
 
 .navbar-over-white .nav-text:hover {
-  color: rgba(129, 108, 191, 0.8) !important;
+  color: rgba(75, 71, 210, 0.8) !important;
 }
