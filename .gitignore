@@ -25,3 +25,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE files
+.idea/
+*.iml
+
+# Font license files
+public/Rubik/OFL.txt
+public/Rubik/README.txt
+public/qurova-font-family/Read-me-*.txt
+
+# Blender files
+*.blend
