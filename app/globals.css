@@ -195,6 +195,12 @@
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.frosted-glass-navbar.navbar-over-white {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(75, 71, 210, 0.2);
 }
 
 /* Unified gradient that spans across logo and text */

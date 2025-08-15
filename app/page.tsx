@@ -10,6 +10,7 @@ import { ArrowRight, Users, Target, Lightbulb, Globe, Zap, Award } from "lucide-
 import Image from "next/image"
 import { Suspense, useRef, useState, useMemo, useEffect } from "react"
 import * as THREE from "three"
+import { motion, useScroll, useTransform, useInView } from "framer-motion"
 
 function InteractiveHelix() {
   const groupRef = useRef<THREE.Group>(null)
@@ -131,16 +132,34 @@ function InteractiveHelix() {
 
 export default function ConsilientsLanding() {
   const [isOverWhite, setIsOverWhite] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '35%'])
+  const featuresRef = useRef(null)
+  const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
+  const ctaRef = useRef(null)
+  const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" })
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
-      const heroHeight = window.innerHeight * 0.6 // Approximately where the white section starts
+      const heroHeight = window.innerHeight * 0.55 // More precise threshold
       setIsOverWhite(scrollY > heroHeight)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Add throttling to prevent excessive updates
+    let ticking = false
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', throttledHandleScroll)
+    return () => window.removeEventListener('scroll', throttledHandleScroll)
   }, [])
 
   const features = [
@@ -203,7 +222,10 @@ export default function ConsilientsLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]">
+      <motion.section 
+        className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]"
+        style={{ y: heroY }}
+      >
         <div className="absolute inset-0 opacity-100">
           <Canvas
             camera={{
@@ -221,19 +243,50 @@ export default function ConsilientsLanding() {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="space-y-8 max-w-3xl">
-            <div className="space-y-4">
-              <Badge className="frosted-glass text-white border-0">Pharmaceutical Consulting Excellence</Badge>
-              <h1 className="text-5xl lg:text-6xl font-serif font-medium leading-tight text-white">
+          <motion.div 
+            className="space-y-8 max-w-3xl"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Badge className="frosted-glass text-white border-0">Pharmaceutical Consulting Excellence</Badge>
+              </motion.div>
+              <motion.h1 
+                className="text-5xl lg:text-6xl font-serif font-medium leading-tight text-white"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 Guiding your product from concept to approval
-              </h1>
+              </motion.h1>
 
-              <p className="text-lg text-white/80 leading-relaxed max-w-lg">
+              <motion.p 
+                className="text-lg text-white/80 leading-relaxed max-w-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 No matter how complex or innovative your development journey may be.
                 We will help you navigate each step of product development with clarity and confidence.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
+              </motion.p>
+            </motion.div>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
               <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -245,68 +298,156 @@ export default function ConsilientsLanding() {
               >
                 Learn More
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Features Section */}
-      <section className="px-6 py-20 bg-gray-200">
+      <motion.section 
+        ref={featuresRef}
+        className="px-6 py-20 bg-gray-200 relative z-10"
+        style={{ 
+          y: useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-5%']),
+          backgroundColor: '#e5e7eb',
+          paddingBottom: '8rem',
+          marginBottom: '-3rem'
+        }}
+      >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl font-serif font-medium">
+          <motion.div 
+            className="text-center space-y-4 mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h2 
+              className="text-4xl font-serif font-medium"
+              initial={{ opacity: 0, y: 30 }}
+              animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               Why Choose <span className="brand-gradient-light-text">Consilienta</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Our comprehensive approach combines deep expertise with innovative solutions to accelerate your
               pharmaceutical development journey.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="frosted-glass border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 brand-gradient-light rounded-lg flex items-center justify-center text-white">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-serif font-medium">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={featuresInView ? { 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1 
+                } : { 
+                  opacity: 0, 
+                  y: 50, 
+                  scale: 0.9 
+                }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: featuresInView ? 0.6 + (index * 0.1) : 0,
+                  ease: "easeOut"
+                }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
+              >
+                <Card className="frosted-glass border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                  <CardContent className="p-8 space-y-4">
+                    <motion.div 
+                      className="w-12 h-12 brand-gradient-light rounded-lg flex items-center justify-center text-white"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {feature.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-serif font-medium">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section className="px-6 py-20 brand-gradient-no-black">
+      <motion.section 
+        ref={ctaRef}
+        className="px-6 py-20 brand-gradient-no-black"
+        style={{ 
+          y: useTransform(scrollYProgress, [0.6, 1], ['0%', '-5%']),
+          paddingBottom: '8rem',
+          marginBottom: '-3rem'
+        }}
+      >
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl lg:text-5xl font-serif font-medium text-white">
+          <motion.h2 
+            className="text-4xl lg:text-5xl font-serif font-medium text-white"
+            initial={{ opacity: 0, y: 50 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+          >
             Ready to Transform Your Development Process?
-          </h2>
-          <p className="text-xl text-white/90 leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-white/90 leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Partner with Consilienta and experience the difference that expert guidance, innovative solutions, and
             personalized service can make for your pharmaceutical development journey.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
-              Schedule Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Download Brochure
-            </Button>
-          </div>
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
+                Schedule Consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className="frosted-glass border-0 text-white hover:bg-white/20 transition-all"
+              >
+                Download Brochure
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 bg-gray-900 text-white">
+      <footer 
+        className="px-6 py-12 bg-gray-900 text-white relative z-10"
+        style={{ backgroundColor: '#111827' }}
+      >
         <div className="max-w-7xl mx-auto text-center space-y-4">
           <div className="flex items-center justify-center">
             <Image src="/logo-with-claim.svg" alt="Consilienta Logo" width={160} height={32} className="h-8 w-auto" />
