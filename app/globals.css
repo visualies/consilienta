@@ -196,3 +196,17 @@
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+/* Logo and text color matching exact purple-blue shade */
+.text-purple-blue {
+  color: #816CBF;
+}
+
+/* Logo coloring using CSS mask for exact color match */
+.logo-purple-blue {
+  mask: url('/Logo-Transparent-Icon%20White.svg') no-repeat center;
+  mask-size: contain;
+  background-color: #816CBF;
+  -webkit-mask: url('/Logo-Transparent-Icon%20White.svg') no-repeat center;
+  -webkit-mask-size: contain;
+}

@@ -169,19 +169,30 @@ export default function ConsilientsLanding() {
       <header className="sticky top-0 z-50 px-6 py-4 frosted-glass-navbar">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={40} height={40} className="h-10 w-auto" />
-            <span className="text-2xl font-serif font-semibold brand-gradient-light-text">Consilienta</span>
+            <div className="h-10 w-10 logo-purple-blue" aria-label="Consilienta Logo"></div>
+            <span className="text-2xl font-serif font-semibold text-purple-blue">Consilienta</span>
           </div>
-          <Button className="brand-gradient-light text-white border-0 hover:opacity-90 transition-opacity">
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          
+          <div className="flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-8">
+              <a href="#home" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Home</a>
+              <a href="#how-we-help" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">How We Help</a>
+              <a href="#about" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">About Us</a>
+              <a href="#insights" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Insights</a>
+              <a href="#careers" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Careers</a>
+            </div>
+            
+            <Button className="brand-gradient-light text-white border-0 hover:opacity-90 transition-opacity">
+              Contact Us
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
         </nav>
       </header>
 
       {/* Hero Section */}
       <section className="relative px-6 py-20 -mt-12 pt-32 overflow-hidden brand-gradient-no-black min-h-[60vh]">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 opacity-100">
           <Canvas
             camera={{
               position: [0, 0, 10],
@@ -286,8 +297,8 @@ export default function ConsilientsLanding() {
       <footer className="px-6 py-12 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto text-center space-y-4">
           <div className="flex items-center justify-center space-x-3">
-            <Image src="/Logo-Transparent-Icon%20White.svg" alt="Consilienta Logo" width={32} height={32} className="h-8 w-auto" />
-            <span className="text-xl font-serif font-semibold">Consilienta</span>
+            <div className="h-8 w-8 logo-purple-blue" aria-label="Consilienta Logo"></div>
+            <span className="text-xl font-serif font-semibold text-purple-blue">Consilienta</span>
           </div>
           <p className="text-gray-400">
             © 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.
