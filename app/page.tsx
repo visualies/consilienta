@@ -287,7 +287,7 @@ export default function ConsilientsLanding() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0 outline outline-2 outline-white/30">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -306,15 +306,16 @@ export default function ConsilientsLanding() {
       {/* Features Section */}
       <motion.section 
         ref={featuresRef}
-        className="px-6 py-20 bg-gray-200 relative z-10"
+        className="px-6 py-20 brand-gradient-no-black relative z-10"
         style={{ 
           y: useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-5%']),
-          backgroundColor: '#e5e7eb',
           paddingBottom: '8rem',
           marginBottom: '-3rem'
         }}
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="absolute inset-0 bg-white opacity-40"></div>
+        <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             className="text-center space-y-4 mb-16"
             initial={{ opacity: 0, y: 50 }}
@@ -322,15 +323,15 @@ export default function ConsilientsLanding() {
             transition={{ duration: 0.8 }}
           >
             <motion.h2 
-              className="text-4xl font-serif font-medium"
+              className="text-4xl font-serif font-normal text-white"
               initial={{ opacity: 0, y: 30 }}
               animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Why Choose <span className="brand-gradient-light-text">Consilienta</span>
+              Why Choose <span className="text-[#6257CA]">Consilienta</span>
             </motion.h2>
             <motion.p 
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-xl text-white/90 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -362,19 +363,22 @@ export default function ConsilientsLanding() {
                 whileHover={{ 
                   scale: 1.05, 
                   y: -5,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ 
+                  duration: 0.2, 
+                  ease: "easeOut" 
                 }}
               >
-                <Card className="frosted-glass border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                <Card className="bg-white/70 shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20">
                   <CardContent className="p-8 space-y-4">
                     <motion.div 
                       className="w-12 h-12 brand-gradient-light rounded-lg flex items-center justify-center text-white"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
                     >
                       {feature.icon}
                     </motion.div>
-                    <h3 className="text-xl font-serif font-medium">{feature.title}</h3>
+                    <h3 className="text-xl font-serif font-normal text-gray-800">{feature.title}</h3>
                     <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </CardContent>
                 </Card>
@@ -387,7 +391,7 @@ export default function ConsilientsLanding() {
       {/* CTA Section */}
       <motion.section 
         ref={ctaRef}
-        className="px-6 py-20 brand-gradient-no-black"
+        className="px-6 pt-32 py-20 brand-gradient-no-black"
         style={{ 
           y: useTransform(scrollYProgress, [0.6, 1], ['0%', '-5%']),
           paddingBottom: '8rem',
@@ -422,7 +426,7 @@ export default function ConsilientsLanding() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0">
+              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0 outline outline-2 outline-white/30">
                 Schedule Consultation
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
