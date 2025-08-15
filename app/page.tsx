@@ -130,6 +130,19 @@ function InteractiveHelix() {
 }
 
 export default function ConsilientsLanding() {
+  const [isOverWhite, setIsOverWhite] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroHeight = window.innerHeight * 0.6 // Approximately where the white section starts
+      setIsOverWhite(scrollY > heroHeight)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const features = [
     {
       icon: <Users className="h-6 w-6" />,
@@ -166,7 +179,7 @@ export default function ConsilientsLanding() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-50 px-6 py-4 frosted-glass-navbar">
+      <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="h-10 w-10 logo-purple-blue" aria-label="Consilienta Logo"></div>
@@ -175,14 +188,14 @@ export default function ConsilientsLanding() {
           
           <div className="flex items-center space-x-8">
             <div className="hidden lg:flex items-center space-x-8">
-              <a href="#home" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Home</a>
-              <a href="#how-we-help" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">How We Help</a>
-              <a href="#about" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">About Us</a>
-              <a href="#insights" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Insights</a>
-              <a href="#careers" className="text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Careers</a>
+              <a href="#home" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Home</a>
+              <a href="#how-we-help" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">How We Help</a>
+              <a href="#about" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">About Us</a>
+              <a href="#insights" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Insights</a>
+              <a href="#careers" className="nav-text text-white hover:text-white/80 transition-colors font-medium drop-shadow-sm">Careers</a>
             </div>
             
-            <Button className="brand-gradient-light text-white border-0 hover:opacity-90 transition-opacity">
+            <Button className="brand-gradient-light text-white border-0 outline outline-2 outline-white/30 hover:opacity-90 transition-opacity">
               Contact Us
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

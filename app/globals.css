@@ -210,3 +210,12 @@
   -webkit-mask: url('/Logo-Transparent-Icon%20White.svg') no-repeat center;
   -webkit-mask-size: contain;
 }
+
+/* Navbar text color changes based on scroll position */
+.navbar-over-white .nav-text {
+  color: #816CBF !important;
+}
+
+.navbar-over-white .nav-text:hover {
+  color: rgba(129, 108, 191, 0.8) !important;
+}
