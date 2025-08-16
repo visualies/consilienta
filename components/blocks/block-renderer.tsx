@@ -5,6 +5,7 @@ import { FeaturesBlock } from './features-block'
 import { SolutionsBlock } from './solutions-block'
 import { CTABlock } from './cta-block'
 import { ContactFormBlock } from './contact-form-block'
+import { AboutUsBlock } from './about-us-block'
 
 interface BlockData {
   blockType: string
@@ -36,6 +37,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return null
           case 'contactForm':
             return <ContactFormBlock key={index} {...block} />
+          case 'aboutUs':
+            return <AboutUsBlock key={index} data={block} />
           default:
             console.warn(`Unknown block type: ${block.blockType}`)
             return null

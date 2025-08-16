@@ -735,6 +735,104 @@ export const Pages: CollectionConfig = {
             },
           ],
         },
+        {
+          slug: 'aboutUs',
+          dbName: 'about_us',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'About Us',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'Meet our team of experts',
+            },
+            {
+              name: 'sections',
+              type: 'array',
+              dbName: 'sections',
+              fields: [
+                {
+                  name: 'sectionTitle',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Founding Members',
+                },
+                {
+                  name: 'employees',
+                  type: 'array',
+                  dbName: 'employees',
+                  fields: [
+                    {
+                      name: 'name',
+                      type: 'text',
+                      required: true,
+                    },
+                    {
+                      name: 'position',
+                      type: 'text',
+                      required: true,
+                    },
+                    {
+                      name: 'bio',
+                      type: 'textarea',
+                      required: true,
+                    },
+                    {
+                      name: 'photo',
+                      type: 'upload',
+                      relationTo: 'media',
+                      required: false,
+                    },
+                    {
+                      name: 'email',
+                      type: 'email',
+                      required: false,
+                    },
+                    {
+                      name: 'phone',
+                      type: 'text',
+                      required: false,
+                    },
+                    {
+                      name: 'socialLinks',
+                      type: 'array',
+                      dbName: 'social_links',
+                      fields: [
+                        {
+                          name: 'platform',
+                          type: 'select',
+                          required: true,
+                          options: [
+                            { label: 'LinkedIn', value: 'linkedin' },
+                            { label: 'Twitter', value: 'twitter' },
+                            { label: 'Email', value: 'email' },
+                            { label: 'Website', value: 'website' },
+                          ],
+                        },
+                        {
+                          name: 'url',
+                          type: 'text',
+                          required: true,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+              defaultValue: [
+                {
+                  sectionTitle: 'Founding Members',
+                  employees: [],
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
