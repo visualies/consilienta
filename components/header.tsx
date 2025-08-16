@@ -1,9 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Menu, X } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { useScrollHeader } from "@/components/hooks/use-scroll-header"
+import { useState } from "react"
 
 interface HeaderProps {
   data?: {
@@ -36,18 +38,21 @@ const defaultData = {
     alt: 'Consilienta Logo White'
   },
   navigation: [
-    { label: 'Services', link: '#services' },
-    { label: 'About', link: '#about' },
-    { label: 'Contact', link: '#contact' }
+    { label: 'Home', link: '/' },
+    { label: 'How We Help', link: '/how-we-help' },
+    { label: 'About Us', link: '/about-us' },
+    { label: 'Insights', link: '/insights' },
+    { label: 'Careers', link: '/careers' }
   ],
   contactButton: {
-    text: 'Get Started',
-    link: '#contact'
+    text: 'Contact Us',
+    link: '/contact'
   }
 }
 
 export function Header({ data = defaultData }: HeaderProps) {
   const { isOverWhite } = useScrollHeader()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   return (
     <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
@@ -63,25 +68,64 @@ export function Header({ data = defaultData }: HeaderProps) {
           )}
         </div>
         
-        <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-4">
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {data.navigation.map((item, index) => (
-              <a 
+              <Link 
                 key={index}
                 href={item.link} 
                 className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
           
-          <Button variant="primary">
-            {data.contactButton.text}
-            <ArrowRight className="ml-2 h-4 w-4" />
+          {/* Contact Button - Desktop */}
+          <Button variant="primary" className="hidden lg:flex" asChild>
+            <Link href={data.contactButton.link}>
+              {data.contactButton.text}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2 text-white hover:text-white/80 transition-colors"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 frosted-glass-navbar border-t border-white/10">
+          <div className="px-6 py-4 space-y-4">
+            {data.navigation.map((item, index) => (
+              <Link 
+                key={index}
+                href={item.link} 
+                className="block nav-text text-white hover:text-white/80 transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-white/10">
+              <Button variant="primary" className="w-full" asChild>
+                <Link href={data.contactButton.link}>
+                  {data.contactButton.text}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
