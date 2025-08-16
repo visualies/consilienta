@@ -92,12 +92,8 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
             child.material.dispose()
           }
           
-          child.material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color("#ffffff"),
-            emissive: new THREE.Color("#ffffff"),
-            emissiveIntensity: 0.2,
-            metalness: 0.1,
-            roughness: 0.3
+          child.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color("#ffffff")
           })
         }
       })
