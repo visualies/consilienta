@@ -382,6 +382,93 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
+          slug: 'solutions',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'How We Help',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: true,
+              defaultValue: 'We are providing services in the area of regulatory affairs and strategic product development for diverse innovative therapies.',
+            },
+            {
+              name: 'solutionsList',
+              type: 'array',
+              minRows: 0,
+              maxRows: 10,
+              fields: [
+                {
+                  name: 'headline',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'logo',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                },
+                {
+                  name: 'color',
+                  type: 'text',
+                  required: false,
+                  admin: {
+                    description: 'Hex color code (e.g., #3B82F6)',
+                  },
+                },
+                {
+                  name: 'bodyText',
+                  type: 'textarea',
+                  required: true,
+                },
+                {
+                  name: 'popupText',
+                  type: 'richText',
+                  required: false,
+                  editor: lexicalEditor({}),
+                },
+              ],
+              defaultValue: [
+                {
+                  headline: 'Regulatory Strategy',
+                  bodyText: 'Strategy and Planning, Orphan and Pediatric, Due Diligence, Training and Coaching, Embedded Regulatory Function.',
+                  color: '#3B82F6',
+                },
+                {
+                  headline: 'Agency Interactions',
+                  bodyText: 'Scientific and Regulatory Support, Scientific Advice, Dossier Preparation, EU Regulatory Agent Services.',
+                  color: '#10B981',
+                },
+                {
+                  headline: 'Classification and Designation',
+                  bodyText: 'Product Classification, Expedited Development Programs, New Active Substance Assessment.',
+                  color: '#F59E0B',
+                },
+                {
+                  headline: 'Drug Development',
+                  bodyText: 'Advice on Manufacturing, Nonclinical and Clinical Development Plans, Translational Liaison Service.',
+                  color: '#EF4444',
+                },
+                {
+                  headline: 'Safety',
+                  bodyText: 'Microbial and Viral Safety, Material of Animal and Human Origin, GMO and Risk Assessments.',
+                  color: '#8B5CF6',
+                },
+                {
+                  headline: 'Innovative Medicines',
+                  bodyText: 'ATMPs, Biologics/Synthetics, Innovative Small Molecules, Combination Products, Individualized Therapies.',
+                  color: '#06B6D4',
+                },
+              ],
+            },
+          ],
+        },
+        {
           slug: 'contactForm',
           fields: [
             {

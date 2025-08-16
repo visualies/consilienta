@@ -2,6 +2,7 @@
 
 import { HeroBlock } from './hero-block'
 import { FeaturesBlock } from './features-block'
+import { SolutionsBlock } from './solutions-block'
 import { CTABlock } from './cta-block'
 import { ContactFormBlock } from './contact-form-block'
 
@@ -26,6 +27,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <HeroBlock key={index} data={block} helixConfig={block.helixConfig} />
           case 'features':
             return <FeaturesBlock key={index} data={block} />
+          case 'solutions':
+            return <SolutionsBlock key={index} data={block} />
           case 'cta':
             return <CTABlock key={index} data={block} />
           case 'footer':
