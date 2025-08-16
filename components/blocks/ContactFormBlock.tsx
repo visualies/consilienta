@@ -13,10 +13,14 @@ interface ContactFormBlockProps {
   description?: string
   contactInfo?: {
     email?: string
-    phone?: string
+    phones?: Array<{
+      label: string
+      number: string
+    }>
     address?: string
   }
   formFields?: Array<{
+    id?: string
     name: string
     type: string
     label: string
@@ -34,8 +38,13 @@ export function ContactFormBlock({
   description = "We're here to help you navigate the complexities of pharmaceutical development. Send us a message and we'll get back to you within 24 hours.",
   contactInfo = {
     email: "contact@consilienta.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Innovation Drive, Suite 100, San Francisco, CA 94105"
+    phones: [
+      {
+        label: "Main Office",
+        number: "+1 (555) 123-4567"
+      }
+    ],
+    address: "123 Innovation Drive\nSuite 100\nSan Francisco, CA 94105"
   },
   formFields = [
     { name: "firstName", type: "text", label: "First Name", required: true, placeholder: "Enter your first name" },
@@ -169,28 +178,28 @@ export function ContactFormBlock({
                     </div>
                   </div>
                 )}
-                {contactInfo.phone && (
-                  <div className="flex items-start space-x-4">
-                    <Phone className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-white/70 text-sm font-medium">Phone</p>
-                      <a href={`tel:${contactInfo.phone}`} className="text-white hover:text-blue-300 transition-colors">
-                        {contactInfo.phone}
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {contactInfo.address && (
-                  <div className="flex items-start space-x-4">
-                    <MapPin className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-white/70 text-sm font-medium">Address</p>
-                      <p className="text-white">
-                        {contactInfo.address}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                                 {contactInfo.phones && contactInfo.phones.map((phone, index) => (
+                   <div key={index} className="flex items-start space-x-4">
+                     <Phone className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                     <div>
+                       <p className="text-white/70 text-sm font-medium">{phone.label}</p>
+                       <a href={`tel:${phone.number}`} className="text-white hover:text-blue-300 transition-colors">
+                         {phone.number}
+                       </a>
+                     </div>
+                   </div>
+                 ))}
+                                 {contactInfo.address && (
+                   <div className="flex items-start space-x-4">
+                     <MapPin className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                     <div>
+                       <p className="text-white/70 text-sm font-medium">Address</p>
+                       <div className="text-white whitespace-pre-line">
+                         {contactInfo.address}
+                       </div>
+                     </div>
+                   </div>
+                 )}
               </div>
             </div>
           </div>

@@ -410,19 +410,37 @@ export const Pages: CollectionConfig = {
                   name: 'email',
                   type: 'text',
                   required: false,
-                  defaultValue: 'contact@consilienta.com',
+                  defaultValue: 'info@consilienta.com',
                 },
                 {
-                  name: 'phone',
-                  type: 'text',
-                  required: false,
-                  defaultValue: '+1 (555) 123-4567',
+                  name: 'phones',
+                  type: 'array',
+                  fields: [
+                    {
+                      name: 'label',
+                      type: 'text',
+                      required: true,
+                      defaultValue: 'Main Office',
+                    },
+                    {
+                      name: 'number',
+                      type: 'text',
+                      required: true,
+                      defaultValue: '+49 (0) 163 2457821',
+                    },
+                  ],
+                  defaultValue: [
+                    {
+                      label: 'Main Office',
+                      number: '+49 (0) 163 2457821',
+                    },
+                  ],
                 },
                 {
                   name: 'address',
                   type: 'textarea',
                   required: false,
-                  defaultValue: '123 Innovation Drive, Suite 100, San Francisco, CA 94105',
+                  defaultValue: 'Consilienta GmbH\nHanfelder St. 6 \n81475 Munich, Germany',
                 },
               ],
             },
