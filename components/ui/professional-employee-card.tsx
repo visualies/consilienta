@@ -53,110 +53,93 @@ export function ProfessionalEmployeeCard({
   const linkedInLink = socialLinks.find(link => link.platform === 'linkedin')
 
   return (
-    <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 ease-out h-full border-0 overflow-hidden group relative">
-      {/* Main photo section */}
-      <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-        {photo ? (
-          <Image
-            src={photo.url}
-            alt={photo.alt || `${name} profile photo`}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-            <div 
-              className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-serif"
-              style={{ backgroundColor: 'var(--brand-purple)' }}
-            >
-              {name.split(' ').map(n => n[0]).join('')}
-            </div>
+    <Card className="bg-white shadow-lg border-0 overflow-hidden relative">
+      <div className="flex gap-6">
+        {/* Column 1 - Photo */}
+        <div className="w-64 flex-shrink-0">
+          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-xl group cursor-pointer m-1">
+            {photo ? (
+              <Image
+                src={photo.url}
+                alt={photo.alt || `${name} profile photo`}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                <div 
+                  className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-serif"
+                  style={{ backgroundColor: 'var(--brand-purple)' }}
+                >
+                  {name.split(' ').map(n => n[0]).join('')}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-        
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        
-        {/* LinkedIn button - always clickable */}
-        {linkedInLink && (
-          <div className="absolute top-4 right-4 z-20">
-            <a
-              href={linkedInLink.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-white flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg"
-              style={{ color: 'var(--brand-purple)' }}
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-          </div>
-        )}
-
-        {/* Basic info overlay on image */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <h3 className="text-xl font-serif font-normal leading-tight mb-1">
-            {name}
-          </h3>
-          <p className="text-sm text-white/90 font-medium">
-            {position}
-          </p>
-        </div>
-      </div>
-
-      {/* Content section that expands on hover */}
-      <div className="relative bg-white transition-all duration-300 group-hover:shadow-inner">
-        {/* Collapsed state - just basic info */}
-        <div className="h-20 p-4 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300">
-          <p className="text-xs text-gray-500 text-center">Hover to view details</p>
         </div>
 
-        {/* Expanded state - full bio and contact */}
-        <div className="absolute inset-0 p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white overflow-y-auto">
-          <div className="space-y-4">
-            <div className="text-center border-b border-gray-100 pb-3">
-              <h3 className="text-lg font-serif font-normal text-gray-900">
+        {/* Column 2 - Name, Title, and Contact Info */}
+        <div className="w-80 flex-shrink-0 p-6 flex flex-col justify-center">
+          <div className="space-y-6">
+            {/* Name and title */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-serif font-normal text-gray-900 leading-tight">
                 {name}
               </h3>
               <p 
-                className="text-sm font-medium"
+                className="text-sm font-medium leading-relaxed"
                 style={{ color: 'var(--brand-purple)' }}
               >
                 {position}
               </p>
             </div>
-            
-            <div className="space-y-3">
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {bio}
-              </p>
-            </div>
-            
+
             {/* Contact info */}
-            {(email || phone) && (
-              <div className="flex flex-col space-y-2 pt-3 border-t border-gray-100">
-                {email && (
-                  <a 
-                    href={`mailto:${email}`}
-                    className="flex items-center justify-center space-x-2 text-sm transition-colors duration-200 hover:opacity-70"
-                    style={{ color: 'var(--brand-purple)' }}
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span className="truncate">{email}</span>
-                  </a>
-                )}
-                
-                {phone && (
-                  <a 
-                    href={`tel:${phone}`}
-                    className="flex items-center justify-center space-x-2 text-sm transition-colors duration-200 hover:opacity-70"
-                    style={{ color: 'var(--brand-purple)' }}
-                  >
-                    <Phone className="w-4 h-4" />
-                    <span>{phone}</span>
-                  </a>
-                )}
-              </div>
-            )}
+            <div className="flex flex-col space-y-3">
+              {email && (
+                <a 
+                  href={`mailto:${email}`}
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
+                  style={{ color: 'var(--brand-purple)' }}
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="truncate">{email}</span>
+                </a>
+              )}
+              
+              {phone && (
+                <a 
+                  href={`tel:${phone}`}
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
+                  style={{ color: 'var(--brand-purple)' }}
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>{phone}</span>
+                </a>
+              )}
+
+              {linkedInLink && (
+                <a
+                  href={linkedInLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
+                  style={{ color: 'var(--brand-purple)' }}
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn Profile</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3 - Bio */}
+        <div className="flex-1 p-6 flex items-center border-l border-gray-200">
+          <div className="w-full">
+            <p className="text-gray-700 leading-relaxed">
+              {bio}
+            </p>
           </div>
         </div>
       </div>
