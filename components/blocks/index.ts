@@ -1,5 +1,6 @@
 export { HeroBlock } from './hero-block'
 export { FeaturesBlock } from './features-block'
+export { SolutionsBlock } from './solutions-block'
 export { CTABlock } from './cta-block'
 export { HeaderBlock } from './header-block'
 export { FooterBlock } from './footer-block'
