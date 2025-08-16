@@ -393,7 +393,6 @@ export const Pages: CollectionConfig = {
             {
               name: 'description',
               type: 'textarea',
-              required: true,
               defaultValue: 'Expert pharmaceutical consulting guiding your product from concept to approval. Comprehensive solutions for complex development challenges.',
             },
             {

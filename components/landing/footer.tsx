@@ -65,7 +65,7 @@ export function Footer({ data = defaultData }: FooterProps) {
           {/* Logo and Company Info */}
           <div className="col-span-2 space-y-4">
             <div className="flex items-center">
-              <Image src={data.logo.url} alt={data.logo.alt} width={200} height={40} className="h-10 w-auto" />
+              <Image src={data.logo.url} alt={data.logo.alt} width={400} height={80} className="h-25 w-auto" />
             </div>
             <p className="text-white/90 max-w-md leading-relaxed">
               {data.description}
