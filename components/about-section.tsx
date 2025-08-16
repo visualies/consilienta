@@ -63,16 +63,13 @@ export function AboutSection({ data }: AboutSectionProps) {
         </div>
       </section>
 
-      {/* Cards Section with frosted glass background */}
+      {/* Cards Section */}
       <section 
         className="px-6 py-20 relative z-10"
         style={{
           paddingBottom: '6rem'
         }}
       >
-        <div className="absolute inset-0 bg-white opacity-30"></div>
-        <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
-        
         <div className="max-w-7xl mx-auto relative z-10">
           <StaggeredFadeUp 
             className="grid grid-cols-1 gap-8"

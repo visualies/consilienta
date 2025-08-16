@@ -53,7 +53,7 @@ export function ProfessionalEmployeeCard({
   const linkedInLink = socialLinks.find(link => link.platform === 'linkedin')
 
   return (
-    <Card className="bg-white shadow-lg border-0 overflow-hidden relative">
+    <Card className="shadow-lg border-0 overflow-hidden relative frosted-glass-navbar">
       <div className="flex gap-6">
         {/* Column 1 - Photo */}
         <div className="w-64 flex-shrink-0">
@@ -83,13 +83,10 @@ export function ProfessionalEmployeeCard({
           <div className="space-y-6">
             {/* Name and title */}
             <div className="space-y-2">
-              <h3 className="text-2xl font-serif font-normal text-gray-900 leading-tight">
+              <h3 className="text-2xl font-serif font-normal text-white leading-tight">
                 {name}
               </h3>
-              <p 
-                className="text-sm font-medium leading-relaxed"
-                style={{ color: 'var(--brand-purple)' }}
-              >
+              <p className="text-sm font-medium leading-relaxed text-white/90">
                 {position}
               </p>
             </div>
@@ -99,8 +96,7 @@ export function ProfessionalEmployeeCard({
               {email && (
                 <a 
                   href={`mailto:${email}`}
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
-                  style={{ color: 'var(--brand-purple)' }}
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
                 >
                   <Mail className="w-4 h-4" />
                   <span className="truncate">{email}</span>
@@ -110,8 +106,7 @@ export function ProfessionalEmployeeCard({
               {phone && (
                 <a 
                   href={`tel:${phone}`}
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
-                  style={{ color: 'var(--brand-purple)' }}
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
                 >
                   <Phone className="w-4 h-4" />
                   <span>{phone}</span>
@@ -123,8 +118,7 @@ export function ProfessionalEmployeeCard({
                   href={linkedInLink.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70"
-                  style={{ color: 'var(--brand-purple)' }}
+                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
                 >
                   <Linkedin className="w-4 h-4" />
                   <span>LinkedIn Profile</span>
@@ -135,9 +129,9 @@ export function ProfessionalEmployeeCard({
         </div>
 
         {/* Column 3 - Bio */}
-        <div className="flex-1 p-6 flex items-center border-l border-gray-200">
+        <div className="flex-1 p-6 flex items-center border-l border-white/20">
           <div className="w-full">
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white/90 leading-relaxed">
               {bio}
             </p>
           </div>
