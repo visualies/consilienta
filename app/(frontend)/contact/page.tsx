@@ -8,7 +8,7 @@ export default function ContactPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-lg">Loading...</div>
       </div>
     )
@@ -16,7 +16,7 @@ export default function ContactPage() {
 
   if (error || !pageData) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-lg">Contact page not found</div>
       </div>
     )
@@ -26,7 +26,7 @@ export default function ContactPage() {
   console.log('Contact page layout:', pageData.layout)
 
   return (
-    <div className="min-h-screen brand-gradient-no-black">
+    <div className="min-h-screen">
       <BlockRenderer blocks={pageData.layout} />
     </div>
   )

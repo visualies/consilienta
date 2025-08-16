@@ -1,6 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Providers } from '@/components/providers'
+import { LayoutWrapper } from '@/components/layout/layout-wrapper'
 import './globals.css'
 
 export const metadata = {
@@ -11,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen brand-gradient-no-black">
         <Providers>
           <ThemeProvider
             attribute="class"
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
           </ThemeProvider>
         </Providers>
       </body>

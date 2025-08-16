@@ -8,7 +8,7 @@ export default function ConsilientsLanding() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-lg">Loading...</div>
       </div>
     )
@@ -16,14 +16,14 @@ export default function ConsilientsLanding() {
 
   if (error || !pageData) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-lg">Page not found</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen brand-gradient-no-black">
+    <div className="min-h-screen">
       <BlockRenderer blocks={pageData.layout} />
     </div>
   )

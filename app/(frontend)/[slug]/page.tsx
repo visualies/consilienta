@@ -35,7 +35,7 @@ export default function DynamicPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
       </div>
     )
@@ -43,16 +43,14 @@ export default function DynamicPage() {
 
   if (error || !page) {
     return (
-      <div className="min-h-screen brand-gradient-no-black flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-white text-xl">Page not found</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen brand-gradient-no-black">
-      {/* Note: You'll need to create a global header/footer configuration or pass them as props */}
-      {/* For now, we'll render the blocks directly */}
+    <div className="min-h-screen">
       <BlockRenderer blocks={page.layout} />
     </div>
   )

@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint to check code quality
 - `npm run seed` - Seed the landing page data using `scripts/seed-landing-page.ts`
+- `npm run seed:globals` - Seed the global header/footer data using `scripts/seed-globals.ts`
 
 Dont run dev or build yourself unless asked to by the user
 

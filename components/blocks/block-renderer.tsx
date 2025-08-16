@@ -3,8 +3,6 @@
 import { HeroBlock } from './hero-block'
 import { FeaturesBlock } from './features-block'
 import { CTABlock } from './cta-block'
-import { HeaderBlock } from './header-block'
-import { FooterBlock } from './footer-block'
 import { ContactFormBlock } from './contact-form-block'
 
 interface BlockData {
@@ -22,7 +20,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
       {blocks.map((block, index) => {
         switch (block.blockType) {
           case 'header':
-            return <HeaderBlock key={index} data={block} />
+            // Skip header blocks - handled globally
+            return null
           case 'hero':
             return <HeroBlock key={index} data={block} helixConfig={block.helixConfig} />
           case 'features':
@@ -30,7 +29,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
           case 'cta':
             return <CTABlock key={index} data={block} />
           case 'footer':
-            return <FooterBlock key={index} data={block} />
+            // Skip footer blocks - handled globally
+            return null
           case 'contactForm':
             return <ContactFormBlock key={index} {...block} />
           default:
