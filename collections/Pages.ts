@@ -382,6 +382,141 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
+          slug: 'contactForm',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Get in Touch',
+            },
+            {
+              name: 'subtitle',
+              type: 'text',
+              required: false,
+              defaultValue: 'Ready to start your journey?',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'We\'re here to help you navigate the complexities of pharmaceutical development. Send us a message and we\'ll get back to you within 24 hours.',
+            },
+            {
+              name: 'contactInfo',
+              type: 'group',
+              fields: [
+                {
+                  name: 'email',
+                  type: 'text',
+                  required: false,
+                  defaultValue: 'contact@consilienta.com',
+                },
+                {
+                  name: 'phone',
+                  type: 'text',
+                  required: false,
+                  defaultValue: '+1 (555) 123-4567',
+                },
+                {
+                  name: 'address',
+                  type: 'textarea',
+                  required: false,
+                  defaultValue: '123 Innovation Drive, Suite 100, San Francisco, CA 94105',
+                },
+              ],
+            },
+            {
+              name: 'formFields',
+              type: 'array',
+              fields: [
+                {
+                  name: 'name',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'type',
+                  type: 'select',
+                  required: true,
+                  options: [
+                    { label: 'Text', value: 'text' },
+                    { label: 'Email', value: 'email' },
+                    { label: 'Phone', value: 'tel' },
+                    { label: 'Textarea', value: 'textarea' },
+                    { label: 'Select', value: 'select' },
+                  ],
+                },
+                {
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'required',
+                  type: 'checkbox',
+                  defaultValue: false,
+                },
+                {
+                  name: 'placeholder',
+                  type: 'text',
+                  required: false,
+                },
+                {
+                  name: 'options',
+                  type: 'array',
+                  fields: [
+                    {
+                      name: 'label',
+                      type: 'text',
+                      required: true,
+                    },
+                    {
+                      name: 'value',
+                      type: 'text',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
+              defaultValue: [
+                { name: 'firstName', type: 'text', label: 'First Name', required: true, placeholder: 'Enter your first name' },
+                { name: 'lastName', type: 'text', label: 'Last Name', required: true, placeholder: 'Enter your last name' },
+                { name: 'email', type: 'email', label: 'Email Address', required: true, placeholder: 'Enter your email address' },
+                { name: 'company', type: 'text', label: 'Company', required: false, placeholder: 'Enter your company name' },
+                { name: 'phone', type: 'tel', label: 'Phone Number', required: false, placeholder: 'Enter your phone number' },
+                { 
+                  name: 'service', 
+                  type: 'select', 
+                  label: 'Service of Interest', 
+                  required: true,
+                  options: [
+                    { label: 'Regulatory Strategy', value: 'regulatory' },
+                    { label: 'Clinical Development', value: 'clinical' },
+                    { label: 'Market Access', value: 'market-access' },
+                    { label: 'Quality Assurance', value: 'quality' },
+                    { label: 'Compliance', value: 'compliance' },
+                    { label: 'Other', value: 'other' }
+                  ]
+                },
+                { name: 'message', type: 'textarea', label: 'Message', required: true, placeholder: 'Tell us about your project or how we can help...' }
+              ],
+            },
+            {
+              name: 'submitText',
+              type: 'text',
+              required: false,
+              defaultValue: 'Send Message',
+            },
+            {
+              name: 'successMessage',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'Thank you for your message! We\'ll get back to you within 24 hours.',
+            },
+          ],
+        },
+        {
           slug: 'footer',
           fields: [
             {
