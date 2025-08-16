@@ -56,11 +56,11 @@ export function EmployeeCard({
   }
 
   return (
-    <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-      <CardContent className="p-6">
-        <div className="flex flex-col items-center text-center space-y-4">
+    <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20">
+      <CardContent className="p-8">
+        <div className="flex flex-col items-center text-center space-y-6">
           {photo && (
-            <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-100">
+            <div className="relative w-28 h-28 rounded-full overflow-hidden bg-gray-100 ring-4 ring-white/50">
               <Image
                 src={photo.url}
                 alt={photo.alt || `${name} profile photo`}
@@ -70,20 +70,31 @@ export function EmployeeCard({
             </div>
           )}
           
-          <div className="space-y-2">
-            <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
-            <p className="text-sm font-medium text-blue-600">{position}</p>
+          <div className="space-y-3">
+            <h3 className="text-xl font-serif font-normal text-gray-900">{name}</h3>
+            <p 
+              className="text-sm font-medium px-3 py-1 rounded-full text-white"
+              style={{ backgroundColor: 'var(--brand-purple)' }}
+            >
+              {position}
+            </p>
           </div>
           
           <p className="text-sm text-gray-600 leading-relaxed">{bio}</p>
           
-          <div className="flex flex-col space-y-2 w-full">
+          <div className="flex flex-col space-y-3 w-full pt-2">
             {email && (
               <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4" style={{ color: 'var(--brand-purple)' }} />
                 <a 
                   href={`mailto:${email}`}
-                  className="hover:text-blue-600 transition-colors duration-200"
+                  className="transition-colors duration-200"
+                  style={{ 
+                    color: 'var(--brand-purple)',
+                    textDecoration: 'none'
+                  }}
+                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                  onMouseLeave={(e) => e.target.style.opacity = '1'}
                 >
                   {email}
                 </a>
@@ -92,10 +103,16 @@ export function EmployeeCard({
             
             {phone && (
               <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4" style={{ color: 'var(--brand-purple)' }} />
                 <a 
                   href={`tel:${phone}`}
-                  className="hover:text-blue-600 transition-colors duration-200"
+                  className="transition-colors duration-200"
+                  style={{ 
+                    color: 'var(--brand-purple)',
+                    textDecoration: 'none'
+                  }}
+                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                  onMouseLeave={(e) => e.target.style.opacity = '1'}
                 >
                   {phone}
                 </a>
@@ -104,13 +121,17 @@ export function EmployeeCard({
           </div>
           
           {socialLinks.length > 0 && (
-            <div className="flex space-x-3 pt-2">
+            <div className="flex space-x-3 pt-4">
               {socialLinks.map((link, index) => (
                 <Button
                   key={index}
                   variant="outline"
                   size="sm"
-                  className="p-2 h-9 w-9"
+                  className="p-2 h-10 w-10 border-2 hover:bg-opacity-10 transition-all duration-200"
+                  style={{ 
+                    borderColor: 'var(--brand-purple)',
+                    color: 'var(--brand-purple)'
+                  }}
                   asChild
                 >
                   <a
