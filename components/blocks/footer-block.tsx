@@ -1,4 +1,4 @@
-import { Footer } from "@/components/landing/footer"
+import { Footer } from "@/components/footer"
 
 interface FooterBlockProps {
   data: {

@@ -1,4 +1,4 @@
-import { SolutionsSection } from "@/components/landing/solutions-section"
+import { SolutionsSection } from "@/components/solutions-section"
 
 interface SolutionItem {
   headline: string

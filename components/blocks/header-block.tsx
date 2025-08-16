@@ -1,4 +1,4 @@
-import { Header } from "@/components/landing/header"
+import { Header } from "@/components/header"
 
 interface HeaderBlockProps {
   data: {

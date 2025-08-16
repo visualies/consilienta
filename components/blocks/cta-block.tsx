@@ -1,4 +1,4 @@
-import { CTASection } from "@/components/landing/cta-section"
+import { CTASection } from "@/components/cta-section"
 
 interface CTABlockProps {
   data: {

@@ -1,6 +1,6 @@
 "use client"
 
-import { AboutSection } from "@/components/landing/about-section"
+import { AboutSection } from "@/components/about-section"
 
 interface AboutUsBlockProps {
   data: {
