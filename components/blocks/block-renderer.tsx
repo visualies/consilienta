@@ -5,7 +5,7 @@ import { FeaturesBlock } from './features-block'
 import { CTABlock } from './cta-block'
 import { HeaderBlock } from './header-block'
 import { FooterBlock } from './footer-block'
-import { ContactFormBlock } from './ContactFormBlock'
+import { ContactFormBlock } from './contact-form-block'
 
 interface BlockData {
   blockType: string

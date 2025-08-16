@@ -2,9 +2,7 @@
 
 import { useParams } from 'next/navigation'
 import { usePage } from '@/hooks/usePage'
-import { BlockRenderer } from '@/components/blocks/BlockRenderer'
-import { Header } from '@/components/landing/header'
-import { Footer } from '@/components/landing/footer'
+import { BlockRenderer } from '@/components/blocks'
 import { useState, useEffect } from 'react'
 
 export default function DynamicPage() {
