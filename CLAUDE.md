@@ -66,6 +66,72 @@ This is a Next.js 15 application with Payload CMS integration for content manage
 - Custom webpack configuration for file extensions
 - Payload admin accessible at `/admin`
 
+## Animations and Server-Side Rendering
+
+This application uses a **motion wrapper pattern** to achieve both server-side rendering (SSR) and client-side animations with Framer Motion.
+
+### Architecture Pattern
+
+**Problem Solved:**
+- Next.js App Router pages are server components by default
+- Framer Motion requires client-side features (DOM access, state)
+- Direct use of `motion` components forces entire pages to be client-side
+- This eliminates SSR benefits and shows loading screens
+
+**Solution - Motion Wrapper Pattern:**
+1. **Server Components:** Handle data fetching and content rendering
+2. **Client Wrapper Components:** Handle animations only, accept server-rendered content as children
+3. **Clean Separation:** Content renders server-side, animations hydrate client-side
+
+### Implementation
+
+**Motion Wrappers (`components/ui/motion-wrappers.tsx`):**
+```tsx
+"use client"
+// Reusable animation components that accept children
+export function FadeUpAnimation({ children, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+```
+
+**Usage in Server Components:**
+```tsx
+// Server component - renders content server-side
+export function SolutionsSection({ data }) {
+  return (
+    <section>
+      <FadeUpAnimation>
+        <h2>{data.title}</h2> {/* Server-rendered content */}
+      </FadeUpAnimation>
+    </section>
+  )
+}
+```
+
+### Benefits
+
+- ✅ **Fast Initial Render** - Content visible immediately (server-rendered)
+- ✅ **Smooth Animations** - Progressive enhancement with Framer Motion
+- ✅ **Better SEO** - Content indexed by search engines
+- ✅ **No Loading Screens** - Server-side data fetching eliminates loading states
+- ✅ **Smaller Bundles** - Only animation logic runs client-side
+
+### Key Files
+
+- `components/ui/motion-wrappers.tsx` - Reusable animation wrapper components
+- `components/hooks/use-scroll-header.tsx` - Client-side scroll detection for header
+- `lib/get-globals.ts` - Server-side global data fetching
+- `app/(frontend)/layout.tsx` - Server-side layout with global data
+- `app/(frontend)/[slug]/page.tsx` - Server-side page data fetching
+
 ### Development Workflow
 
 1. Run `npm run dev` to start development

@@ -1,5 +1,3 @@
-"use client"
-
 import { HeroBlock } from './hero-block'
 import { FeaturesBlock } from './features-block'
 import { SolutionsBlock } from './solutions-block'

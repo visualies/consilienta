@@ -1,52 +1,72 @@
-"use client"
-
-import { useParams } from 'next/navigation'
-import { usePage } from '@/hooks/usePage'
+import { getPayload } from 'payload'
+import config from '../../../payload.config'
 import { BlockRenderer } from '@/components/blocks'
-import { useState, useEffect } from 'react'
+import { notFound } from 'next/navigation'
 
-export default function DynamicPage() {
-  const params = useParams()
-  const slug = params.slug as string
-  const { data: page, isLoading, error } = usePage(slug)
-  const [isOverWhite, setIsOverWhite] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const heroHeight = window.innerHeight * 0.55
-      setIsOverWhite(scrollY > heroHeight)
+interface PageData {
+  id: string
+  title: string
+  slug: string
+  meta?: {
+    title?: string
+    description?: string
+    image?: {
+      url: string
+      alt: string
     }
-
-    let ticking = false
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', throttledHandleScroll)
-    return () => window.removeEventListener('scroll', throttledHandleScroll)
-  }, [])
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
-      </div>
-    )
   }
+  layout: Array<{
+    blockType: string
+    [key: string]: any
+  }>
+  publishedAt?: string
+  status: 'draft' | 'published'
+}
 
-  if (error || !page) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl">Page not found</div>
-      </div>
-    )
+async function getPageData(slug: string): Promise<PageData | null> {
+  try {
+    const payload = await getPayload({ config })
+    
+    const page = await payload.find({
+      collection: 'pages',
+      where: {
+        or: [
+          {
+            slug: {
+              equals: slug,
+            },
+          },
+          {
+            slug: {
+              equals: `/${slug}`,
+            },
+          },
+        ],
+      },
+      limit: 1,
+    })
+
+    if (!page.docs.length) {
+      return null
+    }
+
+    return page.docs[0] as PageData
+  } catch (error) {
+    console.error('Error fetching page:', error)
+    return null
+  }
+}
+
+export default async function DynamicPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const { slug } = await params
+  const page = await getPageData(slug)
+
+  if (!page) {
+    notFound()
   }
 
   return (

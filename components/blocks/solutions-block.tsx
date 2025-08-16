@@ -1,5 +1,3 @@
-"use client"
-
 import { SolutionsSection } from "@/components/landing/solutions-section"
 
 interface SolutionItem {
@@ -14,17 +12,13 @@ interface SolutionItem {
 }
 
 interface SolutionsBlockProps {
-  title: string
-  subtitle: string
-  solutionsList: Array<SolutionItem>
-  [key: string]: any
+  data: {
+    title: string
+    subtitle: string
+    solutionsList: Array<SolutionItem>
+  }
 }
 
-export function SolutionsBlock({ title, subtitle, solutionsList, ...rest }: SolutionsBlockProps) {
-  const data = {
-    title,
-    subtitle,
-    solutionsList
-  }
+export function SolutionsBlock({ data }: SolutionsBlockProps) {
   return <SolutionsSection data={data} />
 }
