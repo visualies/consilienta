@@ -107,14 +107,14 @@ export function HeroSection({ data = defaultData, helixConfig = defaultHelixConf
               {data.headline}
             </motion.h1>
 
-            <motion.p 
-              className="text-lg text-white/80 leading-relaxed max-w-lg"
+            <motion.div 
+              className="text-lg text-white/80 leading-relaxed max-w-lg whitespace-pre-line"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               {data.description}
-            </motion.p>
+            </motion.div>
           </motion.div>
           <motion.div 
             className="flex flex-col sm:flex-row gap-4"
