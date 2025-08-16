@@ -33,45 +33,22 @@ interface ContactFormBlockProps {
 }
 
 export function ContactFormBlock({ 
-  title = "Get in Touch",
-  subtitle = "Ready to start your journey?",
-  description = "We're here to help you navigate the complexities of pharmaceutical development. Send us a message and we'll get back to you within 24 hours.",
-  contactInfo = {
-    email: "contact@consilienta.com",
-    phones: [
-      {
-        label: "Main Office",
-        number: "+1 (555) 123-4567"
-      }
-    ],
-    address: "123 Innovation Drive\nSuite 100\nSan Francisco, CA 94105"
-  },
-  formFields = [
-    { name: "firstName", type: "text", label: "First Name", required: true, placeholder: "Enter your first name" },
-    { name: "lastName", type: "text", label: "Last Name", required: true, placeholder: "Enter your last name" },
-    { name: "email", type: "email", label: "Email Address", required: true, placeholder: "Enter your email address" },
-    { name: "company", type: "text", label: "Company", required: false, placeholder: "Enter your company name" },
-    { name: "phone", type: "tel", label: "Phone Number", required: false, placeholder: "Enter your phone number" },
-    { 
-      name: "service", 
-      type: "select", 
-      label: "Service of Interest", 
-      required: true,
-      options: [
-        { label: "Regulatory Strategy", value: "regulatory" },
-        { label: "Clinical Development", value: "clinical" },
-        { label: "Market Access", value: "market-access" },
-        { label: "Quality Assurance", value: "quality" },
-        { label: "Compliance", value: "compliance" },
-        { label: "Other", value: "other" }
-      ]
-    },
-    { name: "message", type: "textarea", label: "Message", required: true, placeholder: "Tell us about your project or how we can help..." }
-  ],
-  submitText = "Send Message",
-  successMessage = "Thank you for your message! We'll get back to you within 24 hours."
+  title,
+  subtitle,
+  description,
+  contactInfo,
+  formFields,
+  submitText,
+  successMessage
 }: ContactFormBlockProps) {
   console.log('ContactFormBlock rendered with props:', { title, subtitle, description, contactInfo, formFields })
+  
+  // Use provided data or minimal fallbacks
+  const displayTitle = title || "Get in Touch"
+  const displaySubtitle = subtitle || ""
+  const displayDescription = description || ""
+  const displaySubmitText = submitText || "Send Message"
+  const displaySuccessMessage = successMessage || "Thank you for your message!"
   
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -122,7 +99,7 @@ export function ContactFormBlock({
               Message Sent Successfully!
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              {successMessage}
+              {displaySuccessMessage}
             </p>
             <Button 
               onClick={() => setIsSubmitted(false)}
@@ -144,17 +121,17 @@ export function ContactFormBlock({
         
         {/* Header */}
         <div className="text-center mb-12">
-          {subtitle && (
+          {displaySubtitle && (
             <p className="text-lg text-white/70 mb-2 font-medium">
-              {subtitle}
+              {displaySubtitle}
             </p>
           )}
           <h2 className="text-4xl font-serif font-medium text-white mb-4">
-            {title}
+            {displayTitle}
           </h2>
-          {description && (
+          {displayDescription && (
             <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-              {description}
+              {displayDescription}
             </p>
           )}
         </div>
@@ -167,7 +144,7 @@ export function ContactFormBlock({
                 Contact Information
               </h3>
               <div className="space-y-6">
-                {contactInfo.email && (
+                {contactInfo?.email && (
                   <div className="flex items-start space-x-4">
                     <Mail className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
                     <div>
@@ -178,7 +155,7 @@ export function ContactFormBlock({
                     </div>
                   </div>
                 )}
-                                 {contactInfo.phones && contactInfo.phones.map((phone, index) => (
+                                 {contactInfo?.phones && contactInfo.phones.map((phone, index) => (
                    <div key={index} className="flex items-start space-x-4">
                      <Phone className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
                      <div>
@@ -189,7 +166,7 @@ export function ContactFormBlock({
                      </div>
                    </div>
                  ))}
-                                 {contactInfo.address && (
+                                 {contactInfo?.address && (
                    <div className="flex items-start space-x-4">
                      <MapPin className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
                      <div>
@@ -289,7 +266,7 @@ export function ContactFormBlock({
                   ) : (
                     <div className="flex items-center space-x-2">
                       <Send className="w-4 h-4" />
-                      <span>{submitText}</span>
+                      <span>{displaySubmitText}</span>
                     </div>
                   )}
                 </Button>

@@ -335,7 +335,7 @@ export const Pages: CollectionConfig = {
               name: 'title',
               type: 'text',
               required: true,
-              defaultValue: 'Ready to Transform Your Development Process?',
+              defaultValue: null,
             },
             {
               name: 'description',
@@ -481,13 +481,13 @@ export const Pages: CollectionConfig = {
               name: 'subtitle',
               type: 'text',
               required: false,
-              defaultValue: 'Ready to start your journey?',
+              defaultValue: null,
             },
             {
               name: 'description',
               type: 'textarea',
               required: false,
-              defaultValue: 'We\'re here to help you navigate the complexities of pharmaceutical development. Send us a message and we\'ll get back to you within 24 hours.',
+              defaultValue: 'We\'re here to help you navigate the complexities of pharmaceutical development. Send us a message and we\'ll get back to you soon.',
             },
             {
               name: 'contactInfo',
@@ -507,7 +507,7 @@ export const Pages: CollectionConfig = {
                       name: 'label',
                       type: 'text',
                       required: true,
-                      defaultValue: 'Main Office',
+                      defaultValue: 'Phone',
                     },
                     {
                       name: 'number',
@@ -518,7 +518,7 @@ export const Pages: CollectionConfig = {
                   ],
                   defaultValue: [
                     {
-                      label: 'Main Office',
+                      label: 'Phone',
                       number: '+49 (0) 163 2457821',
                     },
                   ],
@@ -527,7 +527,7 @@ export const Pages: CollectionConfig = {
                   name: 'address',
                   type: 'textarea',
                   required: false,
-                  defaultValue: 'Consilienta GmbH\nHanfelder St. 6 \n81475 Munich, Germany',
+                  defaultValue: 'Consilienta GmbH\nHanfelder St. 6\n81475 Munich, Germany',
                 },
               ],
             },
@@ -617,7 +617,7 @@ export const Pages: CollectionConfig = {
               name: 'successMessage',
               type: 'textarea',
               required: false,
-              defaultValue: 'Thank you for your message! We\'ll get back to you within 24 hours.',
+              defaultValue: 'Thank you for your message! We\'ll get back to you soon.',
             },
           ],
         },
