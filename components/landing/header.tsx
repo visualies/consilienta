@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
+import { useScrollHeader } from "@/components/hooks/use-scroll-header"
 
 interface HeaderProps {
-  isOverWhite?: boolean
   data?: {
     logo: {
       url: string
@@ -46,7 +46,9 @@ const defaultData = {
   }
 }
 
-export function Header({ isOverWhite = false, data = defaultData }: HeaderProps) {
+export function Header({ data = defaultData }: HeaderProps) {
+  const { isOverWhite } = useScrollHeader()
+  
   return (
     <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
       <nav className="max-w-7xl mx-auto flex items-center justify-between">

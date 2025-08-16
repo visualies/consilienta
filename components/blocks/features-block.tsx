@@ -1,5 +1,3 @@
-"use client"
-
 import { FeaturesSection } from "@/components/landing/features-section"
 
 interface FeaturesBlockProps {

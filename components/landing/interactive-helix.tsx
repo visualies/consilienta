@@ -1,10 +1,10 @@
 "use client"
 
-import { Canvas, useFrame, useLoader } from "@react-three/fiber"
-import { Environment } from "@react-three/drei"
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber"
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"
-import { Suspense, useRef, useState, useMemo, useEffect } from "react"
+import { Suspense, useRef, useState, useMemo, useEffect, useCallback } from "react"
 import * as THREE from "three"
+import React from "react"
 
 interface HelixConfig {
   enabled: boolean
@@ -37,7 +37,32 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [rotationSpeed, setRotationSpeed] = useState(config?.rotationSpeed ?? 0.2)
   const [scrollY, setScrollY] = useState(0)
+  const [contextLost, setContextLost] = useState(false)
   const dragStartRef = useRef({ x: 0, y: 0 })
+  const { gl } = useThree()
+
+  // WebGL context loss handling
+  const handleContextLost = useCallback((event: Event) => {
+    event.preventDefault()
+    setContextLost(true)
+    console.warn('WebGL context lost. Attempting to restore...')
+  }, [])
+
+  const handleContextRestored = useCallback(() => {
+    setContextLost(false)
+    console.log('WebGL context restored.')
+  }, [])
+
+  useEffect(() => {
+    const canvas = gl.domElement
+    canvas.addEventListener('webglcontextlost', handleContextLost)
+    canvas.addEventListener('webglcontextrestored', handleContextRestored)
+    
+    return () => {
+      canvas.removeEventListener('webglcontextlost', handleContextLost)
+      canvas.removeEventListener('webglcontextrestored', handleContextRestored)
+    }
+  }, [gl, handleContextLost, handleContextRestored])
 
   // Load the helix model from config or fallback to default
   const modelUrl = config?.model?.url || '/helix.obj'
@@ -54,18 +79,25 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Clone and prepare the DNA model
+  // Clone and prepare the DNA model with memory optimization
   const dnaModel = useMemo(() => {
-    if (obj) {
+    if (obj && !contextLost) {
       const clonedObj = obj.clone()
       
       // Apply material to all meshes in the model
       clonedObj.traverse((child) => {
         if (child instanceof THREE.Mesh) {
-          child.material = new THREE.MeshBasicMaterial({
+          // Dispose of existing material to prevent memory leaks
+          if (child.material && 'dispose' in child.material) {
+            child.material.dispose()
+          }
+          
+          child.material = new THREE.MeshStandardMaterial({
             color: new THREE.Color("#ffffff"),
             emissive: new THREE.Color("#ffffff"),
-            emissiveIntensity: 0.2
+            emissiveIntensity: 0.2,
+            metalness: 0.1,
+            roughness: 0.3
           })
         }
       })
@@ -73,7 +105,23 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
       return clonedObj
     }
     return null
-  }, [obj])
+  }, [obj, contextLost])
+
+  // Cleanup effect to dispose of resources
+  useEffect(() => {
+    return () => {
+      if (dnaModel) {
+        dnaModel.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            if (child.geometry) child.geometry.dispose()
+            if (child.material && 'dispose' in child.material) {
+              child.material.dispose()
+            }
+          }
+        })
+      }
+    }
+  }, [dnaModel])
 
   useFrame((state) => {
     if (groupRef.current && dnaModel) {
@@ -115,6 +163,15 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
     setIsDragging(false)
   }
 
+  if (contextLost) {
+    return (
+      <mesh position={[7, 0, 0]}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshBasicMaterial color="#666666" />
+      </mesh>
+    )
+  }
+
   if (!dnaModel) {
     return null // Loading fallback
   }
@@ -136,22 +193,67 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
   )
 }
 
+interface ErrorBoundaryState {
+  hasError: boolean
+  error: Error | null
+}
+
+class ThreeJSErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback?: React.ReactNode },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Three.js Error:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || (
+        <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+          <div className="text-center">
+            <div className="mb-2">WebGL Error</div>
+            <div className="text-sm opacity-75">3D visualization unavailable</div>
+          </div>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
 export function HelixCanvas() {
   return (
     <div className="absolute inset-0 opacity-100">
-      <Canvas
-        camera={{
-          position: [0, 0, 10],
-          fov: 75,
-        }}
-      >
-        <Suspense fallback={null}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[10, 10, 5]} intensity={0.5} />
-          <InteractiveHelix />
-          <Environment preset="studio" intensity={0.2} />
-        </Suspense>
-      </Canvas>
+      <ThreeJSErrorBoundary>
+        <Canvas
+          camera={{
+            position: [0, 0, 10],
+            fov: 75,
+          }}
+          onCreated={({ gl }) => {
+            // Configure WebGL for better stability
+            gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+            gl.setClearColor(0x000000, 0)
+          }}
+        >
+          <Suspense fallback={null}>
+            <ambientLight intensity={0.8} />
+            <directionalLight position={[10, 10, 5]} intensity={0.8} />
+            <pointLight position={[-10, -10, -5]} intensity={0.3} />
+            <InteractiveHelix />
+          </Suspense>
+        </Canvas>
+      </ThreeJSErrorBoundary>
     </div>
   )
 }

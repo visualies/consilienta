@@ -1,5 +1,3 @@
-"use client"
-
 import { CTASection } from "@/components/landing/cta-section"
 
 interface CTABlockProps {

@@ -1,25 +1,67 @@
-"use client"
-
-import { usePage } from '@/hooks/usePage'
+import { getPayload } from 'payload'
+import config from '../../payload.config'
 import { BlockRenderer } from '@/components/blocks'
+import { notFound } from 'next/navigation'
 
-export default function ConsilientsLanding() {
-  const { data: pageData, isLoading, error } = usePage('home')
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
-      </div>
-    )
+interface PageData {
+  id: string
+  title: string
+  slug: string
+  meta?: {
+    title?: string
+    description?: string
+    image?: {
+      url: string
+      alt: string
+    }
   }
+  layout: Array<{
+    blockType: string
+    [key: string]: any
+  }>
+  publishedAt?: string
+  status: 'draft' | 'published'
+}
 
-  if (error || !pageData) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-lg">Page not found</div>
-      </div>
-    )
+async function getHomePageData(): Promise<PageData | null> {
+  try {
+    const payload = await getPayload({ config })
+    
+    const page = await payload.find({
+      collection: 'pages',
+      where: {
+        or: [
+          {
+            slug: {
+              equals: 'home',
+            },
+          },
+          {
+            slug: {
+              equals: '/',
+            },
+          },
+        ],
+      },
+      limit: 1,
+    })
+
+    if (!page.docs.length) {
+      return null
+    }
+
+    return page.docs[0] as PageData
+  } catch (error) {
+    console.error('Error fetching home page:', error)
+    return null
+  }
+}
+
+export default async function ConsilientsLanding() {
+  const pageData = await getHomePageData()
+
+  if (!pageData) {
+    notFound()
   }
 
   return (

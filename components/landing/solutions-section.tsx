@@ -1,8 +1,8 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { FadeUpAnimation, StaggeredFadeUp, CardAnimation } from "@/components/ui/motion-wrappers"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
@@ -66,14 +66,11 @@ const defaultData = {
 }
 
 export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) {
-  const solutionsRef = useRef(null)
-  const solutionsInView = useInView(solutionsRef, { once: true, margin: "-100px" })
   const [selectedSolution, setSelectedSolution] = useState<SolutionItem | null>(null)
 
   return (
     <>
-      <motion.section 
-        ref={solutionsRef}
+      <section 
         className="px-6 py-20 relative z-10"
         style={{
           paddingBottom: '8rem',
@@ -83,55 +80,24 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
         <div className="absolute inset-0 bg-white opacity-40"></div>
         <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div 
-            className="text-center space-y-4 mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            animate={solutionsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h2 
-              className="text-4xl font-serif font-normal text-white"
-              initial={{ opacity: 0, y: 30 }}
-              animate={solutionsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              {data.title}
-            </motion.h2>
-            <motion.p 
-              className="text-xl text-white/90 max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={solutionsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              {data.subtitle}
-            </motion.p>
-          </motion.div>
+          <FadeUpAnimation className="text-center space-y-4 mb-16">
+            <FadeUpAnimation delay={0.2}>
+              <h2 className="text-4xl font-serif font-normal text-white">
+                {data.title}
+              </h2>
+            </FadeUpAnimation>
+            <FadeUpAnimation delay={0.4}>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                {data.subtitle}
+              </p>
+            </FadeUpAnimation>
+          </FadeUpAnimation>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggeredFadeUp className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" staggerDelay={0.1}>
             {data.solutionsList.map((solution, index) => (
-              <motion.div
+              <CardAnimation
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={solutionsInView ? { 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1 
-                } : { 
-                  opacity: 0, 
-                  y: 50, 
-                  scale: 0.9 
-                }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: solutionsInView ? 0.6 + (index * 0.1) : 0,
-                  ease: "easeOut"
-                }}
-                whileHover={{ 
-                  scale: 1.025, 
-                  y: -2,
-                  transition: { duration: 0.2, ease: "easeOut" }
-                }}
-                whileTap={{ scale: 0.98 }}
+                delay={0.6 + (index * 0.1)}
               >
                 <Card 
                   className="bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20 cursor-pointer"
@@ -139,7 +105,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                 >
                   <CardContent className="p-8 space-y-4 relative">
                     <div className="flex items-start justify-between">
-                      <motion.div 
+                      <div 
                         className="w-12 h-12 rounded-lg flex items-center justify-center text-white flex-shrink-0"
                         style={{ backgroundColor: solution.color || '#3B82F6' }}
                       >
@@ -155,7 +121,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                         ) : (
                           <div className="w-6 h-6 bg-white rounded-sm"></div>
                         )}
-                      </motion.div>
+                      </div>
                       {solution.popupText && (
                         <Button 
                           size="sm" 
@@ -175,11 +141,11 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                     )}
                   </CardContent>
                 </Card>
-              </motion.div>
+              </CardAnimation>
             ))}
-          </div>
+          </StaggeredFadeUp>
         </div>
-      </motion.section>
+      </section>
 
       <Dialog open={!!selectedSolution} onOpenChange={() => setSelectedSolution(null)}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">

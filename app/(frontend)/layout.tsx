@@ -2,7 +2,9 @@ import React from 'react'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Providers } from '@/components/providers'
 import localFont from 'next/font/local'
-import { LayoutWrapper } from '@/components/layout/layout-wrapper'
+import { Header } from '@/components/landing/header'
+import { Footer } from '@/components/landing/footer'
+import { getGlobals } from '@/lib/get-globals'
 import './globals.css'
 
 const rubik = localFont({
@@ -82,7 +84,9 @@ export const metadata = {
   description: 'Guiding your product from concept to approval. No matter how complex or innovative your development journey may be.',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const globalsData = await getGlobals()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`min-h-screen brand-gradient-no-black ${rubik.variable} ${qurova.variable}`}>
@@ -93,9 +97,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             enableSystem
             disableTransitionOnChange
           >
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
+            <Header data={globalsData?.header} />
+            <main>{children}</main>
+            <Footer data={globalsData?.footer} />
           </ThemeProvider>
         </Providers>
       </body>
