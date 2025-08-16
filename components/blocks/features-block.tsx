@@ -1,4 +1,4 @@
-import { FeaturesSection } from "@/components/landing/features-section"
+import { FeaturesSection } from "@/components/features-section"
 
 interface FeaturesBlockProps {
   data: {

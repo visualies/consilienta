@@ -33,12 +33,9 @@ interface InteractiveHelixProps {
 
 export function InteractiveHelix({ config }: InteractiveHelixProps) {
   const groupRef = useRef<THREE.Group>(null)
-  const [isHovered, setIsHovered] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
-  const [rotationSpeed, setRotationSpeed] = useState(config?.rotationSpeed ?? 0.2)
   const [scrollY, setScrollY] = useState(0)
   const [contextLost, setContextLost] = useState(false)
-  const dragStartRef = useRef({ x: 0, y: 0 })
+  const rotationSpeed = config?.rotationSpeed ?? 0.2
   const { gl } = useThree()
 
   // WebGL context loss handling
@@ -92,12 +89,8 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
             child.material.dispose()
           }
           
-          child.material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color("#ffffff"),
-            emissive: new THREE.Color("#ffffff"),
-            emissiveIntensity: 0.2,
-            metalness: 0.1,
-            roughness: 0.3
+          child.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color("#ffffff")
           })
         }
       })
@@ -125,14 +118,8 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
 
   useFrame((state) => {
     if (groupRef.current && dnaModel) {
-      // Continuous rotation with variable speed around Z-axis
+      // Continuous rotation with fixed speed around Z-axis
       groupRef.current.rotation.z += rotationSpeed * 0.016
-      
-      // Simple scale on hover
-      const targetScale = isHovered ? 7.7 : 7 // Scale from 7x to 7.7x on hover
-      groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * 0.1
-      groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.1
-      groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.1
       
       // 3D scroll-based movement with floating animation
       const scrollOffset = scrollY * 0.008 // Adjust multiplier to control movement speed
@@ -140,28 +127,6 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
     }
   })
 
-  const handlePointerDown = (event: THREE.Event) => {
-    event.stopPropagation()
-    setIsDragging(true)
-    dragStartRef.current = {
-      x: 'clientX' in event ? event.clientX : event.pageX,
-      y: 'clientY' in event ? event.clientY : event.pageY
-    }
-  }
-
-  const handlePointerMove = (event: THREE.Event) => {
-    if (isDragging) {
-      const currentX = 'clientX' in event ? event.clientX : event.pageX
-      const deltaX = currentX - dragStartRef.current.x
-      const newSpeed = Math.max(-2, Math.min(2, rotationSpeed + deltaX * 0.005))
-      setRotationSpeed(newSpeed)
-      dragStartRef.current.x = currentX
-    }
-  }
-
-  const handlePointerUp = () => {
-    setIsDragging(false)
-  }
 
   if (contextLost) {
     return (
@@ -182,11 +147,6 @@ export function InteractiveHelix({ config }: InteractiveHelixProps) {
       position={[7, 0, 0]}
       scale={[7, 7, 7]} // Scale to 7x for clipping effect
       rotation={[Math.PI / 2, -24 * Math.PI / 180, 0]} // Stand upright + tilt 24 degrees opposite direction on Y-axis
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerLeave={() => setIsHovered(false)}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
     >
       <primitive object={dnaModel} />
     </group>
