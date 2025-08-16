@@ -1,5 +1,3 @@
-"use client"
-
 import { Header } from "@/components/landing/header"
 
 interface HeaderBlockProps {
@@ -24,6 +22,6 @@ interface HeaderBlockProps {
   isOverWhite?: boolean
 }
 
-export function HeaderBlock({ data, isOverWhite = false }: HeaderBlockProps) {
-  return <Header data={data} isOverWhite={isOverWhite} />
+export function HeaderBlock({ data }: HeaderBlockProps) {
+  return <Header data={data} />
 }
