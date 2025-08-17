@@ -1,9 +1,10 @@
+import 'dotenv/config'
 import { getPayload } from 'payload'
-import config from '../payload.config'
+import payloadConfig from '../payload.config'
 
 async function seedGlobals() {
   try {
-    const payload = await getPayload({ config })
+    const payload = await getPayload({ config: payloadConfig })
 
     // Check if globals already exists
     const existingGlobals = await payload.findGlobal({
