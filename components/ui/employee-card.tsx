@@ -1,9 +1,9 @@
 "use client"
 
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { Mail, Phone, ExternalLink } from 'lucide-react'
+import { Mail, Phone, Linkedin, ExternalLink } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 
 interface SocialLink {
   platform: 'linkedin' | 'twitter' | 'email' | 'website'
@@ -21,6 +21,7 @@ interface EmployeeCardProps {
   email?: string
   phone?: string
   socialLinks?: SocialLink[]
+  layoutType?: 'big' | 'medium' | 'small'
 }
 
 export function EmployeeCard({
@@ -30,16 +31,15 @@ export function EmployeeCard({
   photo,
   email,
   phone,
-  socialLinks = []
+  socialLinks = [],
+  layoutType = 'big'
 }: EmployeeCardProps) {
+  const bioRef = useRef<HTMLParagraphElement>(null)
+
   const getSocialIcon = (platform: string) => {
     switch (platform) {
       case 'linkedin':
-        return (
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-        )
+        return <Linkedin className="w-4 h-4" />
       case 'twitter':
         return (
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -55,90 +55,257 @@ export function EmployeeCard({
     }
   }
 
+  const linkedInLink = socialLinks.find(link => link.platform === 'linkedin')
+
   return (
-    <Card className="bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20">
-      <CardContent className="p-8">
-        <div className="flex flex-col items-center text-center space-y-6">
-          {photo && (
-            <div className="relative w-28 h-28 rounded-full overflow-hidden bg-gray-100 ring-4 ring-white/50">
+    <Card data-employee-card className="shadow-lg border-0 overflow-hidden relative frosted-glass-navbar">
+      {/* Big layout - 3 columns side by side with fixed height */}
+      <div 
+        data-layout="big"
+        className={layoutType !== 'big' ? 'hidden' : 'flex gap-6'}
+        style={{ height: '328px' }}
+      >
+        {/* Column 1 - Photo */}
+        <div className="w-64 flex-shrink-0">
+          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg group m-1">
+            {photo ? (
               <Image
                 src={photo.url}
                 alt={photo.alt || `${name} profile photo`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
-            </div>
-          )}
-          
-          <div className="space-y-3">
-            <h3 className="text-xl font-serif font-normal text-gray-900">{name}</h3>
-            <p className="text-sm font-medium px-3 py-1 rounded-full text-white bg-brand">
-              {position}
-            </p>
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-serif bg-brand">
+                  {name.split(' ').map(n => n[0]).join('')}
+                </div>
+              </div>
+            )}
           </div>
-          
-          <p className="text-sm text-gray-600 leading-relaxed">{bio}</p>
-          
-          <div className="flex flex-col space-y-3 w-full pt-2">
-            {email && (
-              <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Mail className="w-4 h-4 text-brand" />
+        </div>
+
+        {/* Column 2 - Name, Title, and Contact Info */}
+        <div className="w-80 flex-shrink-0 p-6 flex flex-col justify-center">
+          <div className="space-y-6">
+            {/* Name and title */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-serif font-normal text-white leading-tight">
+                {name}
+              </h3>
+              <p className="text-sm font-medium leading-relaxed text-white/90">
+                {position}
+              </p>
+            </div>
+
+            {/* Contact info */}
+            <div className="flex flex-col space-y-3">
+              {email && (
                 <a 
                   href={`mailto:${email}`}
-                  className="transition-colors duration-200 text-brand"
-                  style={{ 
-                    textDecoration: 'none'
-                  }}
-                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-                  onMouseLeave={(e) => e.target.style.opacity = '1'}
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
                 >
-                  {email}
+                  <Mail className="w-4 h-4" />
+                  <span className="truncate">{email}</span>
                 </a>
+              )}
+              
+              {phone && (
+                <a 
+                  href={`tel:${phone}`}
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>{phone}</span>
+                </a>
+              )}
+
+              {linkedInLink && (
+                <a
+                  href={linkedInLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn Profile</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Column 3 - Bio with fixed height container */}
+        <div className="flex-1 p-6 flex items-center border-l border-white/20" data-bio-container="true">
+          <div className="w-full">
+            <p ref={bioRef} data-bio-ref className="text-white/90 leading-relaxed">
+              {bio}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Medium layout - 2 rows */}
+      <div className={layoutType !== 'medium' ? 'hidden' : 'block'}>
+        {/* Top row - Photo and Contact Info */}
+        <div className="flex gap-4 p-4">
+          {/* Photo */}
+          <div className="w-64 flex-shrink-0">
+            <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg group">
+              {photo ? (
+                <Image
+                  src={photo.url}
+                  alt={photo.alt || `${name} profile photo`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-serif bg-brand">
+                    {name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Name, Title, and Contact Info */}
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="space-y-4">
+              {/* Name and title */}
+              <div className="space-y-2">
+                <h3 className="text-2xl font-serif font-normal text-white leading-tight">
+                  {name}
+                </h3>
+                <p className="text-sm font-medium leading-relaxed text-white/90">
+                  {position}
+                </p>
               </div>
+
+              {/* Contact info */}
+              <div className="flex flex-col space-y-3">
+                {email && (
+                  <a 
+                    href={`mailto:${email}`}
+                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span className="truncate">{email}</span>
+                  </a>
+                )}
+                
+                {phone && (
+                  <a 
+                    href={`tel:${phone}`}
+                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span>{phone}</span>
+                  </a>
+                )}
+
+                {linkedInLink && (
+                  <a
+                    href={linkedInLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                    <span>LinkedIn Profile</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom row - Bio */}
+        <div className="border-t border-white/20 p-4">
+          <p className="text-white/90 leading-relaxed">
+            {bio}
+          </p>
+        </div>
+      </div>
+
+      {/* Small layout - Single column for mobile */}
+      <div className={layoutType !== 'small' ? 'hidden' : 'block'}>
+        <div className="p-6 space-y-6">
+          {/* Photo and Name */}
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className="w-32 h-32 flex-shrink-0">
+              <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-full group">
+                {photo ? (
+                  <Image
+                    src={photo.url}
+                    alt={photo.alt || `${name} profile photo`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-serif bg-brand">
+                      {name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Name and Title */}
+            <div className="space-y-2">
+              <h3 className="text-xl font-serif font-normal text-white leading-tight">
+                {name}
+              </h3>
+              <p className="text-sm font-medium leading-relaxed text-white/90">
+                {position}
+              </p>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="flex flex-col space-y-3">
+            {email && (
+              <a 
+                href={`mailto:${email}`}
+                className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+              >
+                <Mail className="w-4 h-4" />
+                <span className="truncate">{email}</span>
+              </a>
             )}
             
             {phone && (
-              <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Phone className="w-4 h-4 text-brand" />
-                <a 
-                  href={`tel:${phone}`}
-                  className="transition-colors duration-200 text-brand"
-                  style={{ 
-                    textDecoration: 'none'
-                  }}
-                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-                  onMouseLeave={(e) => e.target.style.opacity = '1'}
-                >
-                  {phone}
-                </a>
-              </div>
+              <a 
+                href={`tel:${phone}`}
+                className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+              >
+                <Phone className="w-4 h-4" />
+                <span>{phone}</span>
+              </a>
+            )}
+
+            {linkedInLink && (
+              <a
+                href={linkedInLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+              >
+                <Linkedin className="w-4 h-4" />
+                <span>LinkedIn Profile</span>
+              </a>
             )}
           </div>
-          
-          {socialLinks.length > 0 && (
-            <div className="flex space-x-3 pt-4">
-              {socialLinks.map((link, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  className="p-2 h-10 w-10 border-2 hover:bg-opacity-10 transition-all duration-200 border-brand text-brand"
-                  asChild
-                >
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center"
-                  >
-                    {getSocialIcon(link.platform)}
-                  </a>
-                </Button>
-              ))}
-            </div>
-          )}
+
+          {/* Bio */}
+          <div className="border-t border-white/20 pt-6">
+            <p className="text-white/90 leading-relaxed text-center">
+              {bio}
+            </p>
+          </div>
         </div>
-      </CardContent>
+      </div>
     </Card>
   )
 }

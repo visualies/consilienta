@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { ProfessionalEmployeeCard } from '@/components/ui/professional-employee-card'
+import { EmployeeCard } from '@/components/ui/employee-card'
 import { FadeUpAnimation, StaggeredFadeUp, CardAnimation } from "@/components/ui/motion-wrappers"
 
 interface Employee {
@@ -36,6 +36,7 @@ interface AboutSectionProps {
 export function AboutSection({ data }: AboutSectionProps) {
   const [layoutType, setLayoutType] = useState<'big' | 'medium' | 'small'>('big')
   const [switchToMediumWidth, setSwitchToMediumWidth] = useState<number | null>(null)
+  const [lastNonSmallLayout, setLastNonSmallLayout] = useState<'big' | 'medium'>('medium')
 
   // Flatten all employees from all sections into one array
   const allEmployees = data.sections.flatMap(section => 
@@ -66,10 +67,24 @@ export function AboutSection({ data }: AboutSectionProps) {
         
         // Check for small layout first (mobile)
         if (windowWidth < 640) { // sm breakpoint
-          setLayoutType('small')
+          setLayoutType(prev => {
+            // Remember the last non-small layout before switching to small
+            if (prev !== 'small') {
+              setLastNonSmallLayout(prev)
+            }
+            return 'small'
+          })
           isChecking = false
           return
         }
+
+        // When leaving small layout, start with the remembered layout to avoid flicker
+        setLayoutType(prev => {
+          if (prev === 'small') {
+            return lastNonSmallLayout
+          }
+          return prev
+        })
 
         // Find the first card to test overflow for big vs medium
         const firstCard = document.querySelector('[data-employee-card]') as HTMLElement
@@ -90,6 +105,8 @@ export function AboutSection({ data }: AboutSectionProps) {
 
         // Back to the working approach with adaptive hysteresis
         setLayoutType(prev => {
+          let newLayout = prev
+          
           // If currently showing big layout, measure overflow directly
           if (prev === 'big' && !bigLayoutContainer.classList.contains('hidden')) {
             const bioContainer = bigLayoutContainer.querySelector('[data-bio-container="true"]') as HTMLElement
@@ -99,19 +116,25 @@ export function AboutSection({ data }: AboutSectionProps) {
               const isOverflowing = bioRef.scrollHeight > (bioContainer.clientHeight - buffer)
               if (isOverflowing) {
                 setSwitchToMediumWidth(windowWidth)
-                return 'medium'
+                newLayout = 'medium'
+              } else {
+                newLayout = 'big'
               }
-              return 'big'
             }
           }
           
           // If currently medium, use remembered width + small buffer to go back to big
           if (prev === 'medium') {
             const threshold = switchToMediumWidth ? switchToMediumWidth + 50 : 1200
-            return windowWidth > threshold ? 'big' : 'medium'
+            newLayout = windowWidth > threshold ? 'big' : 'medium'
           }
           
-          return 'big'
+          // Update the remembered non-small layout
+          if (newLayout !== 'small') {
+            setLastNonSmallLayout(newLayout)
+          }
+          
+          return newLayout
         })
         
         // Reset checking flag
@@ -165,7 +188,7 @@ export function AboutSection({ data }: AboutSectionProps) {
                 key={employeeIndex}
                 delay={0.6 + (employeeIndex * 0.1)}
               >
-                <ProfessionalEmployeeCard
+                <EmployeeCard
                   name={employee.name}
                   position={employee.position}
                   bio={employee.bio}
