@@ -155,17 +155,21 @@ export function ContactFormBlock({
                     </div>
                   </div>
                 )}
-                                 {contactInfo?.phones && contactInfo.phones.map((phone, index) => (
-                   <div key={index} className="flex items-start space-x-4">
-                     <Phone className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
-                     <div>
-                       <p className="text-white/70 text-sm font-medium">{phone.label}</p>
-                       <a href={`tel:${phone.number}`} className="text-white hover:text-blue-300 transition-colors">
-                         {phone.number}
-                       </a>
-                     </div>
-                   </div>
-                 ))}
+                {contactInfo?.phones && contactInfo.phones.length > 0 && (
+                  <div className="flex items-start space-x-4">
+                    <Phone className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="text-white/70 text-sm font-medium">Phone</p>
+                      <div className="space-y-1">
+                        {contactInfo.phones.map((phone, index) => (
+                          <a key={index} href={`tel:${phone.number}`} className="text-white hover:text-blue-300 transition-colors block">
+                            {phone.number}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
                                  {contactInfo?.address && (
                    <div className="flex items-start space-x-4">
                      <MapPin className="w-5 h-5 text-white/70 mt-1 flex-shrink-0" />

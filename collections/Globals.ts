@@ -176,12 +176,27 @@ export const Globals: GlobalConfig = {
           },
         },
         {
-          name: 'phone',
-          type: 'text',
-          required: true,
-          defaultValue: '+49 (0)163 2457821',
+          name: 'phones',
+          type: 'array',
+          label: 'Phone Numbers',
+          minRows: 1,
+          maxRows: 5,
+          defaultValue: [
+            '+49 (0)163 2457821',
+            '+49 (0) 157 87414589'
+          ],
+          fields: [
+            {
+              name: 'phone',
+              type: 'text',
+              required: true,
+              admin: {
+                placeholder: 'e.g., +49 (0)163 2457821',
+              },
+            },
+          ],
           admin: {
-            description: 'Primary phone number displayed in the footer',
+            description: 'Phone numbers displayed in the footer',
           },
         },
         {
@@ -206,7 +221,7 @@ export const Globals: GlobalConfig = {
           ],
           defaultValue: [
             { platform: 'linkedin', url: '#' },
-            { platform: 'email', url: 'mailto:contact@consilienta.com' },
+            { platform: 'email', url: 'mailto:info@consilienta.com' },
           ],
         },
         {

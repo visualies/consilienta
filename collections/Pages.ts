@@ -657,7 +657,7 @@ export const Pages: CollectionConfig = {
               ],
               defaultValue: [
                 { platform: 'linkedin', url: '#' },
-                { platform: 'email', url: 'mailto:contact@consilienta.com' },
+                { platform: 'email', url: 'mailto:info@consilienta.com' },
               ],
             },
             {

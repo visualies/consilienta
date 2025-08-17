@@ -35,7 +35,8 @@ async function seedGlobals() {
           },
         },
         header: {
-          ...existingGlobals.header,
+          logo: 5, // logo-transparent-with-claim.svg
+          logoWhite: 6, // logo-transparent-without-claim.svg
           navigation: [
             { label: 'Home', link: '/' },
             { label: 'How We Help', link: '/how-we-help' },
@@ -49,9 +50,16 @@ async function seedGlobals() {
           },
         },
         footer: {
-          ...existingGlobals.footer,
+          logo: 5, // logo-transparent-with-claim.svg
           address: "Hanfelder St. 6\n81475 Munich\nGermany",
-          phone: "+49 (0)163 2457821",
+          phones: [
+            { phone: "+49 (0)163 2457821" },
+            { phone: "+49 (0) 157 87414589" }
+          ],
+          socialLinks: [
+            { platform: 'linkedin', url: 'https://linkedin.com/company/consilienta' },
+            { platform: 'email', url: 'mailto:info@consilienta.com' },
+          ],
           companyLinks: [
             { name: 'About Us', link: '/about-us' },
             { name: 'Careers', link: '/careers' },
