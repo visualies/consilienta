@@ -766,6 +766,9 @@ export const Pages: CollectionConfig = {
                   name: 'employees',
                   type: 'array',
                   dbName: 'employees',
+                  admin: {
+                    useAsTitle: 'name',
+                  },
                   fields: [
                     {
                       name: 'name',
@@ -827,7 +830,62 @@ export const Pages: CollectionConfig = {
               defaultValue: [
                 {
                   sectionTitle: 'Founding Members',
-                  employees: [],
+                  employees: [
+                    {
+                      name: 'Dr. Elena Meurer',
+                      position: 'co-founder & principal consultant managing director',
+                      bio: 'Elena brings 25+ years of academic, industry and consulting experience. She provides strategic, CMC and regulatory consulting for products in all development stages and for various regulatory regions. Elena has supported several MAA and BLA preparations and national hospital exemptions. She guided companies in obtaining GMP manufacturing licenses and establishing CDMO activities. Elena also contributed to projects aimed at  establishing high regulatory standards in third countries and provided training to relevant regulatory agencies.',
+                      photo: 3,
+                      email: 'elena.meurer@consilienta.com',
+                      phone: '+49 (0)163 2457821',
+                      socialLinks: [
+                        {
+                          platform: 'linkedin',
+                          url: '#',
+                        },
+                        {
+                          platform: 'email',
+                          url: 'mailto:elena.meurer@consilienta.com',
+                        },
+                      ],
+                    },
+                    {
+                      name: 'Dr. Liron Sarid-Krebs',
+                      position: 'co-founder & principal consultant managing director',
+                      bio: 'Liron is a drug development and regulatory strategist with 15+ years of experience across academia, the biotech industry and consulting services. She has led global consultancy teams and overseen clinical development and regulatory consulting activities across various regions. Liron has successfully guided companies through complex global development processes from early phase to registration, including orphan and pediatric indications.',
+                      photo: 5,
+                      email: 'liron.sarid-krebs@consilienta.com',
+                      phone: '+49 (0)157 87414589',
+                      socialLinks: [
+                        {
+                          platform: 'linkedin',
+                          url: '#',
+                        },
+                        {
+                          platform: 'email',
+                          url: 'mailto:liron.sarid-krebs@consilienta.com',
+                        },
+                      ],
+                    },
+                    {
+                      name: 'Dr. Tiina Palomäki',
+                      position: 'co-founder & principal consultant',
+                      bio: 'Tiina has 25+ years of biotech experience in academia, regulatory agency and consulting services. She is an ex-regulator of Fimea and EMA (CAT, GTWP, CPWP, SWP) with expertise in ATMPs and biotech products. She provides scientific and global regulatory strategies, nonclinical and early phase clinical development support and agency interactions such as scientific advice, CTA, IND, MAA and BLA across the regions.',
+                      photo: 6,
+                      email: 'tiina.palomaki@consilienta.com',
+                      phone: '+358 (0) 50 3684785',
+                      socialLinks: [
+                        {
+                          platform: 'linkedin',
+                          url: '#',
+                        },
+                        {
+                          platform: 'email',
+                          url: 'mailto:tiina.palomaki@consilienta.com',
+                        },
+                      ],
+                    },
+                  ],
                 },
               ],
             },

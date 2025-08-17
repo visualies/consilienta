@@ -20,16 +20,14 @@ interface Employee {
   }>
 }
 
-interface EmployeeSection {
-  sectionTitle: string
-  employees: Employee[]
-}
-
 interface AboutSectionProps {
   data: {
     title: string
     subtitle?: string
-    sections: EmployeeSection[]
+    sections: Array<{
+      sectionTitle: string
+      employees: Employee[]
+    }>
   }
 }
 
@@ -38,13 +36,8 @@ export function AboutSection({ data }: AboutSectionProps) {
   const [switchToMediumWidth, setSwitchToMediumWidth] = useState<number | null>(null)
   const [lastNonSmallLayout, setLastNonSmallLayout] = useState<'big' | 'medium'>('medium')
 
-  // Flatten all employees from all sections into one array
-  const allEmployees = data.sections.flatMap(section => 
-    section.employees.map(employee => ({
-      ...employee,
-      sectionTitle: section.sectionTitle
-    }))
-  )
+  // Flatten employees from all sections
+  const allEmployees = data.sections.flatMap(section => section.employees)
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
