@@ -182,9 +182,9 @@
 
 /* Frosted glass effects */
 .frosted-glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--frosting-glass, rgba(255, 255, 255, 0.1));
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--frosting-border, rgba(255, 255, 255, 0.2));
 }
 
 .frosted-glass-dark {
@@ -194,10 +194,15 @@
 }
 
 .frosted-glass-navbar {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--frosting-glass-navbar, rgba(255, 255, 255, 0.4));
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid var(--frosting-border, rgba(255, 255, 255, 0.3));
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dynamic frosting overlay */
+.frosted-overlay {
+  background: var(--frosting-overlay, rgba(255, 255, 255, 0.4));
 }
 
 .frosted-glass-navbar.navbar-over-white {

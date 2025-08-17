@@ -22,6 +22,7 @@ async function seedGlobals() {
       data: {
         branding: {
           brandColor: '#4041D5',
+          frostingStrength: 40,
           brandGradient: {
             angle: 135,
             colors: [

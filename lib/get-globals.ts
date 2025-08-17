@@ -47,6 +47,7 @@ interface FooterData {
 
 interface BrandingData {
   brandColor: string
+  frostingStrength: number
   brandGradient: {
     angle: number
     colors: Array<{
@@ -134,4 +135,18 @@ function adjustColorBrightness(color: string, amount: number): string {
   g = g > 255 ? 255 : g < 0 ? 0 : g
   b = b > 255 ? 255 : b < 0 ? 0 : b
   return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0')
+}
+
+export function generateFrostingCSS(frostingStrength: number) {
+  const strength = Math.max(0, Math.min(100, frostingStrength || 40)) / 100
+  
+  return `
+    :root {
+      --frosting-strength: ${strength};
+      --frosting-overlay: rgba(255, 255, 255, ${strength});
+      --frosting-glass: rgba(255, 255, 255, ${strength * 0.4});
+      --frosting-glass-navbar: rgba(255, 255, 255, ${strength});
+      --frosting-border: rgba(255, 255, 255, ${strength * 0.5});
+    }
+  `
 }

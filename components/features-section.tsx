@@ -66,7 +66,7 @@ export function FeaturesSection({ data = defaultData }: FeaturesSectionProps) {
         marginBottom: '-3rem'
       }}
     >
-      <div className="absolute inset-0 bg-white opacity-40"></div>
+      <div className="absolute inset-0 frosted-overlay"></div>
       <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <FadeUpAnimation className="text-center space-y-4 mb-16">

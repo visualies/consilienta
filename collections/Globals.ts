@@ -25,6 +25,19 @@ export const Globals: GlobalConfig = {
           },
         }),
         {
+          name: 'frostingStrength',
+          type: 'number',
+          label: 'Frosting Strength (%)',
+          required: true,
+          defaultValue: 40,
+          admin: {
+            description: 'Controls the opacity of the white frosting overlay (0-100%). Higher values create stronger frosting effect.',
+            step: 5,
+            min: 0,
+            max: 100,
+          },
+        },
+        {
           name: 'brandGradient',
           type: 'group',
           label: 'Brand Gradient',
