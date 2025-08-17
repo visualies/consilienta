@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Menu, X } from "lucide-react"
+import { ArrowRight, Menu, X, Linkedin, Mail } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useScrollHeader } from "@/components/hooks/use-scroll-header"
@@ -86,12 +86,37 @@ export function Header({ data = defaultData }: HeaderProps) {
           </div>
           
           {/* Contact Button - Desktop */}
-          <Button variant="primary" className="hidden lg:flex" asChild>
+          <Button variant="primary" className="hidden lg:flex ml-4" asChild>
             <Link href={data.contactButton.link}>
               {data.contactButton.text}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
+
+          {/* Separator - Desktop */}
+          <div className="hidden lg:block w-px h-6 bg-white/30"></div>
+
+          {/* Social Links - Desktop */}
+          <div className="hidden lg:flex items-center space-x-2">
+            <Link 
+              href="https://linkedin.com/company/consilienta"
+              className={`p-2 text-white hover:text-white/80 transition-colors rounded-lg ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
+              style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin className="h-5 w-5" />
+            </Link>
+            <Link 
+              href="mailto:info@consilienta.com"
+              className={`p-2 text-white hover:text-white/80 transition-colors rounded-lg ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
+              style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
+              aria-label="Email"
+            >
+              <Mail className="h-5 w-5" />
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -119,13 +144,35 @@ export function Header({ data = defaultData }: HeaderProps) {
                 {item.label}
               </Link>
             ))}
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-white/10 space-y-4">
               <Button variant="primary" className="w-full" asChild>
                 <Link href={data.contactButton.link}>
                   {data.contactButton.text}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
+              
+              {/* Social Links - Mobile */}
+              <div className="flex items-center justify-center space-x-4 pt-2">
+                <Link 
+                  href="https://linkedin.com/company/consilienta"
+                  className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Link>
+                <Link 
+                  href="mailto:info@consilienta.com"
+                  className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
+                  aria-label="Email"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Mail className="h-5 w-5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
