@@ -17,7 +17,6 @@ This project now includes a comprehensive contact page with a fully functional c
 - `app/(frontend)/contact/page.tsx` - Contact page route
 - `components/blocks/ContactFormBlock.tsx` - Contact form component
 - `app/(frontend)/api/contact/route.ts` - API endpoint for form submissions
-- `scripts/seed-contact-page.ts` - Script to create the contact page in Payload
 - `README-CONTACT.md` - This documentation
 
 ### Modified Files

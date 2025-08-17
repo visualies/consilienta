@@ -8,9 +8,7 @@
     "lint": "next lint",
     "start": "next start",
     "seed": "tsx scripts/seed-landing-page.ts",
-    "seed:contact": "tsx scripts/seed-contact-page.ts",
     "seed:globals": "tsx scripts/seed-globals.ts",
-    "seed:about": "tsx scripts/seed-about-page.ts",
     "seed:about-section": "tsx scripts/seed-about-section.ts"
   },
   "dependencies": {
