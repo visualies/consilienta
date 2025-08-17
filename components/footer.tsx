@@ -133,6 +133,9 @@ export function Footer({ data = defaultData }: FooterProps) {
                 {link.name}
               </a>
             ))}
+            <a href="/imprint" className="text-white/70 hover:text-white text-sm transition-colors">
+              Imprint
+            </a>
           </div>
         </div>
       </div>

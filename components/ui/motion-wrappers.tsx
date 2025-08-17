@@ -95,11 +95,10 @@ export function CardAnimation({ children, delay = 0, className }: CardAnimationP
         ease: "easeOut"
       }}
       whileHover={{ 
-        scale: 1.025, 
-        y: -2,
-        transition: { duration: 0.2, ease: "easeOut" }
+        scale: 1.015, 
+        transition: { duration: 0.25, ease: "easeOut" }
       }}
-      whileTap={{ scale: 0.98 }}
+      style={{ willChange: 'transform' }}
     >
       {children}
     </motion.div>

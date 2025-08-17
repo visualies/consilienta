@@ -110,7 +110,7 @@ export const Pages: CollectionConfig = {
               name: 'badge',
               type: 'text',
               required: true,
-              defaultValue: 'Pharmaceutical Consulting Excellence',
+              defaultValue: 'Biopharma Consulting Excellence',
             },
             {
               name: 'headline',
@@ -138,7 +138,7 @@ export const Pages: CollectionConfig = {
                   name: 'link',
                   type: 'text',
                   required: true,
-                  defaultValue: '#contact',
+                  defaultValue: '/contact',
                 },
               ],
             },
@@ -156,7 +156,7 @@ export const Pages: CollectionConfig = {
                   name: 'link',
                   type: 'text',
                   required: true,
-                  defaultValue: '#about',
+                  defaultValue: '/how-we-help',
                 },
               ],
             },
@@ -899,6 +899,349 @@ export const Pages: CollectionConfig = {
                       ],
                     },
                   ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'imprint',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Imprint',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'Legal Information',
+            },
+            {
+              name: 'companyInfo',
+              type: 'group',
+              label: 'Company Information',
+              fields: [
+                {
+                  name: 'companyName',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Consilienta GmbH',
+                },
+                {
+                  name: 'address',
+                  type: 'textarea',
+                  required: true,
+                  defaultValue: 'Hanfelder St. 6\n81475 Munich\nGermany',
+                },
+              ],
+            },
+            {
+              name: 'contactInfo',
+              type: 'group',
+              label: 'Contact Information',
+              fields: [
+                {
+                  name: 'email',
+                  type: 'email',
+                  required: true,
+                  defaultValue: 'info@consilienta.com',
+                },
+                {
+                  name: 'phones',
+                  type: 'array',
+                  label: 'Phone Numbers',
+                  minRows: 1,
+                  defaultValue: [
+                    '+49 (0)163 2457821',
+                    '+49 (0)157 87414589'
+                  ],
+                  fields: [
+                    {
+                      name: 'phone',
+                      type: 'text',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'legalInfo',
+              type: 'group',
+              label: 'Legal Information',
+              fields: [
+                {
+                  name: 'managingDirectors',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Dr. Elena Meurer, Dr. Liron Sarid-Krebs, Dr. Tiina Palomäki',
+                },
+                {
+                  name: 'commercialRegister',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Amtsgericht München',
+                },
+                {
+                  name: 'registerNumber',
+                  type: 'text',
+                  required: false,
+                  defaultValue: 'HRB [To be filled]',
+                },
+                {
+                  name: 'vatId',
+                  type: 'text',
+                  required: false,
+                  defaultValue: 'DE[To be filled]',
+                },
+              ],
+            },
+            {
+              name: 'responsiblePerson',
+              type: 'group',
+              label: 'Responsible for Content',
+              fields: [
+                {
+                  name: 'name',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Dr. Elena Meurer',
+                },
+                {
+                  name: 'description',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'According to § 55 Abs. 2 RStV:',
+                },
+                {
+                  name: 'address',
+                  type: 'textarea',
+                  required: true,
+                  defaultValue: 'Consilienta GmbH\nHanfelder St. 6\n81475 Munich, Germany',
+                },
+              ],
+            },
+            {
+              name: 'disclaimers',
+              type: 'group',
+              label: 'Legal Disclaimers',
+              fields: [
+                {
+                  name: 'contentLiability',
+                  type: 'textarea',
+                  label: 'Liability for Content',
+                  required: true,
+                  defaultValue: 'As service providers, we are liable for our own content on these pages in accordance with Sec. 7, para. 1 of the TMG (Telemediengesetz – Tele Media Act by German law). However, pursuant to Sec. 8 to 10 of the TMG, we are not under obligation to monitor external information provided or stored on our website. Once we have become aware of a specific infringement of the law, we will immediately remove the content in question.',
+                },
+                {
+                  name: 'linkLiability',
+                  type: 'textarea',
+                  label: 'Liability for Links',
+                  required: true,
+                  defaultValue: 'Our website contains links to external websites. As the content of these websites is not under our control, we cannot assume any liability for such external content. In all cases, the provider of information of the linked websites is liable for the content and accuracy of the information provided.',
+                },
+                {
+                  name: 'copyright',
+                  type: 'textarea',
+                  label: 'Copyright',
+                  required: true,
+                  defaultValue: 'The content and works on these pages created by the site operators are subject to German copyright law. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'termsOfService',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Terms of Service',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'Terms and Conditions of Use',
+            },
+            {
+              name: 'effectiveDate',
+              type: 'text',
+              required: true,
+              defaultValue: 'Effective Date: [To be filled]',
+            },
+            {
+              name: 'sections',
+              type: 'array',
+              label: 'Content Sections',
+              minRows: 1,
+              fields: [
+                {
+                  name: 'sectionTitle',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'content',
+                  type: 'textarea',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                {
+                  sectionTitle: 'Acceptance of Terms',
+                  content: 'By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.',
+                },
+                {
+                  sectionTitle: 'Use License',
+                  content: 'Permission is granted to temporarily download one copy of the materials on Consilienta\'s website for personal, non-commercial transitory viewing only.',
+                },
+                {
+                  sectionTitle: 'Disclaimer',
+                  content: 'The materials on Consilienta\'s website are provided on an \'as is\' basis. Consilienta makes no warranties, expressed or implied.',
+                },
+                {
+                  sectionTitle: 'Limitations',
+                  content: 'In no event shall Consilienta or its suppliers be liable for any damages arising out of the use or inability to use the materials on Consilienta\'s website.',
+                },
+                {
+                  sectionTitle: 'Contact Information',
+                  content: 'If you have any questions about these Terms of Service, please contact us at info@consilienta.com.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'cookies',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Cookie Policy',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'How We Use Cookies',
+            },
+            {
+              name: 'lastUpdated',
+              type: 'text',
+              required: true,
+              defaultValue: 'Last Updated: [To be filled]',
+            },
+            {
+              name: 'sections',
+              type: 'array',
+              label: 'Content Sections',
+              minRows: 1,
+              fields: [
+                {
+                  name: 'sectionTitle',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'content',
+                  type: 'textarea',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                {
+                  sectionTitle: 'What Are Cookies',
+                  content: 'Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide information to website owners.',
+                },
+                {
+                  sectionTitle: 'How We Use Cookies',
+                  content: 'We use cookies to improve your experience on our website, analyze website traffic, and understand where our visitors are coming from.',
+                },
+                {
+                  sectionTitle: 'Types of Cookies We Use',
+                  content: 'Essential Cookies: These are necessary for the website to function properly. Analytics Cookies: These help us understand how visitors interact with our website.',
+                },
+                {
+                  sectionTitle: 'Managing Cookies',
+                  content: 'You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.',
+                },
+                {
+                  sectionTitle: 'Contact Us',
+                  content: 'If you have any questions about our use of cookies, please contact us at info@consilienta.com.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'privacy',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Privacy Policy',
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'How We Protect Your Privacy',
+            },
+            {
+              name: 'lastUpdated',
+              type: 'text',
+              required: true,
+              defaultValue: 'Last Updated: [To be filled]',
+            },
+            {
+              name: 'sections',
+              type: 'array',
+              label: 'Content Sections',
+              minRows: 1,
+              fields: [
+                {
+                  name: 'sectionTitle',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'content',
+                  type: 'textarea',
+                  required: true,
+                },
+              ],
+              defaultValue: [
+                {
+                  sectionTitle: 'Information We Collect',
+                  content: 'We collect information you provide directly to us, such as when you contact us through our website, request information about our services, or communicate with us.',
+                },
+                {
+                  sectionTitle: 'How We Use Your Information',
+                  content: 'We use the information we collect to provide, maintain, and improve our services, respond to your inquiries, and communicate with you about our pharmaceutical consulting services.',
+                },
+                {
+                  sectionTitle: 'Information Sharing',
+                  content: 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this privacy policy.',
+                },
+                {
+                  sectionTitle: 'Data Security',
+                  content: 'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.',
+                },
+                {
+                  sectionTitle: 'Your Rights',
+                  content: 'You have the right to access, update, or delete your personal information. You may also opt out of certain communications from us.',
+                },
+                {
+                  sectionTitle: 'Contact Us',
+                  content: 'If you have questions about this Privacy Policy, please contact us at info@consilienta.com.',
                 },
               ],
             },

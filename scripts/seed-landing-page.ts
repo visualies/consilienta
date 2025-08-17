@@ -28,14 +28,14 @@ async function seedLandingPage() {
         title: 'Home',
         slug: 'home',
         meta: {
-          title: 'Consilienta - Pharmaceutical Consulting Excellence',
+          title: 'Consilienta - Biopharma Consulting Excellence',
           description: 'Expert pharmaceutical consulting guiding your product from concept to approval. Comprehensive solutions for complex development challenges.',
         },
         layout: [
           {
             blockType: 'hero',
             variant: 'high-impact',
-            badge: 'Pharmaceutical Consulting Excellence',
+            badge: 'Biopharma Consulting Excellence',
             headline: 'Guiding your product from concept to approval',
             description: 'No matter how complex or innovative your development journey may be. We will help you navigate each step of product development with clarity and confidence.',
             background: {

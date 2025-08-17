@@ -4,6 +4,10 @@ import { SolutionsBlock } from './solutions-block'
 import { CTABlock } from './cta-block'
 import { ContactFormBlock } from './contact-form-block'
 import { AboutUsBlock } from './about-us-block'
+import { ImprintBlock } from './imprint-block'
+import { TermsOfServiceBlock } from './terms-of-service-block'
+import { CookiesBlock } from './cookies-block'
+import { PrivacyBlock } from './privacy-block'
 
 interface BlockData {
   blockType: string
@@ -37,6 +41,14 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <ContactFormBlock key={index} {...block} />
           case 'aboutUs':
             return <AboutUsBlock key={index} data={block} />
+          case 'imprint':
+            return <ImprintBlock key={index} data={block} />
+          case 'termsOfService':
+            return <TermsOfServiceBlock key={index} data={block} />
+          case 'cookies':
+            return <CookiesBlock key={index} data={block} />
+          case 'privacy':
+            return <PrivacyBlock key={index} data={block} />
           default:
             console.warn(`Unknown block type: ${block.blockType}`)
             return null

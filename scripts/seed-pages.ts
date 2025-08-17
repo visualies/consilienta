@@ -73,6 +73,58 @@ async function seedPages() {
           }
         ]
       },
+      {
+        title: 'Imprint',
+        slug: 'imprint',
+        meta: {
+          title: 'Imprint - Consilienta',
+          description: 'Legal information and company details for Consilienta GmbH.',
+        },
+        layout: [
+          {
+            blockType: 'imprint',
+          }
+        ]
+      },
+      {
+        title: 'Terms of Service',
+        slug: 'terms-of-service',
+        meta: {
+          title: 'Terms of Service - Consilienta',
+          description: 'Terms and conditions of use for Consilienta GmbH services.',
+        },
+        layout: [
+          {
+            blockType: 'termsOfService',
+          }
+        ]
+      },
+      {
+        title: 'Cookie Policy',
+        slug: 'cookies',
+        meta: {
+          title: 'Cookie Policy - Consilienta',
+          description: 'Information about how Consilienta uses cookies on our website.',
+        },
+        layout: [
+          {
+            blockType: 'cookies',
+          }
+        ]
+      },
+      {
+        title: 'Privacy Policy',
+        slug: 'privacy',
+        meta: {
+          title: 'Privacy Policy - Consilienta',
+          description: 'Privacy policy and data protection information for Consilienta GmbH.',
+        },
+        layout: [
+          {
+            blockType: 'privacy',
+          }
+        ]
+      },
     ]
 
     for (const pageData of pages) {

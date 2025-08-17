@@ -80,7 +80,7 @@ const qurova = localFont({
 })
 
 export const metadata = {
-  title: 'Consilienta - Pharmaceutical Consulting Excellence',
+  title: 'Consilienta - Biopharma Consulting Excellence',
   description: 'Guiding your product from concept to approval. No matter how complex or innovative your development journey may be.',
 }
 
