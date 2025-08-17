@@ -55,7 +55,10 @@ export function Header({ data = defaultData }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   return (
-    <header className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}>
+    <header 
+      className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}
+      style={{'--logo-white-url': `url('${data.logoWhite.url}')`} as React.CSSProperties}
+    >
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center">
           {isOverWhite ? (

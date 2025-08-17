@@ -282,8 +282,8 @@
 
 /* Logo color changes when navbar is over white background */
 .navbar-over-white .logo-over-white {
-  background-color: var(--brand-purple) !important;
-  mask: url('/logo-with-claim.svg') no-repeat center/contain !important;
-  -webkit-mask: url('/logo-with-claim.svg') no-repeat center/contain !important;
+  background-color: var(--brand-color) !important;
+  mask: var(--logo-white-url, url('/logo-with-claim.svg')) no-repeat center/contain !important;
+  -webkit-mask: var(--logo-white-url, url('/logo-with-claim.svg')) no-repeat center/contain !important;
   filter: none !important;
 }
