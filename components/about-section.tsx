@@ -44,7 +44,7 @@ export function AboutSection({ data }: AboutSectionProps) {
   return (
     <>
       {/* Header Section with gradient background */}
-      <section className="relative px-6 py-16 overflow-hidden">
+      <section className="relative px-6 pt-16 pb-6 overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <FadeUpAnimation className="text-center space-y-4">
             <FadeUpAnimation delay={0.2}>
@@ -65,10 +65,7 @@ export function AboutSection({ data }: AboutSectionProps) {
 
       {/* Cards Section */}
       <section 
-        className="px-6 py-20 relative z-10"
-        style={{
-          paddingBottom: '6rem'
-        }}
+        className="px-6 pt-6 pb-20 relative z-10"
       >
         <div className="max-w-7xl mx-auto relative z-10">
           <StaggeredFadeUp 

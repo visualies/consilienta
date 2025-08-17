@@ -57,7 +57,7 @@ export function ProfessionalEmployeeCard({
       <div className="flex gap-6">
         {/* Column 1 - Photo */}
         <div className="w-64 flex-shrink-0">
-          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-xl group cursor-pointer m-1">
+          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg group m-1">
             {photo ? (
               <Image
                 src={photo.url}
@@ -96,20 +96,38 @@ export function ProfessionalEmployeeCard({
               {email && (
                 <a 
                   href={`mailto:${email}`}
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
+                  className="inline-block"
+                  draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    if (window.getSelection()?.toString()) {
+                      e.preventDefault()
+                    }
+                  }}
                 >
-                  <Mail className="w-4 h-4" />
-                  <span className="truncate">{email}</span>
+                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
+                    <Mail className="w-4 h-4 pointer-events-none" />
+                    <span className="truncate select-text">{email}</span>
+                  </div>
                 </a>
               )}
               
               {phone && (
                 <a 
                   href={`tel:${phone}`}
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
+                  className="inline-block"
+                  draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    if (window.getSelection()?.toString()) {
+                      e.preventDefault()
+                    }
+                  }}
                 >
-                  <Phone className="w-4 h-4" />
-                  <span>{phone}</span>
+                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
+                    <Phone className="w-4 h-4 pointer-events-none" />
+                    <span className="select-text">{phone}</span>
+                  </div>
                 </a>
               )}
 
@@ -118,10 +136,19 @@ export function ProfessionalEmployeeCard({
                   href={linkedInLink.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-sm transition-colors duration-200 hover:opacity-70 text-white/80"
+                  className="inline-block"
+                  draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    if (window.getSelection()?.toString()) {
+                      e.preventDefault()
+                    }
+                  }}
                 >
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn Profile</span>
+                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
+                    <Linkedin className="w-4 h-4 pointer-events-none" />
+                    <span className="select-text">LinkedIn Profile</span>
+                  </div>
                 </a>
               )}
             </div>

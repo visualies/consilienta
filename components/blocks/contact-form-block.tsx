@@ -139,7 +139,7 @@ export function ContactFormBlock({
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8 h-fit">
+            <div className="frosted-glass-navbar rounded-lg p-8 h-fit">
               <h3 className="text-2xl font-serif font-medium text-white mb-6">
                 Contact Information
               </h3>
@@ -183,7 +183,7 @@ export function ContactFormBlock({
 
                      {/* Contact Form */}
            <div className="lg:col-span-2">
-             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
+             <div className="frosted-glass-navbar rounded-lg p-8">
                <form onSubmit={handleSubmit} className="space-y-6">
                  <div className="grid md:grid-cols-2 gap-6">
                    {formFields?.map((field) => {
