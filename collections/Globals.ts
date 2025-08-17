@@ -167,9 +167,22 @@ export const Globals: GlobalConfig = {
           required: true,
         },
         {
-          name: 'description',
+          name: 'address',
           type: 'textarea',
-          defaultValue: 'Expert pharmaceutical consulting guiding your product from concept to approval. Comprehensive solutions for complex development challenges.',
+          required: true,
+          defaultValue: 'Hanfelder St. 6\n81475 Munich\nGermany',
+          admin: {
+            description: 'Company address displayed in the footer',
+          },
+        },
+        {
+          name: 'phone',
+          type: 'text',
+          required: true,
+          defaultValue: '+49 (0)163 2457821',
+          admin: {
+            description: 'Primary phone number displayed in the footer',
+          },
         },
         {
           name: 'socialLinks',
@@ -194,29 +207,6 @@ export const Globals: GlobalConfig = {
           defaultValue: [
             { platform: 'linkedin', url: '#' },
             { platform: 'email', url: 'mailto:contact@consilienta.com' },
-          ],
-        },
-        {
-          name: 'services',
-          type: 'array',
-          fields: [
-            {
-              name: 'name',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'link',
-              type: 'text',
-              required: true,
-            },
-          ],
-          defaultValue: [
-            { name: 'Regulatory Strategy', link: '#' },
-            { name: 'Clinical Development', link: '#' },
-            { name: 'Market Access', link: '#' },
-            { name: 'Quality Assurance', link: '#' },
-            { name: 'Compliance', link: '#' },
           ],
         },
         {

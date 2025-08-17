@@ -25,14 +25,11 @@ interface FooterData {
     url: string
     alt: string
   }
-  description: string
+  address: string
+  phone: string
   socialLinks: Array<{
     platform: string
     url: string
-  }>
-  services: Array<{
-    name: string
-    link: string
   }>
   companyLinks: Array<{
     name: string

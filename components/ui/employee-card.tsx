@@ -58,7 +58,7 @@ export function EmployeeCard({
   const linkedInLink = socialLinks.find(link => link.platform === 'linkedin')
 
   return (
-    <Card data-employee-card className="shadow-lg border-0 overflow-hidden relative frosted-glass-navbar">
+    <Card data-employee-card className="shadow-lg border-0 overflow-hidden relative frosted-glass-navbar group">
       {/* Big layout - 3 columns side by side with fixed height */}
       <div 
         data-layout="big"
@@ -67,13 +67,13 @@ export function EmployeeCard({
       >
         {/* Column 1 - Photo */}
         <div className="w-64 flex-shrink-0">
-          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg group m-1">
+          <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg m-1">
             {photo ? (
               <Image
                 src={photo.url}
                 alt={photo.alt || `${name} profile photo`}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-102"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
@@ -136,7 +136,8 @@ export function EmployeeCard({
         </div>
 
         {/* Column 3 - Bio with fixed height container */}
-        <div className="flex-1 p-6 flex items-center border-l border-white/20" data-bio-container="true">
+        <div className="flex-1 p-6 flex items-center relative" data-bio-container="true">
+          <div className="absolute left-0 top-6 bottom-6 w-px bg-white/40"></div>
           <div className="w-full">
             <p ref={bioRef} data-bio-ref className="text-white/90 leading-relaxed">
               {bio}
@@ -151,13 +152,13 @@ export function EmployeeCard({
         <div className="flex gap-4 p-4">
           {/* Photo */}
           <div className="w-64 flex-shrink-0">
-            <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg group">
+            <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg">
               {photo ? (
                 <Image
                   src={photo.url}
                   alt={photo.alt || `${name} profile photo`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-300 group-hover:scale-102"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
@@ -234,13 +235,13 @@ export function EmployeeCard({
           {/* Photo and Name */}
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="w-32 h-32 flex-shrink-0">
-              <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-full group">
+              <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-full">
                 {photo ? (
                   <Image
                     src={photo.url}
                     alt={photo.alt || `${name} profile photo`}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300 group-hover:scale-102"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">

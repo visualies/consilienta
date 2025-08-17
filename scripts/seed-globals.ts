@@ -50,6 +50,8 @@ async function seedGlobals() {
         },
         footer: {
           ...existingGlobals.footer,
+          address: "Hanfelder St. 6\n81475 Munich\nGermany",
+          phone: "+49 (0)163 2457821",
           companyLinks: [
             { name: 'About Us', link: '/about-us' },
             { name: 'Careers', link: '/careers' },
@@ -57,6 +59,7 @@ async function seedGlobals() {
             { name: 'Contact', link: '/contact' },
             { name: 'Privacy Policy', link: '/privacy' },
           ],
+          copyright: "© 2024 Consilienta. All rights reserved.",
           legalLinks: [
             { name: 'Terms of Service', link: '/terms' },
             { name: 'Privacy Policy', link: '/privacy' },

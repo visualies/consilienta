@@ -30,7 +30,7 @@ interface HeaderProps {
 
 const defaultData = {
   logo: {
-    url: '/logo-with-claim.svg',
+    url: '/logo-without-claim.svg',
     alt: 'Consilienta Logo'
   },
   logoWhite: {
