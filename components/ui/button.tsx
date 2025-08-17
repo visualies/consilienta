@@ -22,7 +22,7 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 transition-colors",
         link: "text-primary underline-offset-4 hover:underline transition-colors",
         primary:
-          "bg-[#6257CA] text-white hover:opacity-90 transition-opacity border-0 outline outline-2 outline-white/30",
+          "btn-brand text-white hover:opacity-90 transition-opacity border-0 outline outline-2 outline-white/30",
         cta:
           "bg-white text-gray-900 hover:bg-gray-100 transition-colors border-0 outline outline-2 outline-white/30",
       },

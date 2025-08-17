@@ -205,6 +205,41 @@
   border-bottom: 1px solid rgba(75, 71, 210, 0.2);
 }
 
+/* Dynamic brand color classes */
+.btn-brand {
+  background-color: var(--brand-color, #4041D5);
+  border-color: var(--brand-color, #4041D5);
+}
+
+.btn-brand:hover {
+  background-color: var(--brand-color-hover, #3537C7);
+  border-color: var(--brand-color-hover, #3537C7);
+}
+
+.text-brand {
+  color: var(--brand-color, #4041D5);
+}
+
+.border-brand {
+  border-color: var(--brand-color, #4041D5);
+}
+
+.bg-brand {
+  background-color: var(--brand-color, #4041D5);
+}
+
+.bg-brand-light {
+  background-color: var(--brand-color-light, #5B5EE8);
+}
+
+.fill-brand {
+  fill: var(--brand-color, #4041D5);
+}
+
+.stroke-brand {
+  stroke: var(--brand-color, #4041D5);
+}
+
 /* Unified gradient that spans across logo and text */
 .logo-text-unified {
   background: linear-gradient(90deg, #e89d87 0%, #a985b3 50%, #4041d5 100%);

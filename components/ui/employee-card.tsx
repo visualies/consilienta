@@ -72,10 +72,7 @@ export function EmployeeCard({
           
           <div className="space-y-3">
             <h3 className="text-xl font-serif font-normal text-gray-900">{name}</h3>
-            <p 
-              className="text-sm font-medium px-3 py-1 rounded-full text-white"
-              style={{ backgroundColor: 'var(--brand-purple)' }}
-            >
+            <p className="text-sm font-medium px-3 py-1 rounded-full text-white bg-brand">
               {position}
             </p>
           </div>
@@ -85,12 +82,11 @@ export function EmployeeCard({
           <div className="flex flex-col space-y-3 w-full pt-2">
             {email && (
               <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Mail className="w-4 h-4" style={{ color: 'var(--brand-purple)' }} />
+                <Mail className="w-4 h-4 text-brand" />
                 <a 
                   href={`mailto:${email}`}
-                  className="transition-colors duration-200"
+                  className="transition-colors duration-200 text-brand"
                   style={{ 
-                    color: 'var(--brand-purple)',
                     textDecoration: 'none'
                   }}
                   onMouseEnter={(e) => e.target.style.opacity = '0.7'}
@@ -103,12 +99,11 @@ export function EmployeeCard({
             
             {phone && (
               <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
-                <Phone className="w-4 h-4" style={{ color: 'var(--brand-purple)' }} />
+                <Phone className="w-4 h-4 text-brand" />
                 <a 
                   href={`tel:${phone}`}
-                  className="transition-colors duration-200"
+                  className="transition-colors duration-200 text-brand"
                   style={{ 
-                    color: 'var(--brand-purple)',
                     textDecoration: 'none'
                   }}
                   onMouseEnter={(e) => e.target.style.opacity = '0.7'}
@@ -127,11 +122,7 @@ export function EmployeeCard({
                   key={index}
                   variant="outline"
                   size="sm"
-                  className="p-2 h-10 w-10 border-2 hover:bg-opacity-10 transition-all duration-200"
-                  style={{ 
-                    borderColor: 'var(--brand-purple)',
-                    color: 'var(--brand-purple)'
-                  }}
+                  className="p-2 h-10 w-10 border-2 hover:bg-opacity-10 transition-all duration-200 border-brand text-brand"
                   asChild
                 >
                   <a

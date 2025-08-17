@@ -16,10 +16,22 @@ async function seedGlobals() {
       console.log('Creating new globals...')
     }
 
-    // Just update the navigation links, keeping existing logos and other data
+    // Update globals with branding configuration
     const globals = await payload.updateGlobal({
       slug: 'globals',
       data: {
+        branding: {
+          brandColor: '#4041D5',
+          brandGradient: {
+            angle: 135,
+            colors: [
+              { color: '#e89d87', position: 0 },
+              { color: '#a985b3', position: 25 },
+              { color: '#4041d5', position: 60 },
+              { color: '#2a1846', position: 100 },
+            ],
+          },
+        },
         header: {
           ...existingGlobals.header,
           navigation: [

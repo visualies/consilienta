@@ -4,7 +4,7 @@ import { Providers } from '@/components/providers'
 import localFont from 'next/font/local'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { getGlobals } from '@/lib/get-globals'
+import { getGlobals, generateBrandGradientCSS, generateBrandColorCSS } from '@/lib/get-globals'
 import './globals.css'
 
 const rubik = localFont({
@@ -86,10 +86,26 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const globalsData = await getGlobals()
+  
+  const dynamicGradient = globalsData?.branding?.brandGradient?.colors
+    ? generateBrandGradientCSS(globalsData.branding.brandGradient)
+    : 'linear-gradient(135deg, #e89d87 0%, #a985b3 25%, #4041d5 60%, #2a1846 100%)'
+  
+  const brandColorCSS = globalsData?.branding?.brandColor 
+    ? generateBrandColorCSS(globalsData.branding.brandColor)
+    : generateBrandColorCSS('#4041D5')
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`min-h-screen brand-gradient-no-black ${rubik.variable} ${qurova.variable}`}>
+      <head>
+        <style>{`
+          .dynamic-brand-gradient {
+            background: ${dynamicGradient};
+          }
+          ${brandColorCSS}
+        `}</style>
+      </head>
+      <body className={`min-h-screen dynamic-brand-gradient ${rubik.variable} ${qurova.variable}`}>
         <Providers>
           <ThemeProvider
             attribute="class"
