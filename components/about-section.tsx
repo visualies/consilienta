@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from 'react'
 import { ProfessionalEmployeeCard } from '@/components/ui/professional-employee-card'
 import { FadeUpAnimation, StaggeredFadeUp, CardAnimation } from "@/components/ui/motion-wrappers"
 
@@ -33,6 +34,9 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ data }: AboutSectionProps) {
+  const [layoutType, setLayoutType] = useState<'big' | 'medium' | 'small'>('big')
+  const [switchToMediumWidth, setSwitchToMediumWidth] = useState<number | null>(null)
+
   // Flatten all employees from all sections into one array
   const allEmployees = data.sections.flatMap(section => 
     section.employees.map(employee => ({
@@ -40,6 +44,90 @@ export function AboutSection({ data }: AboutSectionProps) {
       sectionTitle: section.sectionTitle
     }))
   )
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    let measurementTimeoutId: NodeJS.Timeout
+    let isChecking = false
+
+    const checkLayout = () => {
+      // Clear any pending checks
+      clearTimeout(timeoutId)
+      clearTimeout(measurementTimeoutId)
+      
+      // Reset checking flag when new resize starts
+      isChecking = false
+      
+      timeoutId = setTimeout(() => {
+        // Prevent multiple simultaneous checks
+        if (isChecking) return
+        isChecking = true
+        const windowWidth = window.innerWidth
+        
+        // Check for small layout first (mobile)
+        if (windowWidth < 640) { // sm breakpoint
+          setLayoutType('small')
+          isChecking = false
+          return
+        }
+
+        // Find the first card to test overflow for big vs medium
+        const firstCard = document.querySelector('[data-employee-card]') as HTMLElement
+        if (!firstCard) {
+          setLayoutType('medium')
+          isChecking = false
+          return
+        }
+
+        const bigLayoutContainer = firstCard.querySelector('[data-layout="big"]') as HTMLElement
+        const bioRef = firstCard.querySelector('[data-bio-ref]') as HTMLElement
+        
+        if (!bigLayoutContainer || !bioRef) {
+          setLayoutType('medium')
+          isChecking = false
+          return
+        }
+
+        // Back to the working approach with adaptive hysteresis
+        setLayoutType(prev => {
+          // If currently showing big layout, measure overflow directly
+          if (prev === 'big' && !bigLayoutContainer.classList.contains('hidden')) {
+            const bioContainer = bigLayoutContainer.querySelector('[data-bio-container="true"]') as HTMLElement
+            if (bioContainer && bioRef) {
+              const lineHeight = parseInt(getComputedStyle(bioRef).lineHeight) || 24
+              const buffer = lineHeight
+              const isOverflowing = bioRef.scrollHeight > (bioContainer.clientHeight - buffer)
+              if (isOverflowing) {
+                setSwitchToMediumWidth(windowWidth)
+                return 'medium'
+              }
+              return 'big'
+            }
+          }
+          
+          // If currently medium, use remembered width + small buffer to go back to big
+          if (prev === 'medium') {
+            const threshold = switchToMediumWidth ? switchToMediumWidth + 50 : 1200
+            return windowWidth > threshold ? 'big' : 'medium'
+          }
+          
+          return 'big'
+        })
+        
+        // Reset checking flag
+        isChecking = false
+      }, 150)
+    }
+
+    checkLayout()
+    window.addEventListener('resize', checkLayout)
+
+    return () => {
+      window.removeEventListener('resize', checkLayout)
+      clearTimeout(timeoutId)
+      clearTimeout(measurementTimeoutId)
+    }
+  }, [allEmployees])
 
   return (
     <>
@@ -85,6 +173,7 @@ export function AboutSection({ data }: AboutSectionProps) {
                   email={employee.email}
                   phone={employee.phone}
                   socialLinks={employee.socialLinks}
+                  layoutType={layoutType}
                 />
               </FadeUpAnimation>
             ))}
