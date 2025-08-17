@@ -86,8 +86,8 @@ export function CardAnimation({ children, delay = 0, className }: CardAnimationP
         scale: 1 
       } : { 
         opacity: 0, 
-        y: 50, 
-        scale: 0.9 
+        y: 30,
+        scale: 0.95
       }}
       transition={{ 
         duration: 0.6, 
