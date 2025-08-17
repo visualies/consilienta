@@ -93,38 +93,20 @@ export function ProfessionalEmployeeCard({
               {email && (
                 <a 
                   href={`mailto:${email}`}
-                  className="inline-block"
-                  draggable={false}
-                  onDragStart={(e) => e.preventDefault()}
-                  onClick={(e) => {
-                    if (window.getSelection()?.toString()) {
-                      e.preventDefault()
-                    }
-                  }}
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
                 >
-                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
-                    <Mail className="w-4 h-4 pointer-events-none" />
-                    <span className="truncate select-text">{email}</span>
-                  </div>
+                  <Mail className="w-4 h-4" />
+                  <span className="truncate">{email}</span>
                 </a>
               )}
               
               {phone && (
                 <a 
                   href={`tel:${phone}`}
-                  className="inline-block"
-                  draggable={false}
-                  onDragStart={(e) => e.preventDefault()}
-                  onClick={(e) => {
-                    if (window.getSelection()?.toString()) {
-                      e.preventDefault()
-                    }
-                  }}
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
                 >
-                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
-                    <Phone className="w-4 h-4 pointer-events-none" />
-                    <span className="select-text">{phone}</span>
-                  </div>
+                  <Phone className="w-4 h-4" />
+                  <span>{phone}</span>
                 </a>
               )}
 
@@ -133,19 +115,10 @@ export function ProfessionalEmployeeCard({
                   href={linkedInLink.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
-                  draggable={false}
-                  onDragStart={(e) => e.preventDefault()}
-                  onClick={(e) => {
-                    if (window.getSelection()?.toString()) {
-                      e.preventDefault()
-                    }
-                  }}
+                  className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
                 >
-                  <div className="flex items-center space-x-2 text-sm text-gray-900 frosted-glass border-0 px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-white/60 hover:text-gray-800 select-text">
-                    <Linkedin className="w-4 h-4 pointer-events-none" />
-                    <span className="select-text">LinkedIn Profile</span>
-                  </div>
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn Profile</span>
                 </a>
               )}
             </div>
