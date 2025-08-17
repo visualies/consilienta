@@ -67,10 +67,7 @@ export function ProfessionalEmployeeCard({
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-                <div 
-                  className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-serif"
-                  style={{ backgroundColor: 'var(--brand-purple)' }}
-                >
+                <div className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-serif bg-brand">
                   {name.split(' ').map(n => n[0]).join('')}
                 </div>
               </div>

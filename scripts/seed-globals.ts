@@ -11,64 +11,55 @@ async function seedGlobals() {
     })
 
     if (existingGlobals.id) {
-      console.log('Globals already exists, skipping...')
-      return
+      console.log('Globals already exists, updating with new navigation links...')
+    } else {
+      console.log('Creating new globals...')
     }
 
-    // Get media for logos
-    const media = await payload.find({
-      collection: 'media',
-      limit: 10,
-    })
-
-    const logoMedia = media.docs.find(doc => doc.filename?.includes('logo-without-claim'))
-    const logoWithClaimMedia = media.docs.find(doc => doc.filename?.includes('logo-with-claim'))
-
-    // Create globals with header and footer data
+    // Update globals with branding configuration
     const globals = await payload.updateGlobal({
       slug: 'globals',
       data: {
+        branding: {
+          brandColor: '#4041D5',
+          frostingStrength: 40,
+          brandGradient: {
+            angle: 135,
+            colors: [
+              { color: '#e89d87', position: 0 },
+              { color: '#a985b3', position: 25 },
+              { color: '#4041d5', position: 60 },
+              { color: '#2a1846', position: 100 },
+            ],
+          },
+        },
         header: {
-          logo: logoMedia?.id || null,
-          logoWhite: logoMedia?.id || null,
+          ...existingGlobals.header,
           navigation: [
-            { label: 'Home', link: '#home' },
-            { label: 'How We Help', link: '#how-we-help' },
-            { label: 'About Us', link: '#about' },
-            { label: 'Insights', link: '#insights' },
-            { label: 'Careers', link: '#careers' },
+            { label: 'Home', link: '/' },
+            { label: 'How We Help', link: '/how-we-help' },
+            { label: 'About Us', link: '/about-us' },
+            { label: 'Insights', link: '/insights' },
+            { label: 'Careers', link: '/careers' },
           ],
           contactButton: {
             text: 'Contact Us',
-            link: '#contact',
+            link: '/contact',
           },
         },
         footer: {
-          logo: logoWithClaimMedia?.id || logoMedia?.id || null,
-          description: 'Expert pharmaceutical consulting guiding your product from concept to approval. Comprehensive solutions for complex development challenges.',
-          socialLinks: [
-            { platform: 'linkedin', url: '#' },
-            { platform: 'email', url: 'mailto:contact@consilienta.com' },
-          ],
-          services: [
-            { name: 'Regulatory Strategy', link: '#' },
-            { name: 'Clinical Development', link: '#' },
-            { name: 'Market Access', link: '#' },
-            { name: 'Quality Assurance', link: '#' },
-            { name: 'Compliance', link: '#' },
-          ],
+          ...existingGlobals.footer,
           companyLinks: [
-            { name: 'About Us', link: '#about' },
-            { name: 'Careers', link: '#careers' },
-            { name: 'Insights', link: '#insights' },
-            { name: 'Contact', link: '#contact' },
-            { name: 'Privacy Policy', link: '#privacy' },
+            { name: 'About Us', link: '/about-us' },
+            { name: 'Careers', link: '/careers' },
+            { name: 'Insights', link: '/insights' },
+            { name: 'Contact', link: '/contact' },
+            { name: 'Privacy Policy', link: '/privacy' },
           ],
-          copyright: '© 2024 Consilienta. All rights reserved. Pharmaceutical consulting excellence.',
           legalLinks: [
-            { name: 'Terms of Service', link: '#terms' },
-            { name: 'Privacy Policy', link: '#privacy' },
-            { name: 'Cookies', link: '#cookies' },
+            { name: 'Terms of Service', link: '/terms' },
+            { name: 'Privacy Policy', link: '/privacy' },
+            { name: 'Cookies', link: '/cookies' },
           ],
         },
       },

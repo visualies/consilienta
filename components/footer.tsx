@@ -58,7 +58,7 @@ export function Footer({ data = defaultData }: FooterProps) {
   return (
     <footer 
       className="px-6 py-16 text-white relative z-10">
-      <div className="absolute inset-0 bg-white opacity-40"></div>
+      <div className="absolute inset-0 frosted-overlay"></div>
       <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid md:grid-cols-4 gap-8 mb-12">

@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight } from "lucide-react"
 import { ParallaxAnimation, HeroAnimation, ScaleAnimation, FadeUpAnimation } from "@/components/ui/motion-wrappers"
-import { HelixCanvas } from "./interactive-helix"
+import { lazy, Suspense } from "react"
+
+const HelixCanvas = lazy(() => import("./interactive-helix").then(module => ({ default: module.HelixCanvas })))
 
 interface HeroSectionProps {
   data?: {
@@ -70,7 +72,11 @@ const defaultHelixConfig = {
 export function HeroSection({ data = defaultData, helixConfig = defaultHelixConfig }: HeroSectionProps) {
   return (
     <section className="relative px-6 py-20 -mt-14 pt-32 overflow-hidden min-h-[60vh]">
-      {helixConfig.enabled && <HelixCanvas config={helixConfig} />}
+      {helixConfig.enabled && (
+        <Suspense fallback={<div className="absolute inset-0" />}>
+          <HelixCanvas config={helixConfig} />
+        </Suspense>
+      )}
 
       <ParallaxAnimation className="max-w-7xl mx-auto relative z-10">
         <HeroAnimation className="space-y-8 max-w-3xl">
