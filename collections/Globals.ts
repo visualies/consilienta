@@ -200,6 +200,15 @@ export const Globals: GlobalConfig = {
           },
         },
         {
+          name: 'email',
+          type: 'email',
+          required: true,
+          defaultValue: 'info@consilienta.com',
+          admin: {
+            description: 'Primary contact email displayed in the footer',
+          },
+        },
+        {
           name: 'socialLinks',
           type: 'array',
           fields: [

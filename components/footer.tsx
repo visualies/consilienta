@@ -103,17 +103,6 @@ export function Footer({ data = defaultData }: FooterProps) {
                     <p className="leading-relaxed whitespace-pre-line">{data.address}</p>
                   </div>
                 </div>
-                
-                {/* Social Links */}
-                {data.socialLinks.length > 0 && (
-                  <div className="flex space-x-4 pt-2">
-                    {data.socialLinks.map((link, index) => (
-                      <Button key={index} variant="secondary" size="sm" asChild>
-                        <a href={link.url}>{link.platform}</a>
-                      </Button>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* Company Links */}

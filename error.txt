@@ -1,0 +1,32 @@
+PS C:\Users\Julius\Projects\Consilienta>  npm run seed:globals
+> my-v0-project@0.1.0 seed:globals
+> tsx scripts/seed-globals.ts
+
+Error seeding globals: Error: Error: missing secret key. A secret key is needed to secure Payload.
+    at BasePayload.init (C:\Users\Julius\Projects\Consilienta\node_modules\payload\dist\index.js:259:19)
+    at async getPayload (C:\Users\Julius\Projects\Consilienta\node_modules\payload\dist\index.js:525:26)
+    at async seedGlobals (C:\Users\Julius\Projects\Consilienta\scripts\seed-globals.ts:6:21) {
+  payloadInitError: true
+}
+Globals seeding completed
+PS C:\Users\Julius\Projects\Consilienta>  npm run seed:globals
+
+> my-v0-project@0.1.0 seed:globals
+> tsx scripts/seed-globals.ts
+
+Error seeding globals: Error: Error: missing secret key. A secret key is needed to secure Payload.
+    at BasePayload.init (C:\Users\Julius\Projects\Consilienta\node_modules\payload\dist\index.js:259:19)
+    at async getPayload (C:\Users\Julius\Projects\Consilienta\node_modules\payload\dist\index.js:525:26)
+    at async seedGlobals (C:\Users\Julius\Projects\Consilienta\scripts\seed-globals.ts:6:21) {
+  payloadInitError: true
+}
+Globals seeding completed
+PS C:\Users\Julius\Projects\Consilienta>  npm run seed:about-section
+
+> my-v0-project@0.1.0 seed:about-section
+> tsx scripts/seed-about-section.ts
+
+[✓] Pulling schema from database...
+[08:26:32] WARN: No email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.
+About Us section seeded successfully: 1
+About Us seeding completed

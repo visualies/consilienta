@@ -31,69 +31,6 @@ async function seedPages() {
         layout: [
           {
             blockType: 'aboutUs',
-            title: 'About Us',
-            subtitle: 'Meet our team of experts',
-            sections: [
-              {
-                sectionTitle: 'Founding Members',
-                employees: [
-                  {
-                    name: 'Dr. Elena Meurer',
-                    position: 'co-founder & principal consultant managing director',
-                    bio: 'Elena brings 25+ years of academic, industry and consulting experience. She provides strategic, CMC and regulatory consulting for products in all development stages and for various regulatory regions.',
-                    photo: 7, // portrait1.jpg
-                    email: 'elena.meurer@consilienta.com',
-                    phone: '+49 (0)163 2457821',
-                    socialLinks: [
-                      {
-                        platform: 'linkedin',
-                        url: '#',
-                      },
-                      {
-                        platform: 'email',
-                        url: 'mailto:elena.meurer@consilienta.com',
-                      },
-                    ],
-                  },
-                  {
-                    name: 'Dr. Liron Sarid-Krebs',
-                    position: 'co-founder & principal consultant managing director',
-                    bio: 'Liron is a drug development and regulatory strategist with 15+ years of experience across academia, the biotech industry and consulting services.',
-                    photo: 8, // portrait2.jpg
-                    email: 'liron.sarid-krebs@consilienta.com',
-                    phone: '+49 (0)157 87414589',
-                    socialLinks: [
-                      {
-                        platform: 'linkedin',
-                        url: '#',
-                      },
-                      {
-                        platform: 'email',
-                        url: 'mailto:liron.sarid-krebs@consilienta.com',
-                      },
-                    ],
-                  },
-                  {
-                    name: 'Dr. Tiina Palomäki',
-                    position: 'co-founder & principal consultant',
-                    bio: 'Tiina has 25+ years of biotech experience in academia, regulatory agency and consulting services. She is an ex-regulator of Fimea and EMA.',
-                    photo: 9, // portrait3.jpg
-                    email: 'tiina.palomaki@consilienta.com',
-                    phone: '+358 (0) 50 3684785',
-                    socialLinks: [
-                      {
-                        platform: 'linkedin',
-                        url: '#',
-                      },
-                      {
-                        platform: 'email',
-                        url: 'mailto:tiina.palomaki@consilienta.com',
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
           }
         ]
       },
