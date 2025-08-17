@@ -53,9 +53,79 @@ export function ContactFormBlock({
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [lastSubmittedData, setLastSubmittedData] = useState<Record<string, string>>({})
+
+  const validateField = (name: string, value: string, field: any): string => {
+    if (field.required && (!value || value.trim() === '')) {
+      return 'required'
+    }
+
+    if (field.type === 'email' && value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(value)) {
+        return 'invalid email'
+      }
+    }
+
+    if (field.type === 'tel' && value) {
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/
+      if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''))) {
+        return 'invalid phone'
+      }
+    }
+
+    if (name === 'firstName' || name === 'lastName') {
+      if (value && value.length < 2) {
+        return 'min. 2 characters'
+      }
+      if (value && !/^[a-zA-Z\s\-'\.]+$/.test(value)) {
+        return 'letters only'
+      }
+    }
+
+    if (name === 'message' && value && value.length < 10) {
+      return 'min. 10 characters'
+    }
+
+    return ''
+  }
+
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {}
+    
+    formFields?.forEach(field => {
+      const value = formData[field.name] || ''
+      const error = validateField(field.name, value, field)
+      if (error) {
+        newErrors[field.name] = error
+      }
+    })
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Force validation of all fields to show all errors at once
+    const newErrors: Record<string, string> = {}
+    
+    formFields?.forEach(field => {
+      const value = formData[field.name] || ''
+      const error = validateField(field.name, value, field)
+      if (error) {
+        newErrors[field.name] = error
+      }
+    })
+
+    setErrors(newErrors)
+    
+    if (Object.keys(newErrors).length > 0) {
+      return
+    }
+
     setIsSubmitting(true)
     
     try {
@@ -74,12 +144,18 @@ export function ContactFormBlock({
       }
 
       console.log('Form submitted successfully:', result)
+      
+      // Save submitted data (excluding message for new form)
+      const dataToSave = { ...formData }
+      delete dataToSave.message // Clear message but keep personal info
+      setLastSubmittedData(dataToSave)
+      
       setIsSubmitted(true)
       setFormData({})
+      setErrors({})
     } catch (error) {
       console.error('Error submitting form:', error)
-      // You could add error state handling here
-      alert('Failed to submit form. Please try again.')
+      // Could add error handling here if needed
     } finally {
       setIsSubmitting(false)
     }
@@ -87,6 +163,27 @@ export function ContactFormBlock({
 
   const handleChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors[name]
+        return newErrors
+      })
+    }
+  }
+
+  const handleBlur = (name: string) => {
+    const field = formFields?.find(f => f.name === name)
+    if (field) {
+      const value = formData[name] || ''
+      const error = validateField(name, value, field)
+      setErrors(prev => ({
+        ...prev,
+        [name]: error
+      }))
+    }
   }
 
   if (isSubmitted) {
@@ -102,7 +199,10 @@ export function ContactFormBlock({
               {displaySuccessMessage}
             </p>
             <Button 
-              onClick={() => setIsSubmitted(false)}
+              onClick={() => {
+                setIsSubmitted(false)
+                setFormData(lastSubmittedData) // Restore previous data
+              }}
               variant="cta"
               size="lg"
             >
@@ -188,7 +288,7 @@ export function ContactFormBlock({
                      {/* Contact Form */}
            <div className="lg:col-span-2">
              <div className="frosted-glass-navbar rounded-lg p-8">
-               <form onSubmit={handleSubmit} className="space-y-6">
+               <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                  <div className="grid md:grid-cols-2 gap-6">
                    {formFields?.map((field) => {
                      if (field.type === "select") {
@@ -197,13 +297,17 @@ export function ContactFormBlock({
                            <label className="block text-white mb-2 font-medium">
                              {field.label}
                              {field.required && <span className="text-red-400 ml-1">*</span>}
+                             {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                            </label>
                            <Select
                              value={formData[field.name] || ""}
-                             onValueChange={(value) => handleChange(field.name, value)}
+                             onValueChange={(value) => {
+                               handleChange(field.name, value)
+                               handleBlur(field.name) // Validate immediately on selection
+                             }}
                              required={field.required}
                            >
-                             <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                             <SelectTrigger className={`bg-white/10 text-white ${errors[field.name] ? 'border-red-400/60 bg-red-500/5' : 'border-white/20'}`}>
                                <SelectValue placeholder={field.placeholder || `Select ${field.label.toLowerCase()}`} />
                              </SelectTrigger>
                              <SelectContent className="bg-gray-800 border-white/20">
@@ -224,13 +328,15 @@ export function ContactFormBlock({
                            <label className="block text-white mb-2 font-medium">
                              {field.label}
                              {field.required && <span className="text-red-400 ml-1">*</span>}
+                             {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                            </label>
                            <Textarea
                              value={formData[field.name] || ""}
                              onChange={(e) => handleChange(field.name, e.target.value)}
+                             onBlur={() => handleBlur(field.name)}
                              required={field.required}
                              placeholder={field.placeholder}
-                             className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[120px]"
+                             className={`text-white placeholder:text-white/50 min-h-[120px] ${errors[field.name] ? 'border-red-400/60 bg-red-500/5' : 'bg-white/10 border-white/20'}`}
                            />
                          </div>
                        )
@@ -241,19 +347,22 @@ export function ContactFormBlock({
                          <label className="block text-white mb-2 font-medium">
                            {field.label}
                            {field.required && <span className="text-red-400 ml-1">*</span>}
+                           {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                          </label>
                          <Input
                            type={field.type}
                            value={formData[field.name] || ""}
                            onChange={(e) => handleChange(field.name, e.target.value)}
+                           onBlur={() => handleBlur(field.name)}
                            required={field.required}
                            placeholder={field.placeholder}
-                           className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                           className={`text-white placeholder:text-white/50 ${errors[field.name] ? 'border-red-400/60 bg-red-500/5' : 'bg-white/10 border-white/20'}`}
                          />
                        </div>
                      )
                    })}
                  </div>
+                
                 
                 <Button 
                   type="submit" 

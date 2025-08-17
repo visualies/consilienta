@@ -97,6 +97,7 @@ export function Header({ data = defaultData }: HeaderProps) {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 text-white hover:text-white/80 transition-colors"
+            style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

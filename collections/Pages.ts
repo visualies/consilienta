@@ -752,6 +752,19 @@ export const Pages: CollectionConfig = {
               defaultValue: 'Meet our team of experts',
             },
             {
+              name: 'layout',
+              type: 'select',
+              required: true,
+              defaultValue: 'default',
+              options: [
+                { label: 'Default Layout', value: 'default' },
+                { label: 'Card Layout (3 columns)', value: 'cards' },
+              ],
+              admin: {
+                description: 'Choose how to display the employee information',
+              },
+            },
+            {
               name: 'sections',
               type: 'array',
               dbName: 'sections',

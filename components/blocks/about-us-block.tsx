@@ -6,6 +6,7 @@ interface AboutUsBlockProps {
   data: {
     title: string
     subtitle?: string
+    layout?: 'default' | 'cards'
     sections: Array<{
       sectionTitle: string
       employees: Array<{

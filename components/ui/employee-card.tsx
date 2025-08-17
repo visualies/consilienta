@@ -22,6 +22,7 @@ interface EmployeeCardProps {
   phone?: string
   socialLinks?: SocialLink[]
   layoutType?: 'big' | 'medium' | 'small'
+  cardStyle?: 'horizontal' | 'vertical'
 }
 
 export function EmployeeCard({
@@ -32,7 +33,8 @@ export function EmployeeCard({
   email,
   phone,
   socialLinks = [],
-  layoutType = 'big'
+  layoutType = 'big',
+  cardStyle = 'horizontal'
 }: EmployeeCardProps) {
   const bioRef = useRef<HTMLParagraphElement>(null)
 
@@ -58,7 +60,7 @@ export function EmployeeCard({
   const linkedInLink = socialLinks.find(link => link.platform === 'linkedin')
 
   return (
-    <Card data-employee-card className="shadow-lg border-0 overflow-hidden relative frosted-glass-navbar group">
+    <Card data-employee-card className={`shadow-lg border-0 overflow-hidden relative frosted-glass-navbar group ${cardStyle === 'vertical' ? 'h-full flex flex-col' : ''}`}>
       {/* Big layout - 3 columns side by side with fixed height */}
       <div 
         data-layout="big"
@@ -146,87 +148,169 @@ export function EmployeeCard({
         </div>
       </div>
 
-      {/* Medium layout - 2 rows */}
+      {/* Medium layout - 2 rows (horizontal) or vertical card */}
       <div className={layoutType !== 'medium' ? 'hidden' : 'block'}>
-        {/* Top row - Photo and Contact Info */}
-        <div className="flex gap-4 p-4">
-          {/* Photo */}
-          <div className="w-64 flex-shrink-0">
-            <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg">
-              {photo ? (
-                <Image
-                  src={photo.url}
-                  alt={photo.alt || `${name} profile photo`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-102"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-serif bg-brand">
-                    {name.split(' ').map(n => n[0]).join('')}
-                  </div>
+        {cardStyle === 'vertical' ? (
+          /* Vertical card layout for 3-column grid */
+          <div className="p-2 pb-4 space-y-3 text-center flex flex-col h-full">
+            {/* Photo */}
+            <div className="w-full">
+              <div className="w-full h-64">
+                <div className="relative w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg">
+                  {photo ? (
+                    <Image
+                      src={photo.url}
+                      alt={photo.alt || `${name} profile photo`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-102"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-serif bg-brand">
+                        {name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </div>
+            </div>
+
+            {/* Name and Title */}
+            <div className="space-y-2 pb-3 border-b border-white/40">
+              <h3 className="text-xl font-serif font-normal text-white leading-tight">
+                {name}
+              </h3>
+              <p className="text-sm font-medium leading-relaxed text-white/90">
+                {position}
+              </p>
+            </div>
+
+            {/* Contact info */}
+            <div className="flex flex-col space-y-3">
+              {email && (
+                <a 
+                  href={`mailto:${email}`}
+                  className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="truncate">{email}</span>
+                </a>
+              )}
+              
+              {phone && (
+                <a 
+                  href={`tel:${phone}`}
+                  className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>{phone}</span>
+                </a>
+              )}
+
+              {linkedInLink && (
+                <a
+                  href={linkedInLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn Profile</span>
+                </a>
               )}
             </div>
-          </div>
 
-          {/* Name, Title, and Contact Info */}
-          <div className="flex-1 flex flex-col justify-center">
-            <div className="space-y-4">
-              {/* Name and title */}
-              <div className="space-y-2">
-                <h3 className="text-2xl font-serif font-normal text-white leading-tight">
-                  {name}
-                </h3>
-                <p className="text-sm font-medium leading-relaxed text-white/90">
-                  {position}
-                </p>
-              </div>
-
-              {/* Contact info */}
-              <div className="flex flex-col space-y-3">
-                {email && (
-                  <a 
-                    href={`mailto:${email}`}
-                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span className="truncate">{email}</span>
-                  </a>
-                )}
-                
-                {phone && (
-                  <a 
-                    href={`tel:${phone}`}
-                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
-                  >
-                    <Phone className="w-4 h-4" />
-                    <span>{phone}</span>
-                  </a>
-                )}
-
-                {linkedInLink && (
-                  <a
-                    href={linkedInLink.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    <span>LinkedIn Profile</span>
-                  </a>
-                )}
-              </div>
+            {/* Bio */}
+            <div className="border-t border-white/40 pt-4 px-2 flex-1 flex flex-col justify-start">
+              <p className="text-white/90 leading-relaxed text-left">
+                {bio}
+              </p>
             </div>
           </div>
-        </div>
+        ) : (
+          /* Original horizontal layout */
+          <>
+            {/* Top row - Photo and Contact Info */}
+            <div className="flex gap-4 p-4">
+              {/* Photo */}
+              <div className="w-64 flex-shrink-0">
+                <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-lg">
+                  {photo ? (
+                    <Image
+                      src={photo.url}
+                      alt={photo.alt || `${name} profile photo`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-102"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+                      <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-serif bg-brand">
+                        {name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-        {/* Bottom row - Bio */}
-        <div className="border-t border-white/20 p-4">
-          <p className="text-white/90 leading-relaxed">
-            {bio}
-          </p>
-        </div>
+              {/* Name, Title, and Contact Info */}
+              <div className="flex-1 flex flex-col justify-center">
+                <div className="space-y-4">
+                  {/* Name and title */}
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-serif font-normal text-white leading-tight">
+                      {name}
+                    </h3>
+                    <p className="text-sm font-medium leading-relaxed text-white/90">
+                      {position}
+                    </p>
+                  </div>
+
+                  {/* Contact info */}
+                  <div className="flex flex-col space-y-3">
+                    {email && (
+                      <a 
+                        href={`mailto:${email}`}
+                        className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                      >
+                        <Mail className="w-4 h-4" />
+                        <span className="truncate">{email}</span>
+                      </a>
+                    )}
+                    
+                    {phone && (
+                      <a 
+                        href={`tel:${phone}`}
+                        className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                      >
+                        <Phone className="w-4 h-4" />
+                        <span>{phone}</span>
+                      </a>
+                    )}
+
+                    {linkedInLink && (
+                      <a
+                        href={linkedInLink.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-sm text-white/90 hover:text-white transition-colors duration-200"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        <span>LinkedIn Profile</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom row - Bio */}
+            <div className="border-t border-white/20 p-4">
+              <p className="text-white/90 leading-relaxed">
+                {bio}
+              </p>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Small layout - Single column for mobile */}

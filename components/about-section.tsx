@@ -24,6 +24,7 @@ interface AboutSectionProps {
   data: {
     title: string
     subtitle?: string
+    layout?: 'default' | 'cards'
     sections: Array<{
       sectionTitle: string
       employees: Employee[]
@@ -172,28 +173,55 @@ export function AboutSection({ data }: AboutSectionProps) {
         className="px-6 pt-6 pb-20 relative z-10"
       >
         <div className="max-w-7xl mx-auto relative z-10">
-          <StaggeredFadeUp 
-            className="grid grid-cols-1 gap-8"
-            staggerDelay={0.1}
-          >
-            {allEmployees.map((employee, employeeIndex) => (
-              <FadeUpAnimation
-                key={employeeIndex}
-                delay={0.6 + (employeeIndex * 0.1)}
-              >
-                <EmployeeCard
-                  name={employee.name}
-                  position={employee.position}
-                  bio={employee.bio}
-                  photo={employee.photo}
-                  email={employee.email}
-                  phone={employee.phone}
-                  socialLinks={employee.socialLinks}
-                  layoutType={layoutType}
-                />
-              </FadeUpAnimation>
-            ))}
-          </StaggeredFadeUp>
+          {data.layout === 'cards' ? (
+            <StaggeredFadeUp 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+              style={{ gridAutoRows: '1fr' }}
+              staggerDelay={0.1}
+            >
+              {allEmployees.map((employee, employeeIndex) => (
+                <FadeUpAnimation
+                  key={employeeIndex}
+                  delay={0.6 + (employeeIndex * 0.1)}
+                >
+                  <EmployeeCard
+                    name={employee.name}
+                    position={employee.position}
+                    bio={employee.bio}
+                    photo={employee.photo}
+                    email={employee.email}
+                    phone={employee.phone}
+                    socialLinks={employee.socialLinks}
+                    layoutType="medium"
+                    cardStyle="vertical"
+                  />
+                </FadeUpAnimation>
+              ))}
+            </StaggeredFadeUp>
+          ) : (
+            <StaggeredFadeUp 
+              className="grid grid-cols-1 gap-8"
+              staggerDelay={0.1}
+            >
+              {allEmployees.map((employee, employeeIndex) => (
+                <FadeUpAnimation
+                  key={employeeIndex}
+                  delay={0.6 + (employeeIndex * 0.1)}
+                >
+                  <EmployeeCard
+                    name={employee.name}
+                    position={employee.position}
+                    bio={employee.bio}
+                    photo={employee.photo}
+                    email={employee.email}
+                    phone={employee.phone}
+                    socialLinks={employee.socialLinks}
+                    layoutType={layoutType}
+                  />
+                </FadeUpAnimation>
+              ))}
+            </StaggeredFadeUp>
+          )}
         </div>
       </section>
     </>

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,28 +24,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Here you would typically:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Integrate with CRM
-    // 4. Log the submission
+    // Get Payload instance
+    const payload = await getPayload({ config })
 
-    console.log('Contact form submission:', {
-      firstName,
-      lastName,
-      email,
-      company,
-      phone,
-      service,
-      message,
-      submittedAt: new Date().toISOString(),
+    // Save to database
+    const submission = await payload.create({
+      collection: 'contact-submissions',
+      data: {
+        firstName,
+        lastName,
+        email,
+        company: company || '',
+        phone: phone || '',
+        service,
+        message,
+        submittedAt: new Date(),
+        status: 'new',
+      },
     })
 
-    // For now, we'll just return success
-    // In a real application, you'd want to:
-    // - Save to a database collection
-    // - Send email notifications
-    // - Integrate with your CRM system
+    console.log('Contact form submission saved:', submission.id)
 
     return NextResponse.json({
       success: true,
