@@ -27,7 +27,7 @@ export function FadeUpAnimation({ children, delay = 0, className }: FadeUpAnimat
       className={className}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay }}
+      transition={{ duration: 0.8, delay: 0 }}
     >
       {children}
     </motion.div>
@@ -91,7 +91,7 @@ export function CardAnimation({ children, delay = 0, className }: CardAnimationP
       }}
       transition={{ 
         duration: 0.6, 
-        delay,
+        delay: 0,
         ease: "easeOut"
       }}
       whileHover={{ 
@@ -138,7 +138,7 @@ export function HeroAnimation({ children, delay = 0, className }: HeroAnimationP
       className={className}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay, ease: "easeOut" }}
+      transition={{ duration: 0.8, delay: 0, ease: "easeOut" }}
     >
       {children}
     </motion.div>
