@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload/types'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { backgroundImageFields } from '../lib/payload-fields'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -379,6 +380,7 @@ export const Pages: CollectionConfig = {
                 },
               ],
             },
+            ...backgroundImageFields,
           ],
         },
         {
@@ -905,33 +907,41 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
-          slug: 'legal-notice',
+          slug: 'pageHeadline',
           fields: [
-            {
-              name: 'pageTitle',
-              type: 'text',
-              required: true,
-              defaultValue: 'Legal Notice',
-              admin: {
-                description: 'Main page title displayed at the top',
-              },
-            },
-            {
-              name: 'pageSubtitle',
-              type: 'textarea',
-              required: false,
-              defaultValue: 'Legal Information',
-              admin: {
-                description: 'Page subtitle displayed below the main title',
-              },
-            },
             {
               name: 'title',
               type: 'text',
               required: true,
-              defaultValue: 'Deutsch',
+              defaultValue: 'Page Title',
               admin: {
-                description: 'Title for this specific legal notice block (e.g., "Deutsch", "English")',
+                description: 'Main page headline (like Contact, About Us, Legal Notice)',
+              },
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              required: false,
+              admin: {
+                description: 'Optional subtitle displayed below the main headline',
+              },
+            },
+          ],
+        },
+        {
+          slug: 'backgroundImage',
+          fields: backgroundImageFields,
+        },
+        {
+          slug: 'legal-notice',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Impressum',
+              admin: {
+                description: 'Card title (e.g., "Impressum", "Legal Notice")',
               },
             },
             {
@@ -940,7 +950,7 @@ export const Pages: CollectionConfig = {
               required: false,
               defaultValue: 'Angaben gemäß § 5 TMG',
               admin: {
-                description: 'Subtitle for this specific legal notice block',
+                description: 'Card subtitle',
               },
             },
             {
@@ -948,13 +958,13 @@ export const Pages: CollectionConfig = {
               type: 'textarea',
               required: false,
               admin: {
-                description: 'Optional disclaimer text (e.g., for English versions: "This English version is provided for convenience...")',
+                description: 'Optional disclaimer text in top-right corner',
               },
             },
             {
               name: 'companyInfo',
               type: 'group',
-              label: 'Company Information',
+              label: '1. Company Information',
               fields: [
                 {
                   name: 'companyName',
@@ -973,40 +983,31 @@ export const Pages: CollectionConfig = {
             {
               name: 'contactInfo',
               type: 'group',
-              label: 'Contact Information',
+              label: '2. Contact Information',
               fields: [
                 {
                   name: 'contactLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Kontakt',
-                  admin: {
-                    description: 'Configurable label for contact section (e.g., "Kontakt", "Contact")',
-                  },
                 },
                 {
                   name: 'phoneLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Telefon',
-                  admin: {
-                    description: 'Configurable label for phone (e.g., "Telefon", "Phone")',
-                  },
                 },
                 {
                   name: 'emailLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'E-Mail',
-                  admin: {
-                    description: 'Configurable label for email (e.g., "E-Mail", "Email")',
-                  },
                 },
                 {
                   name: 'phone',
                   type: 'text',
                   required: false,
-                  defaultValue: '[bitte einfügen]',
+                  defaultValue: '+49 (0)163 2457821',
                 },
                 {
                   name: 'email',
@@ -1019,56 +1020,44 @@ export const Pages: CollectionConfig = {
             {
               name: 'managingDirectors',
               type: 'group',
-              label: 'Managing Directors',
+              label: '3. Managing Directors',
               fields: [
                 {
                   name: 'label',
                   type: 'text',
                   required: true,
                   defaultValue: 'Vertreten durch die Geschäftsführer',
-                  admin: {
-                    description: 'Configurable label for managing directors section',
-                  },
                 },
                 {
                   name: 'directors',
                   type: 'textarea',
                   required: true,
-                  defaultValue: 'Dr. Elena Meurer,\nDr. Liron Sarid-Krebs\nDr. Tiina Palomäki',
+                  defaultValue: 'Dr. Elena Meurer\nDr. Liron Sarid-Krebs\nDr. Tiina Palomäki',
                 },
               ],
             },
             {
               name: 'registrationInfo',
               type: 'group',
-              label: 'Registration Information',
+              label: '4. Registration Information',
               fields: [
                 {
                   name: 'registerLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Registereintrag',
-                  admin: {
-                    description: 'Configurable label for registration section',
-                  },
                 },
                 {
                   name: 'commercialRegisterLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Handelsregister',
-                  admin: {
-                    description: 'Configurable label for commercial register',
-                  },
                 },
                 {
                   name: 'registrationNumberLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Registernummer',
-                  admin: {
-                    description: 'Configurable label for registration number',
-                  },
                 },
                 {
                   name: 'commercialRegister',
@@ -1087,25 +1076,19 @@ export const Pages: CollectionConfig = {
             {
               name: 'vatInfo',
               type: 'group',
-              label: 'VAT Information',
+              label: '5. VAT Information',
               fields: [
                 {
                   name: 'vatLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Umsatzsteuer-ID',
-                  admin: {
-                    description: 'Configurable label for VAT section',
-                  },
                 },
                 {
                   name: 'vatDescription',
                   type: 'text',
                   required: true,
                   defaultValue: 'Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG',
-                  admin: {
-                    description: 'Description for VAT ID',
-                  },
                 },
                 {
                   name: 'vatId',
@@ -1118,16 +1101,13 @@ export const Pages: CollectionConfig = {
             {
               name: 'responsiblePerson',
               type: 'group',
-              label: 'Responsible for Content',
+              label: '6. Responsible for Content',
               fields: [
                 {
                   name: 'label',
                   type: 'text',
                   required: true,
                   defaultValue: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV',
-                  admin: {
-                    description: 'Configurable label for content responsibility section',
-                  },
                 },
                 {
                   name: 'name',
@@ -1152,25 +1132,19 @@ export const Pages: CollectionConfig = {
             {
               name: 'disclaimers',
               type: 'group',
-              label: 'Legal Disclaimers',
+              label: '7. Legal Disclaimers',
               fields: [
                 {
                   name: 'disclaimerTitle',
                   type: 'text',
                   required: true,
                   defaultValue: 'Haftungsausschluss',
-                  admin: {
-                    description: 'Configurable title for disclaimer section',
-                  },
                 },
                 {
                   name: 'contentLiabilityLabel',
                   type: 'text',
                   required: true,
                   defaultValue: 'Haftung für Inhalte',
-                  admin: {
-                    description: 'Configurable label for content liability section',
-                  },
                 },
                 {
                   name: 'contentLiability',
@@ -1183,9 +1157,6 @@ export const Pages: CollectionConfig = {
                   type: 'text',
                   required: true,
                   defaultValue: 'Haftung für Links',
-                  admin: {
-                    description: 'Configurable label for link liability section',
-                  },
                 },
                 {
                   name: 'linkLiability',
@@ -1198,9 +1169,6 @@ export const Pages: CollectionConfig = {
                   type: 'text',
                   required: true,
                   defaultValue: 'Urheberrecht',
-                  admin: {
-                    description: 'Configurable label for copyright section',
-                  },
                 },
                 {
                   name: 'copyright',
@@ -1213,23 +1181,17 @@ export const Pages: CollectionConfig = {
             {
               name: 'additionalSections',
               type: 'array',
-              label: 'Additional Sections',
+              label: '8. Additional Sections',
               fields: [
                 {
                   name: 'title',
                   type: 'text',
                   required: true,
-                  admin: {
-                    description: 'Section title (e.g., "EU-Streitschlichtung")',
-                  },
                 },
                 {
                   name: 'content',
                   type: 'textarea',
                   required: true,
-                  admin: {
-                    description: 'Section content',
-                  },
                 },
               ],
               defaultValue: [

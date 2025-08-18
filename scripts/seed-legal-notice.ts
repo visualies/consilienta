@@ -17,18 +17,21 @@ async function seedLegalNotice() {
     })
 
     const pageData = {
-      title: 'Legal Notice',
+      title: 'Impressum',
       slug: 'legal-notice',
       meta: {
-        title: 'Legal Notice - Consilienta GmbH',
-        description: 'Angaben gemäß § 5 TMG',
+        title: 'Impressum - Consilienta GmbH',
+        description: 'Legal Notice and Impressum',
       },
       layout: [
         {
+          blockType: 'pageHeadline',
+          title: 'Impressum',
+          subtitle: 'Legal Notice'
+        },
+        {
           blockType: 'legal-notice',
-          pageTitle: 'Legal Notice',
-          pageSubtitle: 'Legal Information',
-          title: 'Deutsch',
+          title: 'Impressum',
           subtitle: 'Angaben gemäß § 5 TMG',
           companyInfo: {
             companyName: 'Consilienta GmbH',
@@ -38,12 +41,12 @@ async function seedLegalNotice() {
             contactLabel: 'Kontakt',
             phoneLabel: 'Telefon',
             emailLabel: 'E-Mail',
-            phone: '[bitte einfügen]',
+            phone: '+49 (0) 163 2457821',
             email: 'info@consilienta.com'
           },
           managingDirectors: {
             label: 'Vertreten durch die Geschäftsführer',
-            directors: 'Dr. Elena Meurer,\nDr. Liron Sarid-Krebs\nDr. Tiina Palomäki'
+            directors: 'Dr. Elena Meurer\nDr. Liron Sarid-Krebs'
           },
           registrationInfo: {
             registerLabel: 'Registereintrag',
@@ -53,8 +56,8 @@ async function seedLegalNotice() {
             registerNumber: 'HRB 302328'
           },
           vatInfo: {
-            vatLabel: 'Umsatzsteuer-ID',
-            vatDescription: 'Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG',
+            vatLabel: 'Umsatzsteuer-Identifikationsnummer',
+            vatDescription: 'Gemäß § 27a UStG',
             vatId: 'DE[bitte einfügen]'
           },
           responsiblePerson: {
@@ -76,6 +79,60 @@ async function seedLegalNotice() {
             {
               title: 'EU-Streitschlichtung',
               content: 'Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr.\n\nWir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.'
+            }
+          ]
+        },
+        {
+          blockType: 'legal-notice',
+          title: 'Legal Notice',
+          subtitle: 'Pursuant to § 5 German Telemedia Act (TMG)',
+          disclaimer: 'This English version is provided for convenience. The legally binding version is the German "Impressum"',
+          companyInfo: {
+            companyName: 'Consilienta GmbH',
+            address: 'Hanfelder Str. 6\n81475 Munich\nGermany'
+          },
+          contactInfo: {
+            contactLabel: 'Contact',
+            phoneLabel: 'Phone',
+            emailLabel: 'E-Mail',
+            phone: '+49 (0)163 2457821',
+            email: 'info@consilienta.com'
+          },
+          managingDirectors: {
+            label: 'Managing Directors',
+            directors: 'Dr. Elena Meurer\nDr. Liron Sarid-Krebs'
+          },
+          registrationInfo: {
+            registerLabel: 'Commercial Register',
+            commercialRegisterLabel: 'Registration',
+            registrationNumberLabel: 'Commercial Register No.',
+            commercialRegister: 'Local Court of Munich (Amtsgericht München)',
+            registerNumber: 'HRB 302328'
+          },
+          vatInfo: {
+            vatLabel: 'VAT Identification Number',
+            vatDescription: 'Pursuant to § 27a German VAT Act',
+            vatId: 'DE[bitte einfügen]'
+          },
+          responsiblePerson: {
+            label: 'Content Responsibility pursuant to § 18 (2) German State Media Treaty (MStV)',
+            name: 'Dr. Elena Meurer',
+            companyName: 'Consilienta GmbH',
+            address: 'Hanfelder Str. 6\n81475 Munich'
+          },
+          disclaimers: {
+            disclaimerTitle: 'Disclaimer',
+            contentLiabilityLabel: 'Content Liability',
+            contentLiability: 'We make every effort to keep the information on our website up to date, complete, and correct. However, according to §§ 7 to 10 TMG, we cannot be held liable for third-party content that is merely stored, transmitted, or linked, nor are we obliged to proactively monitor such content. Liability can only arise from the moment we become aware of a specific infringement. Once notified of such infringements, we will remove the affected content without undue delay.',
+            linkLiabilityLabel: 'External Links',
+            linkLiability: 'Our website may contain links to external websites operated by third parties. We have no influence over the content of these sites and therefore cannot assume liability for them. The respective provider or operator of the linked websites is solely responsible for their content. At the time of linking, the external pages were checked for potential legal violations, and no unlawful content was apparent. Continuous monitoring of linked pages without concrete indications of an infringement is not feasible. We will promptly remove any link if we become aware of illegal content.',
+            copyrightLabel: 'Copyright',
+            copyright: 'All texts, images, graphics, and other works created by us on this website are protected by German copyright law. Any reproduction, editing, distribution, or use outside the limits of copyright law requires our prior written consent. Downloads and copies of this site are permitted solely for private, non-commercial use. Third-party content is acknowledged as such.'
+          },
+          additionalSections: [
+            {
+              title: 'EU Online Dispute Resolution',
+              content: 'The European Commission provides a platform for online dispute resolution (ODR), which you can access here: https://ec.europa.eu/consumers/odr.\n\nWe are neither obligated nor willing to participate in dispute resolution proceedings before a consumer arbitration board.'
             }
           ]
         }

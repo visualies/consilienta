@@ -12,9 +12,9 @@ interface CTABlockProps {
       text: string
       link: string
     }
-    backgroundSvg?: {
+    backgroundImage?: {
       enabled: boolean
-      svg?: {
+      image?: {
         url: string
         alt?: string
       }
@@ -23,6 +23,7 @@ interface CTABlockProps {
       positionY?: number
       color?: string
       opacity?: number
+      zIndex?: number
     }
   }
 }

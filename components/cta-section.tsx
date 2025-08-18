@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { FadeUpAnimation } from "@/components/ui/motion-wrappers"
-import Image from "next/image"
+import { BackgroundImage } from "@/components/ui/background-image"
 import Link from "next/link"
 
 interface CTASectionProps {
@@ -18,9 +18,9 @@ interface CTASectionProps {
       text: string
       link: string
     }
-    backgroundSvg?: {
+    backgroundImage?: {
       enabled: boolean
-      svg?: {
+      image?: {
         url: string
         alt?: string
       }
@@ -29,6 +29,7 @@ interface CTASectionProps {
       positionY?: number
       color?: string
       opacity?: number
+      zIndex?: number
     }
   }
 }
@@ -56,32 +57,8 @@ export function CTASection({ data = defaultData }: CTASectionProps) {
         overflow: 'hidden'
       }}
     >
-      {/* Background SVG */}
-      {data?.backgroundSvg?.enabled && data.backgroundSvg.svg && (
-        <div 
-          className="absolute pointer-events-none"
-          style={{
-            width: `${data.backgroundSvg.size || 200}px`,
-            height: `${data.backgroundSvg.size || 200}px`,
-            left: `${data.backgroundSvg.positionX || 50}%`,
-            top: `${data.backgroundSvg.positionY || 50}%`,
-            transform: 'translate(-50%, -50%)',
-            opacity: data.backgroundSvg.opacity || 0.1,
-            zIndex: 1
-          }}
-        >
-          <Image
-            src={data.backgroundSvg.svg.url}
-            alt={data.backgroundSvg.svg.alt || 'Background decoration'}
-            fill
-            className="object-contain"
-            style={{
-              filter: data.backgroundSvg.color ? 
-                `sepia(1) saturate(5) hue-rotate(180deg)` : undefined
-            }}
-          />
-        </div>
-      )}
+      {/* Background Image */}
+      <BackgroundImage backgroundImage={data?.backgroundImage} />
 
       <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
         <FadeUpAnimation>

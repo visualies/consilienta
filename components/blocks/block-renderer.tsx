@@ -8,6 +8,8 @@ import { ImprintBlock } from './imprint-block'
 import { TermsOfServiceBlock } from './terms-of-service-block'
 import { CookiesBlock } from './cookies-block'
 import { PrivacyBlock } from './privacy-block'
+import { PageHeadlineBlock } from './page-headline-block'
+import { BackgroundImageBlock } from './background-image-block'
 
 interface BlockData {
   blockType: string
@@ -46,25 +48,10 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
         // Handle grouped legal-notice blocks
         if (Array.isArray(blockOrGroup)) {
           const legalNoticeBlocks = blockOrGroup
-          const firstBlock = legalNoticeBlocks[0]
-          const pageTitle = firstBlock?.pageTitle || "Legal Notice"
-          const pageSubtitle = firstBlock?.pageSubtitle || "Legal Information"
 
           return (
-            <section key={`legal-notice-group-${index}`} className="px-6 py-16">
+            <section key={`legal-notice-group-${index}`} className="px-6 pb-16">
               <div className={`mx-auto ${legalNoticeBlocks.length > 1 ? 'max-w-7xl' : 'max-w-4xl'}`}>
-                {/* Page Level Title and Subtitle */}
-                <div className="text-center mb-12">
-                  <h1 className="text-4xl font-serif font-medium text-white mb-4">
-                    {pageTitle}
-                  </h1>
-                  {pageSubtitle && (
-                    <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-                      {pageSubtitle}
-                    </p>
-                  )}
-                </div>
-
                 <div className={`${legalNoticeBlocks.length > 1 ? 'flex flex-col lg:flex-row gap-8' : 'flex justify-center'}`}>
                   {legalNoticeBlocks.map((block, blockIndex) => (
                     <ImprintBlock key={`${index}-${blockIndex}`} data={block} />
@@ -96,6 +83,10 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <ContactFormBlock key={index} {...block} />
           case 'aboutUs':
             return <AboutUsBlock key={index} data={block} />
+          case 'pageHeadline':
+            return <PageHeadlineBlock key={index} data={block} />
+          case 'backgroundImage':
+            return <BackgroundImageBlock key={index} data={block} />
           case 'termsOfService':
             return <TermsOfServiceBlock key={index} data={block} />
           case 'cookies':
