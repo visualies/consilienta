@@ -8,10 +8,6 @@ import { Footer } from '@/components/footer'
 import { getGlobals, generateBrandGradientCSS, generateBrandColorCSS, generateFrostingCSS } from '@/lib/get-globals'
 import './globals.css'
 
-// Disable caching for test environment
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 const rubik = Rubik({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],

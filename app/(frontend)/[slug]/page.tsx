@@ -3,10 +3,6 @@ import config from '../../../payload.config'
 import { BlockRenderer } from '@/components/blocks'
 import { notFound } from 'next/navigation'
 
-// Disable caching for test environment
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 interface PageData {
   id: string
   title: string

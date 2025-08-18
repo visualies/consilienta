@@ -33,15 +33,6 @@ const nextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
-  // Disable caching for test environment
-  experimental: {
-    staleTimes: {
-      dynamic: 0,
-      static: 0,
-    },
-  },
-  // Force dynamic rendering
-  dynamicIO: true,
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
