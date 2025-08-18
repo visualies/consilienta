@@ -10,6 +10,8 @@ import { CookiesBlock } from './cookies-block'
 import { PrivacyBlock } from './privacy-block'
 import { PageHeadlineBlock } from './page-headline-block'
 import { BackgroundImageBlock } from './background-image-block'
+import { ContentSectionBlock } from './content-section-block'
+import { MultiContentBlock } from './multi-content-block'
 
 interface BlockData {
   blockType: string
@@ -87,6 +89,10 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <PageHeadlineBlock key={index} data={block} />
           case 'backgroundImage':
             return <BackgroundImageBlock key={index} data={block} />
+          case 'contentSection':
+            return <ContentSectionBlock key={index} data={block} />
+          case 'multiContent':
+            return <MultiContentBlock key={index} data={block} />
           case 'termsOfService':
             return <TermsOfServiceBlock key={index} data={block} />
           case 'cookies':

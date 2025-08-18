@@ -113,7 +113,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-rubik);
-  --font-serif: var(--font-qurova);
+  --font-serif: var(--font-qurova), var(--font-rubik), serif;
   --color-brand-purple: var(--brand-purple);
 }
 

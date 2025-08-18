@@ -933,6 +933,68 @@ export const Pages: CollectionConfig = {
           fields: backgroundImageFields,
         },
         {
+          slug: 'contentSection',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              required: false,
+              admin: {
+                description: 'Section heading (optional)',
+              },
+            },
+            {
+              name: 'content',
+              type: 'textarea',
+              required: true,
+              admin: {
+                description: 'Section content - use line breaks for paragraphs',
+              },
+            },
+            {
+              name: 'layout',
+              type: 'select',
+              defaultValue: 'default',
+              options: [
+                { label: 'Default', value: 'default' },
+                { label: 'Numbered', value: 'numbered' },
+                { label: 'Simple', value: 'simple' }
+              ],
+              admin: {
+                description: 'Layout style for this section',
+              },
+            },
+          ],
+        },
+        {
+          slug: 'multiContent',
+          fields: [
+            {
+              name: 'sections',
+              type: 'array',
+              label: 'Content Sections',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: false,
+                  admin: {
+                    description: 'Section heading (optional)',
+                  },
+                },
+                {
+                  name: 'content',
+                  type: 'textarea',
+                  required: true,
+                  admin: {
+                    description: 'Section content - use line breaks for paragraphs',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
           slug: 'legal-notice',
           fields: [
             {
