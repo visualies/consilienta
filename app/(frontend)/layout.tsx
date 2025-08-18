@@ -2,49 +2,15 @@ import React from 'react'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Providers } from '@/components/providers'
 import localFont from 'next/font/local'
+import { Rubik } from 'next/font/google'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { getGlobals, generateBrandGradientCSS, generateBrandColorCSS, generateFrostingCSS } from '@/lib/get-globals'
 import './globals.css'
 
-const rubik = localFont({
-  src: [
-    {
-      path: '../../public/Rubik/static/Rubik-Light.ttf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-SemiBold.ttf',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-ExtraBold.ttf',
-      weight: '800',
-      style: 'normal',
-    },
-    {
-      path: '../../public/Rubik/static/Rubik-Black.ttf',
-      weight: '900',
-      style: 'normal',
-    },
-  ],
+const rubik = Rubik({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-rubik',
 })
 
