@@ -37,3 +37,6 @@ public/qurova-font-family/Read-me-*.txt
 
 # Blender files
 *.blend
+
+# Claude
+*.claude

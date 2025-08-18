@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Menu, X, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Menu, X, Linkedin, Mail, Twitter, Instagram, Facebook } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useScrollHeader } from "@/components/hooks/use-scroll-header"
@@ -25,6 +25,11 @@ interface HeaderProps {
       text: string
       link: string
     }
+    socialLinks?: Array<{
+      platform: 'linkedin' | 'email' | 'twitter' | 'instagram' | 'facebook'
+      url: string
+      label?: string
+    }>
   }
 }
 
@@ -47,6 +52,36 @@ const defaultData = {
   contactButton: {
     text: 'Contact Us',
     link: '/contact'
+  },
+  socialLinks: [
+    {
+      platform: 'linkedin' as const,
+      url: 'https://linkedin.com/company/consilienta',
+      label: 'LinkedIn'
+    },
+    {
+      platform: 'email' as const,
+      url: 'mailto:info@consilienta.com',
+      label: 'Email'
+    }
+  ]
+}
+
+// Helper function to get the appropriate icon for each platform
+const getSocialIcon = (platform: string) => {
+  switch (platform) {
+    case 'linkedin':
+      return <Linkedin className="h-4 w-4" />
+    case 'email':
+      return <Mail className="h-4 w-4" />
+    case 'twitter':
+      return <Twitter className="h-4 w-4" />
+    case 'instagram':
+      return <Instagram className="h-4 w-4" />
+    case 'facebook':
+      return <Facebook className="h-4 w-4" />
+    default:
+      return <Mail className="h-4 w-4" />
   }
 }
 
@@ -61,14 +96,16 @@ export function Header({ data = defaultData }: HeaderProps) {
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          {isOverWhite ? (
-            <div 
-              className="logo-over-white w-[200px] h-10 transition-all duration-300"
-              aria-label="Consilienta Logo"
-            />
-          ) : (
-            <Image src={data.logo.url} alt={data.logo.alt} width={200} height={40} className="h-10 w-auto transition-all duration-300 drop-shadow-sm" />
-          )}
+          <Link href="/" className="cursor-pointer">
+            {isOverWhite ? (
+              <div 
+                className="logo-over-white w-[200px] h-10 transition-all duration-300"
+                aria-label="Consilienta Logo"
+              />
+            ) : (
+              <Image src={data.logo.url} alt={data.logo.alt} width={200} height={40} className="h-10 w-auto transition-all duration-300 drop-shadow-sm" />
+            )}
+          </Link>
         </div>
         
         <div className="flex items-center space-x-4">
@@ -98,24 +135,19 @@ export function Header({ data = defaultData }: HeaderProps) {
 
           {/* Social Links - Desktop */}
           <div className="hidden lg:flex items-center space-x-2">
-            <Link 
-              href="https://linkedin.com/company/consilienta"
-              className={`p-2 text-white hover:text-white/80 transition-colors rounded-lg ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
-              style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin className="h-5 w-5" />
-            </Link>
-            <Link 
-              href="mailto:info@consilienta.com"
-              className={`p-2 text-white hover:text-white/80 transition-colors rounded-lg ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
-              style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
-              aria-label="Email"
-            >
-              <Mail className="h-5 w-5" />
-            </Link>
+            {(data.socialLinks || defaultData.socialLinks)?.map((social, index) => (
+              <Link 
+                key={index}
+                href={social.url}
+                className={`p-2 text-white hover:text-white/80 transition-colors rounded-lg ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
+                style={isOverWhite ? { color: 'var(--brand-color)' } : {}}
+                aria-label={social.label || social.platform}
+                target={social.platform !== 'email' ? "_blank" : undefined}
+                rel={social.platform !== 'email' ? "noopener noreferrer" : undefined}
+              >
+                {getSocialIcon(social.platform)}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}

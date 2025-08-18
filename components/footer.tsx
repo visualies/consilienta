@@ -123,7 +123,7 @@ export function Footer({ data = defaultData }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/20 pt-2 flex flex-col sm:flex-row justify-between items-center">
+        <div className="border-t border-white/40 pt-2 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-white/70 text-sm">
             {data.copyright}
           </p>
@@ -133,8 +133,8 @@ export function Footer({ data = defaultData }: FooterProps) {
                 {link.name}
               </a>
             ))}
-            <a href="/imprint" className="text-white/70 hover:text-white text-sm transition-colors">
-              Imprint
+            <a href="/legal-notice" className="text-white/70 hover:text-white text-sm transition-colors">
+                Legal Notice (Impressum)
             </a>
           </div>
         </div>

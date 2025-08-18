@@ -905,19 +905,51 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
-          slug: 'imprint',
+          slug: 'legal-notice',
           fields: [
+            {
+              name: 'pageTitle',
+              type: 'text',
+              required: true,
+              defaultValue: 'Legal Notice',
+              admin: {
+                description: 'Main page title displayed at the top',
+              },
+            },
+            {
+              name: 'pageSubtitle',
+              type: 'textarea',
+              required: false,
+              defaultValue: 'Legal Information',
+              admin: {
+                description: 'Page subtitle displayed below the main title',
+              },
+            },
             {
               name: 'title',
               type: 'text',
               required: true,
-              defaultValue: 'Imprint',
+              defaultValue: 'Deutsch',
+              admin: {
+                description: 'Title for this specific legal notice block (e.g., "Deutsch", "English")',
+              },
             },
             {
               name: 'subtitle',
               type: 'textarea',
               required: false,
-              defaultValue: 'Legal Information',
+              defaultValue: 'Angaben gemäß § 5 TMG',
+              admin: {
+                description: 'Subtitle for this specific legal notice block',
+              },
+            },
+            {
+              name: 'disclaimer',
+              type: 'textarea',
+              required: false,
+              admin: {
+                description: 'Optional disclaimer text (e.g., for English versions: "This English version is provided for convenience...")',
+              },
             },
             {
               name: 'companyInfo',
@@ -934,7 +966,7 @@ export const Pages: CollectionConfig = {
                   name: 'address',
                   type: 'textarea',
                   required: true,
-                  defaultValue: 'Hanfelder St. 6\n81475 Munich\nGermany',
+                  defaultValue: 'Hanfelder Str. 6\n81475 München\nDeutschland',
                 },
               ],
             },
@@ -944,40 +976,99 @@ export const Pages: CollectionConfig = {
               label: 'Contact Information',
               fields: [
                 {
+                  name: 'contactLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Kontakt',
+                  admin: {
+                    description: 'Configurable label for contact section (e.g., "Kontakt", "Contact")',
+                  },
+                },
+                {
+                  name: 'phoneLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Telefon',
+                  admin: {
+                    description: 'Configurable label for phone (e.g., "Telefon", "Phone")',
+                  },
+                },
+                {
+                  name: 'emailLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'E-Mail',
+                  admin: {
+                    description: 'Configurable label for email (e.g., "E-Mail", "Email")',
+                  },
+                },
+                {
+                  name: 'phone',
+                  type: 'text',
+                  required: false,
+                  defaultValue: '[bitte einfügen]',
+                },
+                {
                   name: 'email',
                   type: 'email',
                   required: true,
                   defaultValue: 'info@consilienta.com',
                 },
+              ],
+            },
+            {
+              name: 'managingDirectors',
+              type: 'group',
+              label: 'Managing Directors',
+              fields: [
                 {
-                  name: 'phones',
-                  type: 'array',
-                  label: 'Phone Numbers',
-                  minRows: 1,
-                  defaultValue: [
-                    '+49 (0)163 2457821',
-                    '+49 (0)157 87414589'
-                  ],
-                  fields: [
-                    {
-                      name: 'phone',
-                      type: 'text',
-                      required: true,
-                    },
-                  ],
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Vertreten durch die Geschäftsführer',
+                  admin: {
+                    description: 'Configurable label for managing directors section',
+                  },
+                },
+                {
+                  name: 'directors',
+                  type: 'textarea',
+                  required: true,
+                  defaultValue: 'Dr. Elena Meurer,\nDr. Liron Sarid-Krebs\nDr. Tiina Palomäki',
                 },
               ],
             },
             {
-              name: 'legalInfo',
+              name: 'registrationInfo',
               type: 'group',
-              label: 'Legal Information',
+              label: 'Registration Information',
               fields: [
                 {
-                  name: 'managingDirectors',
+                  name: 'registerLabel',
                   type: 'text',
                   required: true,
-                  defaultValue: 'Dr. Elena Meurer, Dr. Liron Sarid-Krebs, Dr. Tiina Palomäki',
+                  defaultValue: 'Registereintrag',
+                  admin: {
+                    description: 'Configurable label for registration section',
+                  },
+                },
+                {
+                  name: 'commercialRegisterLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Handelsregister',
+                  admin: {
+                    description: 'Configurable label for commercial register',
+                  },
+                },
+                {
+                  name: 'registrationNumberLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Registernummer',
+                  admin: {
+                    description: 'Configurable label for registration number',
+                  },
                 },
                 {
                   name: 'commercialRegister',
@@ -988,14 +1079,39 @@ export const Pages: CollectionConfig = {
                 {
                   name: 'registerNumber',
                   type: 'text',
-                  required: false,
-                  defaultValue: 'HRB [To be filled]',
+                  required: true,
+                  defaultValue: 'HRB 302328',
+                },
+              ],
+            },
+            {
+              name: 'vatInfo',
+              type: 'group',
+              label: 'VAT Information',
+              fields: [
+                {
+                  name: 'vatLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Umsatzsteuer-ID',
+                  admin: {
+                    description: 'Configurable label for VAT section',
+                  },
+                },
+                {
+                  name: 'vatDescription',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG',
+                  admin: {
+                    description: 'Description for VAT ID',
+                  },
                 },
                 {
                   name: 'vatId',
                   type: 'text',
-                  required: false,
-                  defaultValue: 'DE[To be filled]',
+                  required: true,
+                  defaultValue: 'DE[bitte einfügen]',
                 },
               ],
             },
@@ -1005,22 +1121,31 @@ export const Pages: CollectionConfig = {
               label: 'Responsible for Content',
               fields: [
                 {
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV',
+                  admin: {
+                    description: 'Configurable label for content responsibility section',
+                  },
+                },
+                {
                   name: 'name',
                   type: 'text',
                   required: true,
                   defaultValue: 'Dr. Elena Meurer',
                 },
                 {
-                  name: 'description',
+                  name: 'companyName',
                   type: 'text',
                   required: true,
-                  defaultValue: 'According to § 55 Abs. 2 RStV:',
+                  defaultValue: 'Consilienta GmbH',
                 },
                 {
                   name: 'address',
                   type: 'textarea',
                   required: true,
-                  defaultValue: 'Consilienta GmbH\nHanfelder St. 6\n81475 Munich, Germany',
+                  defaultValue: 'Hanfelder Str. 6\n81475 München',
                 },
               ],
             },
@@ -1030,25 +1155,87 @@ export const Pages: CollectionConfig = {
               label: 'Legal Disclaimers',
               fields: [
                 {
+                  name: 'disclaimerTitle',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Haftungsausschluss',
+                  admin: {
+                    description: 'Configurable title for disclaimer section',
+                  },
+                },
+                {
+                  name: 'contentLiabilityLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Haftung für Inhalte',
+                  admin: {
+                    description: 'Configurable label for content liability section',
+                  },
+                },
+                {
                   name: 'contentLiability',
                   type: 'textarea',
-                  label: 'Liability for Content',
                   required: true,
-                  defaultValue: 'As service providers, we are liable for our own content on these pages in accordance with Sec. 7, para. 1 of the TMG (Telemediengesetz – Tele Media Act by German law). However, pursuant to Sec. 8 to 10 of the TMG, we are not under obligation to monitor external information provided or stored on our website. Once we have become aware of a specific infringement of the law, we will immediately remove the content in question.',
+                  defaultValue: 'Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.',
+                },
+                {
+                  name: 'linkLiabilityLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Haftung für Links',
+                  admin: {
+                    description: 'Configurable label for link liability section',
+                  },
                 },
                 {
                   name: 'linkLiability',
                   type: 'textarea',
-                  label: 'Liability for Links',
                   required: true,
-                  defaultValue: 'Our website contains links to external websites. As the content of these websites is not under our control, we cannot assume any liability for such external content. In all cases, the provider of information of the linked websites is liable for the content and accuracy of the information provided.',
+                  defaultValue: 'Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.',
+                },
+                {
+                  name: 'copyrightLabel',
+                  type: 'text',
+                  required: true,
+                  defaultValue: 'Urheberrecht',
+                  admin: {
+                    description: 'Configurable label for copyright section',
+                  },
                 },
                 {
                   name: 'copyright',
                   type: 'textarea',
-                  label: 'Copyright',
                   required: true,
-                  defaultValue: 'The content and works on these pages created by the site operators are subject to German copyright law. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator.',
+                  defaultValue: 'Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.',
+                },
+              ],
+            },
+            {
+              name: 'additionalSections',
+              type: 'array',
+              label: 'Additional Sections',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'Section title (e.g., "EU-Streitschlichtung")',
+                  },
+                },
+                {
+                  name: 'content',
+                  type: 'textarea',
+                  required: true,
+                  admin: {
+                    description: 'Section content',
+                  },
+                },
+              ],
+              defaultValue: [
+                {
+                  title: 'EU-Streitschlichtung',
+                  content: 'Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr.\n\nWir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
                 },
               ],
             },

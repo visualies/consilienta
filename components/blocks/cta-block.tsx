@@ -12,6 +12,18 @@ interface CTABlockProps {
       text: string
       link: string
     }
+    backgroundSvg?: {
+      enabled: boolean
+      svg?: {
+        url: string
+        alt?: string
+      }
+      size?: number
+      positionX?: number
+      positionY?: number
+      color?: string
+      opacity?: number
+    }
   }
 }
 
