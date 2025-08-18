@@ -77,8 +77,6 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
           marginBottom: '-3rem'
         }}
       >
-        <div className="absolute inset-0 frosted-overlay"></div>
-        <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <FadeUpAnimation className="text-center space-y-4 mb-16">
             <FadeUpAnimation delay={0.2}>
@@ -100,7 +98,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                 delay={0.6 + (index * 0.1)}
               >
                 <Card 
-                  className="bg-white shadow-lg hover:shadow-xl transition-all duration-200 ease-out h-full border-0 outline outline-2 outline-white/20 cursor-pointer"
+                  className="frosted-glass-navbar hover:shadow-xl transition-all duration-200 ease-out h-full border-0 cursor-pointer"
                   onClick={() => solution.popupText && setSelectedSolution(solution)}
                 >
                   <CardContent className="p-8 space-y-4 relative">
@@ -126,16 +124,16 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                         <Button 
                           size="sm" 
                           variant="ghost" 
-                          className="p-1 h-auto text-gray-400 hover:text-gray-600"
+                          className="p-1 h-auto text-white/70 hover:text-white"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>
                       )}
                     </div>
-                    <h3 className="text-xl font-serif font-normal text-gray-800">{solution.headline}</h3>
-                    <p className="text-gray-600 leading-relaxed">{solution.bodyText}</p>
+                    <h3 className="text-xl font-serif font-normal text-white">{solution.headline}</h3>
+                    <p className="text-white/90 leading-relaxed">{solution.bodyText}</p>
                     {solution.popupText && (
-                      <Badge variant="secondary" className="mt-2">
+                      <Badge variant="secondary" className="mt-2 bg-white/20 text-white border-white/30">
                         Click for details
                       </Badge>
                     )}
