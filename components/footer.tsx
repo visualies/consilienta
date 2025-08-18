@@ -66,20 +66,21 @@ export function Footer({ data = defaultData }: FooterProps) {
           <div className="flex flex-col xl:flex-row xl:items-start gap-8">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Image src={data.logo.url} alt={data.logo.alt} width={350} height={140} className="h-28 lg:h-32 w-auto" />
+              <Image src={data.logo.url} alt={data.logo.alt} width={290} height={140} className="h-32 pt-4 w-auto pr-38" />
             </div>
             
             {/* Contact Info and Company Links Container */}
-            <div className="flex-1 grid grid-cols-2 gap-8 lg:gap-12 xl:mt-4">
+            <div className="flex-1 grid grid-cols-3 gap-8 lg:gap-12 xl:mt-4">
               {/* Contact Information */}
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:gap-8">
                   <div className="flex flex-col gap-3 sm:min-w-48 mb-4 sm:mb-0">
                     <div className="text-white/90">
-                      <p className="text-sm font-medium text-white/70 mb-1">Phone</p>
-                      <div className="space-y-1">
+                      <h3 className="text-lg font-serif font-medium text-white mb-2">Contact</h3>
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-white/70 mb-1">Phone</p>
                         {data.phones.map((phoneObj, index) => (
-                          <a key={index} href={`tel:${phoneObj.phone}`} className="hover:text-white transition-colors block">
+                          <a key={index} href={`tel:${phoneObj.phone}`} className="hover:text-white transition-colors block text-sm">
                             {phoneObj.phone}
                           </a>
                         ))}
@@ -87,26 +88,26 @@ export function Footer({ data = defaultData }: FooterProps) {
                     </div>
                     <div className="text-white/90">
                       <p className="text-sm font-medium text-white/70 mb-1">Email</p>
-                      <a href={`mailto:${data.email}`} className="hover:text-white transition-colors">
+                      <a href={`mailto:${data.email}`} className="hover:text-white transition-colors text-sm">
                         {data.email}
                       </a>
                     </div>
                     <div className="text-white/90">
                       <p className="text-sm font-medium text-white/70 mb-1">LinkedIn</p>
-                      <a href="https://linkedin.com/company/consilienta" className="hover:text-white transition-colors">
+                      <a href="https://linkedin.com/company/consilienta" className="hover:text-white transition-colors text-sm">
                         Consilienta
                       </a>
                     </div>
-                  </div>
-                  <div className="text-white/90 sm:min-w-48">
-                    <p className="text-sm font-medium text-white/70 mb-1">Address</p>
-                    <p className="leading-relaxed whitespace-pre-line">{data.address}</p>
-                  </div>
                 </div>
+              </div>
+              </div>
+              <div className="text-white/90 sm:min-w-48">
+                <h3 className="text-lg font-serif font-medium text-white mb-2">Address</h3>
+                <p className="leading-relaxed whitespace-pre-line text-sm">{data.address}</p>
               </div>
 
               {/* Company Links */}
-              <div className="justify-self-end">
+              <div className="">
                 <h3 className="text-lg font-serif font-medium text-white mb-2">Company</h3>
                 <ul className="space-y-2 text-white/80">
                   {data.companyLinks.map((link, index) => (
