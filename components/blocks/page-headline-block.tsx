@@ -14,9 +14,9 @@ export function PageHeadlineBlock({ data }: PageHeadlineBlockProps) {
   const subtitle = data?.subtitle
 
   return (
-    <section className="px-6 py-16">
+    <section className="px-6 pt-16 pb-0">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center">
+        <div className="text-center mb-8">
           <FadeUpAnimation>
             <h1 className="text-4xl font-serif font-medium text-white mb-4">
               {title}

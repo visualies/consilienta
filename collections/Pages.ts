@@ -15,16 +15,26 @@ export const Pages: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ doc }) => {
-        // Revalidate cache when page content changes
-        revalidatePath(`/${doc.slug}`)
-        revalidatePath('/') // Also revalidate home page
+        try {
+          // Revalidate cache when page content changes
+          revalidatePath(`/${doc.slug}`)
+          revalidatePath('/') // Also revalidate home page
+        } catch (error) {
+          // Ignore revalidation errors during seeding
+          console.log('Skipping revalidation (likely during seeding)')
+        }
       },
     ],
     afterDelete: [
       async ({ doc }) => {
-        // Revalidate cache when page is deleted
-        revalidatePath(`/${doc.slug}`)
-        revalidatePath('/') // Also revalidate home page
+        try {
+          // Revalidate cache when page is deleted
+          revalidatePath(`/${doc.slug}`)
+          revalidatePath('/') // Also revalidate home page
+        } catch (error) {
+          // Ignore revalidation errors during seeding
+          console.log('Skipping revalidation (likely during seeding)')
+        }
       },
     ],
   },
@@ -1468,10 +1478,6 @@ export const Pages: CollectionConfig = {
                   content: 'We use the information we collect to provide, maintain, and improve our services, respond to your inquiries, and communicate with you about our pharmaceutical consulting services.',
                 },
                 {
-                  sectionTitle: 'Information Sharing',
-                  content: 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this privacy policy.',
-                },
-                {
                   sectionTitle: 'Data Security',
                   content: 'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.',
                 },
@@ -1482,6 +1488,135 @@ export const Pages: CollectionConfig = {
                 {
                   sectionTitle: 'Contact Us',
                   content: 'If you have questions about this Privacy Policy, please contact us at info@consilienta.com.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          slug: 'textBlock',
+          fields: [
+            {
+              name: 'alignment',
+              type: 'select',
+              defaultValue: 'left',
+              options: [
+                { label: 'Left', value: 'left' },
+                { label: 'Center', value: 'center' },
+                { label: 'Right', value: 'right' }
+              ],
+              admin: {
+                description: 'Text alignment',
+              },
+            },
+            {
+              name: 'maxWidth',
+              type: 'select',
+              defaultValue: 'lg',
+              options: [
+                { label: 'Small (max-w-2xl)', value: 'sm' },
+                { label: 'Medium (max-w-4xl)', value: 'md' },
+                { label: 'Large (max-w-6xl)', value: 'lg' },
+                { label: 'Extra Large (max-w-7xl)', value: 'xl' },
+                { label: 'Full Width', value: 'full' }
+              ],
+              admin: {
+                description: 'Maximum width of the content container',
+              },
+            },
+            {
+              name: 'backgroundColor',
+              type: 'select',
+              defaultValue: 'frosted',
+              options: [
+                { label: 'Transparent', value: 'transparent' },
+                { label: 'Frosted Glass', value: 'frosted' },
+                { label: 'Solid Background', value: 'solid' }
+              ],
+              admin: {
+                description: 'Background style for the text block',
+              },
+            },
+            {
+              name: 'textColor',
+              type: 'select',
+              defaultValue: 'white',
+              options: [
+                { label: 'White/Light', value: 'white' },
+                { label: 'Dark', value: 'dark' }
+              ],
+              admin: {
+                description: 'Text color theme',
+              },
+            },
+            {
+              name: 'contentBlocks',
+              type: 'array',
+              label: 'Content Blocks',
+              admin: {
+                description: 'Add flexible content blocks - each can be single or multi-column',
+              },
+              fields: [
+                {
+                  name: 'blockType',
+                  type: 'select',
+                  required: true,
+                  defaultValue: 'singleColumn',
+                  options: [
+                    { label: 'Single Column Content', value: 'singleColumn' },
+                    { label: 'Multi-Column Content', value: 'multiColumn' }
+                  ],
+                  admin: {
+                    description: 'Choose the layout type for this content block',
+                  },
+                },
+                {
+                  name: 'content',
+                  type: 'richText',
+                  editor: lexicalEditor({
+                    features: ({ defaultFeatures }) => [
+                      ...defaultFeatures,
+                    ],
+                  }),
+                  admin: {
+                    condition: (data, siblingData) => siblingData.blockType === 'singleColumn',
+                    description: 'Single column rich text content',
+                  },
+                },
+                {
+                  name: 'columns',
+                  type: 'number',
+                  defaultValue: 2,
+                  min: 1,
+                  max: 4,
+                  admin: {
+                    condition: (data, siblingData) => siblingData.blockType === 'multiColumn',
+                    description: 'Number of columns (1-4)',
+                  },
+                },
+                {
+                  name: 'columnContent',
+                  type: 'array',
+                  label: 'Column Content',
+                  admin: {
+                    condition: (data, siblingData) => siblingData.blockType === 'multiColumn',
+                    description: 'Content for each column',
+                  },
+                  fields: [
+                    {
+                      name: 'content',
+                      type: 'richText',
+                      required: true,
+                      editor: lexicalEditor({
+                        features: ({ defaultFeatures }) => [
+                          ...defaultFeatures,
+                        ],
+                      }),
+                      admin: {
+                        description: 'Rich text content for this column',
+                      },
+                    },
+                  ],
                 },
               ],
             },

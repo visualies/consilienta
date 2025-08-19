@@ -12,6 +12,7 @@ import { PageHeadlineBlock } from './page-headline-block'
 import { BackgroundImageBlock } from './background-image-block'
 import { ContentSectionBlock } from './content-section-block'
 import { MultiContentBlock } from './multi-content-block'
+import { TextBlock } from './text-block'
 
 interface BlockData {
   blockType: string
@@ -99,6 +100,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <CookiesBlock key={index} data={block} />
           case 'privacy':
             return <PrivacyBlock key={index} data={block} />
+          case 'textBlock':
+            return <TextBlock key={index} data={block} />
           default:
             console.warn(`Unknown block type: ${block.blockType}`)
             return null

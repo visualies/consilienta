@@ -20,10 +20,8 @@ interface Employee {
   }>
 }
 
-interface AboutSectionProps {
+interface EmployeeCardsBlockProps {
   data: {
-    title: string
-    subtitle?: string
     layout?: 'default' | 'cards'
     sections: Array<{
       sectionTitle: string
@@ -32,7 +30,7 @@ interface AboutSectionProps {
   }
 }
 
-export function AboutSection({ data }: AboutSectionProps) {
+export function EmployeeCardsBlock({ data }: EmployeeCardsBlockProps) {
   const [layoutType, setLayoutType] = useState<'big' | 'medium' | 'small'>('big')
   const [switchToMediumWidth, setSwitchToMediumWidth] = useState<number | null>(null)
   const [lastNonSmallLayout, setLastNonSmallLayout] = useState<'big' | 'medium'>('medium')
