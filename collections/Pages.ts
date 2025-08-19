@@ -777,8 +777,8 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
-          slug: 'aboutUs',
-          dbName: 'about_us',
+          slug: 'employeeCards',
+          dbName: 'emp_cards',
           fields: [
             {
               name: 'title',
@@ -946,7 +946,7 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
-          slug: 'pageHeadline',
+          slug: 'headline',
           fields: [
             {
               name: 'title',

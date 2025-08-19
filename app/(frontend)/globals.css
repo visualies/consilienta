@@ -272,12 +272,12 @@
 
 /* Navbar text color changes based on scroll position */
 .navbar-over-white .nav-text {
-  color: var(--brand-purple) !important;
+  color: var(--brand-color) !important;
   filter: none !important;
 }
 
 .navbar-over-white .nav-text:hover {
-  color: color-mix(in srgb, var(--brand-purple) 80%, transparent) !important;
+  color: color-mix(in srgb, var(--brand-color) 80%, transparent) !important;
 }
 
 /* Logo color changes when navbar is over white background */

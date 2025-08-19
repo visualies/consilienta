@@ -84,9 +84,9 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return null
           case 'contactForm':
             return <ContactFormBlock key={index} {...block} />
-          case 'aboutUs':
+          case 'employeeCards':
             return <AboutUsBlock key={index} data={block} />
-          case 'pageHeadline':
+          case 'headline':
             return <PageHeadlineBlock key={index} data={block} />
           case 'backgroundImage':
             return <BackgroundImageBlock key={index} data={block} />

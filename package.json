@@ -9,7 +9,7 @@
     "start": "next start",
     "seed": "tsx scripts/seed-landing-page.ts",
     "seed:globals": "tsx scripts/seed-globals.ts",
-    "seed:about-section": "tsx scripts/seed-about-section.ts"
+    "seed:about-us": "tsx scripts/seed-about-us-page.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

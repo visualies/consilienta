@@ -39,13 +39,13 @@ async function seedAboutUs() {
         layout: [
           // 1. Main page headline - Founders
           {
-            blockType: 'pageHeadline',
+            blockType: 'headline',
             title: 'Founders',
             subtitle: 'The co-founders of Consilienta',
           },
           // 2. About Us block with employee data (using existing structure)
           {
-            blockType: 'aboutUs',
+            blockType: 'employeeCards',
             title: 'About Us',
             subtitle: 'Meet our team of experts',
             layout: 'default',
@@ -59,7 +59,7 @@ async function seedAboutUs() {
                     bio: 'Elena brings 25+ years of academic, industry and consulting experience. She provides strategic, CMC and regulatory consulting for products in all development stages and for various regulatory regions. Elena has supported several MAA and BLA preparations and national hospital exemptions. She guided companies in obtaining GMP manufacturing licenses and establishing CDMO activities. Elena also contributed to projects aimed at establishing high regulatory standards in third countries and provided training to relevant regulatory agencies.',
                     photo: 7,
                     email: 'elena.meurer@consilienta.com',
-                    phone: '+49 (0)163 2457821',
+                    phone: '+49 (0) 163 2457821',
                     socialLinks: [
                       {
                         platform: 'linkedin',
@@ -77,7 +77,7 @@ async function seedAboutUs() {
                     bio: 'Liron is a drug development and regulatory strategist with 15+ years of experience across academia, the biotech industry and consulting services. She has led global consultancy teams and overseen clinical development and regulatory consulting activities across various regions. Liron has successfully guided companies through complex global development processes from early phase to registration, including orphan and pediatric indications.',
                     photo: 8,
                     email: 'liron.sarid-krebs@consilienta.com',
-                    phone: '+49 (0)157 87414589',
+                    phone: '+49 (0) 157 87414589',
                     socialLinks: [
                       {
                         platform: 'linkedin',
@@ -113,7 +113,7 @@ async function seedAboutUs() {
           },
           // 3. About Consilienta headline
           {
-            blockType: 'pageHeadline',
+            blockType: 'headline',
             title: 'About Consilienta',
           },
           // 4. Text block with flexible content blocks
@@ -133,9 +133,11 @@ async function seedAboutUs() {
                     children: [
                       {
                         type: 'paragraph',
+                        format: 'center',
                         children: [
                           {
                             type: 'text',
+                            format: 1,
                             text: 'Consilienta is a consulting company providing services in the area of regulatory affairs and product development for biologics, cell & gene therapy (ATMP) and other innovative therapies, including synthetically manufactured products.',
                           },
                         ],
@@ -235,6 +237,28 @@ async function seedAboutUs() {
                 ],
               },
             ],
+          },
+          // 5. Background image block 1
+          {
+            blockType: 'backgroundImage',
+            backgroundImage: {
+              enabled: true,
+              image: 10,
+              size: 90,
+              positionX: 15,
+              positionY: 25,
+            },
+          },
+          // 6. Background image block 2
+          {
+            blockType: 'backgroundImage',
+            backgroundImage: {
+              enabled: true,
+              image: 10,
+              size: 75,
+              positionX: 85,
+              positionY: 85,
+            },
           },
         ],
       },
