@@ -1,5 +1,6 @@
 import { GlobalConfig } from 'payload/types'
 import { ColorField } from '../fields/ColorField'
+import { revalidatePath } from 'next/cache'
 
 export const Globals: GlobalConfig = {
   slug: 'globals',
@@ -8,6 +9,14 @@ export const Globals: GlobalConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async () => {
+        // Revalidate cache when global settings change
+        revalidatePath('/', 'layout') // Revalidate entire layout
+      },
+    ],
   },
   fields: [
     {

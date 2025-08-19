@@ -57,6 +57,7 @@ async function getHomePageData(): Promise<PageData | null> {
   }
 }
 
+
 export default async function ConsilientsLanding() {
   const pageData = await getHomePageData()
 

@@ -57,6 +57,7 @@ async function getPageData(slug: string): Promise<PageData | null> {
   }
 }
 
+
 export default async function DynamicPage({ 
   params 
 }: { 

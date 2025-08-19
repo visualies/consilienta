@@ -1,6 +1,7 @@
 import { CollectionConfig } from 'payload/types'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { backgroundImageFields } from '../lib/payload-fields'
+import { revalidatePath } from 'next/cache'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -10,6 +11,22 @@ export const Pages: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc }) => {
+        // Revalidate cache when page content changes
+        revalidatePath(`/${doc.slug}`)
+        revalidatePath('/') // Also revalidate home page
+      },
+    ],
+    afterDelete: [
+      async ({ doc }) => {
+        // Revalidate cache when page is deleted
+        revalidatePath(`/${doc.slug}`)
+        revalidatePath('/') // Also revalidate home page
+      },
+    ],
   },
   fields: [
     {
