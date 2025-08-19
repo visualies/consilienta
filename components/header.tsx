@@ -117,6 +117,7 @@ export function Header({ data = defaultData }: HeaderProps) {
                 key={index}
                 href={item.link} 
                 className={`nav-text text-white hover:text-white/80 transition-colors font-medium ${!isOverWhite ? 'drop-shadow-sm' : ''}`}
+                style={isOverWhite ? { color: 'var(--brand-color) !important' } : {}}
               >
                 {item.label}
               </Link>
