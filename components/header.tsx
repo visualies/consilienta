@@ -90,11 +90,12 @@ export function Header({ data = defaultData }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   return (
-    <header 
-      className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}
-      style={{'--logo-white-url': `url('${data.logoWhite.url}')`} as React.CSSProperties}
-    >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between">
+    <>
+      <header 
+        className={`sticky top-0 z-50 px-6 py-4 frosted-glass-navbar ${isOverWhite ? 'navbar-over-white' : ''}`}
+        style={{'--logo-white-url': `url('${data.logoWhite.url}')`} as React.CSSProperties}
+      >
+        <nav className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="cursor-pointer">
             {isOverWhite ? (
@@ -162,53 +163,55 @@ export function Header({ data = defaultData }: HeaderProps) {
         </div>
       </nav>
 
-      {/* Mobile Navigation Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 frosted-glass-navbar border-t border-white/10">
-          <div className="px-6 py-4 space-y-4">
-            {data.navigation.map((item, index) => (
+    </header>
+
+    {/* Mobile Navigation Menu - Separate element for proper backdrop-filter */}
+    {isMobileMenuOpen && (
+      <div className={`lg:hidden fixed top-[88px] left-0 right-0 z-40 frosted-glass-navbar border-t border-white/10 ${isOverWhite ? 'navbar-over-white' : ''}`}>
+        <div className="px-6 py-4 space-y-4">
+          {data.navigation.map((item, index) => (
+            <Link 
+              key={index}
+              href={item.link} 
+              className="block nav-text text-white hover:text-white/80 transition-colors font-medium py-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="pt-4 border-t border-white/10 space-y-4">
+            <Button variant="primary" className="w-full" asChild>
+              <Link href={data.contactButton.link}>
+                {data.contactButton.text}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            
+            {/* Social Links - Mobile */}
+            <div className="flex items-center justify-center space-x-4 pt-2">
               <Link 
-                key={index}
-                href={item.link} 
-                className="block nav-text text-white hover:text-white/80 transition-colors font-medium py-2"
+                href="https://linkedin.com/company/consilienta"
+                className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item.label}
+                <Linkedin className="h-5 w-5" />
               </Link>
-            ))}
-            <div className="pt-4 border-t border-white/10 space-y-4">
-              <Button variant="primary" className="w-full" asChild>
-                <Link href={data.contactButton.link}>
-                  {data.contactButton.text}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              
-              {/* Social Links - Mobile */}
-              <div className="flex items-center justify-center space-x-4 pt-2">
-                <Link 
-                  href="https://linkedin.com/company/consilienta"
-                  className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
-                  aria-label="LinkedIn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Linkedin className="h-5 w-5" />
-                </Link>
-                <Link 
-                  href="mailto:info@consilienta.com"
-                  className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
-                  aria-label="Email"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Mail className="h-5 w-5" />
-                </Link>
-              </div>
+              <Link 
+                href="mailto:info@consilienta.com"
+                className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
+                aria-label="Email"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Mail className="h-5 w-5" />
+              </Link>
             </div>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    )}
+    </>
   )
 }
