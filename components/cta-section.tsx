@@ -16,7 +16,11 @@ interface CTASectionProps {
     }
     secondaryButton: {
       text: string
-      link: string
+      link?: string
+      downloadFile?: {
+        url: string
+        filename?: string
+      }
     }
     backgroundImage?: {
       enabled: boolean
@@ -78,14 +82,30 @@ export function CTASection({ data = defaultData }: CTASectionProps) {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
-          <Link href={data.secondaryButton.link}>
-            <Button
-              size="lg"
-              variant="secondary"
+          {data.secondaryButton.downloadFile ? (
+            <a
+              href={data.secondaryButton.downloadFile.url}
+              download={data.secondaryButton.downloadFile.filename}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {data.secondaryButton.text}
-            </Button>
-          </Link>
+              <Button
+                size="lg"
+                variant="secondary"
+              >
+                {data.secondaryButton.text}
+              </Button>
+            </a>
+          ) : (
+            <Link href={data.secondaryButton.link || '#'}>
+              <Button
+                size="lg"
+                variant="secondary"
+              >
+                {data.secondaryButton.text}
+              </Button>
+            </Link>
+          )}
         </FadeUpAnimation>
       </div>
     </section>

@@ -392,8 +392,20 @@ export const Pages: CollectionConfig = {
                 {
                   name: 'link',
                   type: 'text',
-                  required: true,
+                  required: false,
                   defaultValue: '#brochure',
+                  admin: {
+                    description: 'Leave empty if using a downloadable file instead',
+                  },
+                },
+                {
+                  name: 'downloadFile',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                  admin: {
+                    description: 'Upload a file (PDF, brochure, etc.) for direct download. This will override the link field.',
+                  },
                 },
               ],
             },
