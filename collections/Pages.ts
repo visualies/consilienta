@@ -635,7 +635,7 @@ export const Pages: CollectionConfig = {
                   name: 'service', 
                   type: 'select', 
                   label: 'Service of Interest', 
-                  required: true,
+                  required: false,
                   options: [
                     { label: 'Regulatory Strategy', value: 'regulatory' },
                     { label: 'Clinical Development', value: 'clinical' },

@@ -74,7 +74,7 @@ export const ContactSubmissions: CollectionConfig = {
         {
           name: 'service',
           type: 'select',
-          required: true,
+          required: false,
           options: [
             { label: 'Regulatory Strategy', value: 'regulatory' },
             { label: 'Clinical Development', value: 'clinical' },

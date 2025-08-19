@@ -57,6 +57,11 @@ export function ContactFormBlock({
   const [lastSubmittedData, setLastSubmittedData] = useState<Record<string, string>>({})
 
   const validateField = (name: string, value: string, field: any): string => {
+    // Skip validation for service field
+    if (name === 'service') {
+      return ''
+    }
+    
     if (field.required && (!value || value.trim() === '')) {
       return 'required'
     }
@@ -296,7 +301,7 @@ export function ContactFormBlock({
                          <div key={field.id || field.name} className={field.name === "message" ? "md:col-span-2" : ""}>
                            <label className="block text-white mb-2 font-medium">
                              {field.label}
-                             {field.required && <span className="text-red-400 ml-1">*</span>}
+                             {field.required && field.name !== 'service' && <span className="text-red-400 ml-1">*</span>}
                              {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                            </label>
                            <Select
@@ -327,7 +332,7 @@ export function ContactFormBlock({
                          <div key={field.id || field.name} className="md:col-span-2">
                            <label className="block text-white mb-2 font-medium">
                              {field.label}
-                             {field.required && <span className="text-red-400 ml-1">*</span>}
+                             {field.required && field.name !== 'service' && <span className="text-red-400 ml-1">*</span>}
                              {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                            </label>
                            <Textarea
@@ -346,7 +351,7 @@ export function ContactFormBlock({
                        <div key={field.id || field.name}>
                          <label className="block text-white mb-2 font-medium">
                            {field.label}
-                           {field.required && <span className="text-red-400 ml-1">*</span>}
+                           {field.required && field.name !== 'service' && <span className="text-red-400 ml-1">*</span>}
                            {errors[field.name] && <span className="text-red-400 ml-2 text-sm">{errors[field.name]}</span>}
                          </label>
                          <Input
