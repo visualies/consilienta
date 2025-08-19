@@ -4,8 +4,7 @@ export const ContactSubmissions: CollectionConfig = {
   slug: 'contact-submissions',
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['firstName', 'lastName', 'email', 'service', 'createdAt'],
-    description: 'Contact form submissions from the website',
+    defaultColumns: ['firstName', 'lastName', 'email', 'service', 'status', 'createdAt'],
   },
   access: {
     read: () => true,
@@ -15,67 +14,88 @@ export const ContactSubmissions: CollectionConfig = {
   },
   fields: [
     {
-      name: 'firstName',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'First name of the person submitting the form',
-      },
-    },
-    {
-      name: 'lastName',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Last name of the person submitting the form',
-      },
-    },
-    {
-      name: 'email',
-      type: 'email',
-      required: true,
-      admin: {
-        description: 'Email address for follow-up',
-      },
-    },
-    {
-      name: 'company',
-      type: 'text',
-      required: false,
-      admin: {
-        description: 'Company name (optional)',
-      },
-    },
-    {
-      name: 'phone',
-      type: 'text',
-      required: false,
-      admin: {
-        description: 'Phone number (optional)',
-      },
-    },
-    {
-      name: 'service',
-      type: 'select',
-      required: true,
-      options: [
-        { label: 'Regulatory Strategy', value: 'regulatory' },
-        { label: 'Clinical Development', value: 'clinical' },
-        { label: 'Market Access', value: 'market-access' },
-        { label: 'Quality Assurance', value: 'quality' },
-        { label: 'Compliance', value: 'compliance' },
-        { label: 'Other', value: 'other' },
+      type: 'row',
+      fields: [
+        {
+          name: 'firstName',
+          type: 'text',
+          required: true,
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
+        {
+          name: 'lastName',
+          type: 'text',
+          required: true,
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
       ],
-      admin: {
-        description: 'Service they are interested in',
-      },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'email',
+          type: 'email',
+          required: true,
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
+        {
+          name: 'phone',
+          type: 'text',
+          required: false,
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'company',
+          type: 'text',
+          required: false,
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
+        {
+          name: 'service',
+          type: 'select',
+          required: true,
+          options: [
+            { label: 'Regulatory Strategy', value: 'regulatory' },
+            { label: 'Clinical Development', value: 'clinical' },
+            { label: 'Market Access', value: 'market-access' },
+            { label: 'Quality Assurance', value: 'quality' },
+            { label: 'Compliance', value: 'compliance' },
+            { label: 'Other', value: 'other' },
+          ],
+          admin: {
+            readOnly: true,
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'message',
       type: 'textarea',
       required: true,
       admin: {
-        description: 'Their inquiry or message',
+        readOnly: true,
       },
     },
     {
@@ -85,7 +105,10 @@ export const ContactSubmissions: CollectionConfig = {
       defaultValue: () => new Date(),
       admin: {
         position: 'sidebar',
-        description: 'When the form was submitted',
+        readOnly: true,
+        date: {
+          displayFormat: 'MMM do, yyyy h:mm a',
+        },
       },
     },
     {
@@ -101,7 +124,6 @@ export const ContactSubmissions: CollectionConfig = {
       ],
       admin: {
         position: 'sidebar',
-        description: 'Status of the inquiry',
       },
     },
     {
@@ -109,7 +131,6 @@ export const ContactSubmissions: CollectionConfig = {
       type: 'textarea',
       required: false,
       admin: {
-        description: 'Internal notes about this submission',
       },
     },
   ],
