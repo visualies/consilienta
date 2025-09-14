@@ -13,8 +13,6 @@ interface SolutionItem {
 
 interface SolutionsBlockProps {
   data: {
-    title: string
-    subtitle: string
     solutionsList: Array<SolutionItem>
   }
 }
