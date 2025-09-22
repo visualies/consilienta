@@ -294,5 +294,28 @@ export const Globals: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'seo',
+      type: 'group',
+      label: 'SEO Settings',
+      fields: [
+        {
+          name: 'robotsTxt',
+          type: 'textarea',
+          label: 'Robots.txt Content',
+          admin: {
+            description: 'Content for your robots.txt file. Leave empty to use default.',
+            placeholder: `User-agent: *
+Allow: /
+
+Sitemap: https://consilienta.com/sitemap.xml
+
+# Block admin and API routes
+Disallow: /admin/
+Disallow: /api/`,
+          },
+        },
+      ],
+    },
   ],
 }
