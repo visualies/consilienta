@@ -968,6 +968,28 @@ export const Pages: CollectionConfig = {
           ],
         },
         {
+          slug: 'heroHeadline',
+          fields: [
+            {
+              name: 'headline',
+              type: 'text',
+              required: true,
+              defaultValue: 'Your Headline Here',
+              admin: {
+                description: 'Main headline text (similar to hero style)',
+              },
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: false,
+              admin: {
+                description: 'Optional description text below the headline',
+              },
+            },
+          ],
+        },
+        {
           slug: 'backgroundImage',
           fields: backgroundImageFields,
         },

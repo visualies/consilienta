@@ -9,6 +9,7 @@ import { TermsOfServiceBlock } from './terms-of-service-block'
 import { CookiesBlock } from './cookies-block'
 import { PrivacyBlock } from './privacy-block'
 import { PageHeadlineBlock } from './page-headline-block'
+import { HeadlineBlock } from './headline-block'
 import { BackgroundImageBlock } from './background-image-block'
 import { ContentSectionBlock } from './content-section-block'
 import { MultiContentBlock } from './multi-content-block'
@@ -88,6 +89,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <AboutUsBlock key={index} data={block} />
           case 'headline':
             return <PageHeadlineBlock key={index} data={block} />
+          case 'heroHeadline':
+            return <HeadlineBlock key={index} data={block} />
           case 'backgroundImage':
             return <BackgroundImageBlock key={index} data={block} />
           case 'contentSection':
