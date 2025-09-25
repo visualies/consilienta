@@ -1,4 +1,5 @@
 import { SolutionsSection } from "@/components/solutions-section"
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 interface SolutionItem {
   headline: string
@@ -8,7 +9,7 @@ interface SolutionItem {
   }
   color?: string
   bodyText: string
-  popupText?: string
+  popupText?: DefaultTypedEditorState
 }
 
 interface SolutionsBlockProps {

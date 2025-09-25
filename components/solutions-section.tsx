@@ -8,6 +8,8 @@ import { ExternalLink } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
+import RichText from "@/components/ui/rich-text"
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 interface SolutionItem {
   headline: string
@@ -17,7 +19,7 @@ interface SolutionItem {
   }
   color?: string
   bodyText: string
-  popupText?: string
+  popupText?: DefaultTypedEditorState
 }
 
 interface SolutionsSectionProps {
@@ -135,7 +137,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
       </section>
 
       <Dialog open={!!selectedSolution} onOpenChange={() => setSelectedSolution(null)}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="!max-w-[90vw] w-[90vw] max-h-[80vh] overflow-y-auto sm:!max-w-[90vw]">
           <DialogHeader className="pb-4">
             <div className="flex items-center gap-4">
               {selectedSolution?.logo && (
@@ -155,7 +157,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
           </DialogHeader>
           <div className="prose prose-lg max-w-none">
             {selectedSolution?.popupText && (
-              <div dangerouslySetInnerHTML={{ __html: selectedSolution.popupText }} />
+              <RichText data={selectedSolution.popupText} />
             )}
           </div>
         </DialogContent>
