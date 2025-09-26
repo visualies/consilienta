@@ -426,18 +426,6 @@ export const Pages: CollectionConfig = {
           slug: 'solutions',
           fields: [
             {
-              name: 'title',
-              type: 'text',
-              required: true,
-              defaultValue: 'How We Help',
-            },
-            {
-              name: 'subtitle',
-              type: 'textarea',
-              required: true,
-              defaultValue: 'We are providing services in the area of regulatory affairs and strategic product development for diverse innovative therapies.',
-            },
-            {
               name: 'solutionsList',
               type: 'array',
               minRows: 0,

@@ -24,15 +24,11 @@ interface SolutionItem {
 
 interface SolutionsSectionProps {
   data?: {
-    title: string
-    subtitle: string
     solutionsList: Array<SolutionItem>
   }
 }
 
 const defaultData = {
-  title: "How We Help",
-  subtitle: "We are providing services in the area of regulatory affairs and strategic product development for diverse innovative therapies.",
   solutionsList: [
     {
       headline: "Regulatory Strategy",
@@ -82,6 +78,19 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
         <div className="absolute inset-0 frosted-overlay"></div>
         <div className="absolute inset-0 frosted-glass" style={{borderTop: '1px solid rgba(255, 255, 255, 0.3)', borderBottom: '1px solid rgba(255, 255, 255, 0.3)'}}></div>
         <div className="max-w-7xl mx-auto relative z-10">
+          <FadeUpAnimation className="text-center space-y-4 mb-16">
+            <FadeUpAnimation delay={0.2}>
+              <h2 className="text-4xl font-serif font-normal text-white">
+                {data.title}
+              </h2>
+            </FadeUpAnimation>
+            <FadeUpAnimation delay={0.4}>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                {data.subtitle}
+              </p>
+            </FadeUpAnimation>
+          </FadeUpAnimation>
+
           <StaggeredFadeUp className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" staggerDelay={0.1}>
             {data.solutionsList.map((solution, index) => (
               <CardAnimation

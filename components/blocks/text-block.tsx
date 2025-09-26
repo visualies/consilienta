@@ -65,9 +65,23 @@ export function TextBlock({ data }: TextBlockProps) {
       [&_h1]:text-4xl [&_h1]:font-serif [&_h1]:font-normal [&_h1]:mb-6 [&_h1]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
       [&_h2]:text-3xl [&_h2]:font-serif [&_h2]:font-normal [&_h2]:mb-4 [&_h2]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
       [&_h3]:text-xl [&_h3]:font-serif [&_h3]:font-normal [&_h3]:mb-2 [&_h3]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
+      [&_h4]:text-lg [&_h4]:font-serif [&_h4]:font-normal [&_h4]:mb-2 [&_h4]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
+      [&_h5]:text-base [&_h5]:font-serif [&_h5]:font-normal [&_h5]:mb-2 [&_h5]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
+      [&_h6]:text-sm [&_h6]:font-serif [&_h6]:font-normal [&_h6]:mb-2 [&_h6]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
       [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:${data.textColor === 'dark' ? 'text-gray-700' : 'text-white/90'}
-      [&_strong]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
+      [&_strong]:font-semibold [&_strong]:${data.textColor === 'dark' ? 'text-gray-900' : 'text-white'}
+      [&_em]:italic [&_em]:${data.textColor === 'dark' ? 'text-gray-700' : 'text-white/90'}
+      [&_u]:underline [&_u]:${data.textColor === 'dark' ? 'text-gray-700' : 'text-white/90'}
+      [&_s]:line-through [&_s]:${data.textColor === 'dark' ? 'text-gray-600' : 'text-white/70'}
+      [&_code]:bg-black/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_code]:${data.textColor === 'dark' ? 'text-gray-800 [&_code]:bg-gray-100' : 'text-white/95 [&_code]:bg-white/10'}
+      [&_pre]:bg-black/20 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:mb-4 [&_pre]:${data.textColor === 'dark' ? 'bg-gray-100' : 'bg-white/10'}
+      [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm [&_pre_code]:font-mono
+      [&_blockquote]:border-l-4 [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:mb-4 [&_blockquote]:italic [&_blockquote]:${data.textColor === 'dark' ? 'border-gray-300 text-gray-600' : 'border-white/30 text-white/80'}
+      [&_ul]:list-disc [&_ul]:list-inside [&_ul]:mb-4 [&_ul]:space-y-1
+      [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:mb-4 [&_ol]:space-y-1
       [&_li]:${data.textColor === 'dark' ? 'text-gray-700' : 'text-white/90'}
+      [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a]:${data.textColor === 'dark' ? 'text-blue-600 hover:text-blue-800' : 'text-blue-300 hover:text-blue-100'}
+      [&_hr]:border-0 [&_hr]:h-px [&_hr]:my-8 [&_hr]:${data.textColor === 'dark' ? 'bg-gray-300' : 'bg-white/30'}
     `
   }
 

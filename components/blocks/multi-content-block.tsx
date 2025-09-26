@@ -32,8 +32,8 @@ export function MultiContentBlock({ data }: MultiContentBlockProps) {
                     </h2>
                   )}
                   {section.content && (
-                    <div className="text-white/90 leading-relaxed">
-                      <p className="text-base">{section.content}</p>
+                    <div className="text-white/90 leading-relaxed text-base whitespace-pre-line">
+                      {section.content}
                     </div>
                   )}
                 </div>
