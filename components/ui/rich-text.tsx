@@ -8,6 +8,7 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
+import Image from 'next/image'
 
 type NodeTypes = DefaultNodeTypes
 
@@ -23,6 +24,21 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  upload: ({ node }) => {
+    const { value } = node
+    if (typeof value === 'object' && value && 'url' in value) {
+      return (
+        <Image
+          src={value.url as string}
+          alt={value.alt as string || ''}
+          width={value.width as number || 800}
+          height={value.height as number || 600}
+          className="max-w-full h-auto rounded-lg shadow-md my-4"
+        />
+      )
+    }
+    return null
+  },
 })
 
 type Props = {

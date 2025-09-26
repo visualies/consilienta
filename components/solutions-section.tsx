@@ -146,7 +146,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
       </section>
 
       <Dialog open={!!selectedSolution} onOpenChange={() => setSelectedSolution(null)}>
-        <DialogContent className="!max-w-[90vw] w-[90vw] max-h-[80vh] overflow-y-auto sm:!max-w-[90vw]">
+        <DialogContent className="!max-w-[90vw] w-[90vw] max-h-[80vh] overflow-y-auto sm:!max-w-[90vw] bg-white">
           <DialogHeader className="pb-4">
             <div className="flex items-center gap-4">
               {selectedSolution?.logo && (
@@ -159,12 +159,36 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                   />
                 </div>
               )}
-              <DialogTitle className="text-2xl font-serif">
+              <DialogTitle className="text-2xl font-serif text-gray-900">
                 {selectedSolution?.headline}
               </DialogTitle>
             </div>
           </DialogHeader>
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none
+            [&_h1]:text-4xl [&_h1]:font-serif [&_h1]:font-normal [&_h1]:mb-6 [&_h1]:text-gray-900
+            [&_h2]:text-3xl [&_h2]:font-serif [&_h2]:font-normal [&_h2]:mb-4 [&_h2]:text-gray-900
+            [&_h3]:text-xl [&_h3]:font-serif [&_h3]:font-normal [&_h3]:mb-2 [&_h3]:text-gray-900
+            [&_h4]:text-lg [&_h4]:font-serif [&_h4]:font-normal [&_h4]:mb-2 [&_h4]:text-gray-900
+            [&_h5]:text-base [&_h5]:font-serif [&_h5]:font-normal [&_h5]:mb-2 [&_h5]:text-gray-900
+            [&_h6]:text-sm [&_h6]:font-serif [&_h6]:font-normal [&_h6]:mb-2 [&_h6]:text-gray-900
+            [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-gray-700
+            [&_strong]:font-semibold [&_strong]:text-gray-900
+            [&_em]:italic [&_em]:text-gray-700
+            [&_u]:underline [&_u]:text-gray-700
+            [&_s]:line-through [&_s]:text-gray-600
+            [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_code]:text-gray-800
+            [&_pre]:bg-gray-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:mb-4
+            [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm [&_pre_code]:font-mono
+            [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:mb-4 [&_blockquote]:italic [&_blockquote]:text-gray-600
+            [&_ul]:list-disc [&_ul]:list-inside [&_ul]:mb-4 [&_ul]:space-y-1
+            [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:mb-4 [&_ol]:space-y-1
+            [&_li]:text-gray-700
+            [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a]:text-blue-600 [&_a]:hover:text-blue-800
+            [&_hr]:border-0 [&_hr]:h-px [&_hr]:my-8 [&_hr]:bg-gray-300
+            [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:shadow-md [&_img]:my-4
+            [&_figure]:my-6 [&_figure]:text-center
+            [&_figcaption]:text-sm [&_figcaption]:text-gray-500 [&_figcaption]:mt-2 [&_figcaption]:italic
+          ">
             {selectedSolution?.popupText && (
               <RichText data={selectedSolution.popupText} />
             )}
