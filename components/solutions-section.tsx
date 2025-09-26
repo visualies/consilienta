@@ -146,7 +146,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
       </section>
 
       <Dialog open={!!selectedSolution} onOpenChange={() => setSelectedSolution(null)}>
-        <DialogContent className="!max-w-[90vw] w-[90vw] max-h-[80vh] overflow-y-auto sm:!max-w-[90vw] bg-white">
+        <DialogContent className="!max-w-[90vw] w-[90vw] max-h-[80vh] overflow-y-auto sm:!max-w-[90vw] bg-white [&_button]:text-gray-600 [&_button]:hover:text-gray-900">
           <DialogHeader className="pb-4">
             <div className="flex items-center gap-4">
               {selectedSolution?.logo && (
