@@ -953,6 +953,19 @@ export const Pages: CollectionConfig = {
                 description: 'Optional subtitle displayed below the main headline',
               },
             },
+            {
+              name: 'alignment',
+              type: 'select',
+              required: false,
+              defaultValue: 'center',
+              options: [
+                { label: 'Center', value: 'center' },
+                { label: 'Left', value: 'left' },
+              ],
+              admin: {
+                description: 'Text alignment for headline and subtitle',
+              },
+            },
           ],
         },
         {
