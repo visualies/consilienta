@@ -75,7 +75,7 @@ export function EmployeeCard({
                 src={photo.url}
                 alt={photo.alt || `${name} profile photo`}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-102"
+                className="object-cover object-top transition-transform duration-300 group-hover:scale-102"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
@@ -162,7 +162,7 @@ export function EmployeeCard({
                       src={photo.url}
                       alt={photo.alt || `${name} profile photo`}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-102"
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-102"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
@@ -240,7 +240,7 @@ export function EmployeeCard({
                       src={photo.url}
                       alt={photo.alt || `${name} profile photo`}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-102"
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-102"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
@@ -325,7 +325,7 @@ export function EmployeeCard({
                     src={photo.url}
                     alt={photo.alt || `${name} profile photo`}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-102"
+                    className="object-cover object-top transition-transform duration-300 group-hover:scale-102"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">

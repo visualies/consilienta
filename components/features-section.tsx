@@ -2,7 +2,8 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Users, Target, Lightbulb, Globe, Zap, Award } from "lucide-react"
-import { FadeUpAnimation, StaggeredFadeUp, CardAnimation } from "@/components/ui/motion-wrappers"
+import { FadeUpAnimation, StaggeredFadeUp } from "@/components/ui/motion-wrappers"
+import { motion } from "framer-motion"
 
 const getIconComponent = (iconName: string) => {
   switch (iconName) {
@@ -84,9 +85,13 @@ export function FeaturesSection({ data = defaultData }: FeaturesSectionProps) {
 
         <StaggeredFadeUp className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" staggerDelay={0.1}>
           {data.featuresList.map((feature, index) => (
-            <CardAnimation
+            <motion.div
               key={index}
-              delay={0.6 + (index * 0.1)}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <Card className="bg-white shadow-lg h-full border-0 outline outline-2 outline-white/20">
                 <CardContent className="p-8 space-y-4">
@@ -97,7 +102,7 @@ export function FeaturesSection({ data = defaultData }: FeaturesSectionProps) {
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
-            </CardAnimation>
+            </motion.div>
           ))}
         </StaggeredFadeUp>
       </div>
