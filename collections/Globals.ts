@@ -163,6 +163,44 @@ export const Globals: GlobalConfig = {
             },
           ],
         },
+        {
+          name: 'socialLinks',
+          type: 'array',
+          fields: [
+            {
+              name: 'platform',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'LinkedIn', value: 'linkedin' },
+                { label: 'Email', value: 'email' },
+                { label: 'Twitter', value: 'twitter' },
+                { label: 'Instagram', value: 'instagram' },
+                { label: 'Facebook', value: 'facebook' },
+              ],
+            },
+            {
+              name: 'url',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'label',
+              type: 'text',
+              required: false,
+              admin: {
+                description: 'Optional custom label for accessibility',
+              },
+            },
+          ],
+          defaultValue: [
+            { platform: 'linkedin', url: 'https://linkedin.com/company/consilienta', label: 'LinkedIn' },
+            { platform: 'email', url: 'mailto:info@consilienta.com', label: 'Email' },
+          ],
+          admin: {
+            description: 'Social media links displayed in the header',
+          },
+        },
       ],
     },
     {

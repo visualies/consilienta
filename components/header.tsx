@@ -190,24 +190,19 @@ export function Header({ data = defaultData }: HeaderProps) {
             
             {/* Social Links - Mobile */}
             <div className="flex items-center justify-center space-x-4 pt-2">
-              <Link 
-                href="https://linkedin.com/company/consilienta"
-                className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link 
-                href="mailto:info@consilienta.com"
-                className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
-                aria-label="Email"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Mail className="h-5 w-5" />
-              </Link>
+              {(data.socialLinks || defaultData.socialLinks)?.map((social, index) => (
+                <Link 
+                  key={index}
+                  href={social.url}
+                  className="p-2 text-white hover:text-white/80 transition-colors rounded-lg"
+                  aria-label={social.label || social.platform}
+                  target={social.platform !== 'email' ? "_blank" : undefined}
+                  rel={social.platform !== 'email' ? "noopener noreferrer" : undefined}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {getSocialIcon(social.platform)}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

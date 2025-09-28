@@ -86,18 +86,22 @@ export function Footer({ data = defaultData }: FooterProps) {
                         ))}
                       </div>
                     </div>
-                    <div className="text-white/90">
-                      <p className="text-sm font-medium text-white/70 mb-1">Email</p>
-                      <a href={`mailto:${data.email}`} className="hover:text-white transition-colors text-sm">
-                        {data.email}
-                      </a>
-                    </div>
-                    <div className="text-white/90">
-                      <p className="text-sm font-medium text-white/70 mb-1">LinkedIn</p>
-                      <a href="https://linkedin.com/company/consilienta" className="hover:text-white transition-colors text-sm">
-                        Consilienta
-                      </a>
-                    </div>
+                    {data.socialLinks?.filter(social => social.platform === 'email').map((social, index) => (
+                      <div key={index} className="text-white/90">
+                        <p className="text-sm font-medium text-white/70 mb-1">Email</p>
+                        <a href={social.url} className="hover:text-white transition-colors text-sm">
+                          {social.url.replace('mailto:', '')}
+                        </a>
+                      </div>
+                    ))}
+                    {data.socialLinks?.filter(social => social.platform === 'linkedin').map((social, index) => (
+                      <div key={index} className="text-white/90">
+                        <p className="text-sm font-medium text-white/70 mb-1">LinkedIn</p>
+                        <a href={social.url} className="hover:text-white transition-colors text-sm">
+                          Consilienta
+                        </a>
+                      </div>
+                    ))}
                 </div>
               </div>
               </div>
