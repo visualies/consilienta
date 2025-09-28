@@ -172,7 +172,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
             [&_li]:text-gray-700
             [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a]:text-blue-600 [&_a]:hover:text-blue-800
             [&_hr]:border-0 [&_hr]:h-px [&_hr]:my-8 [&_hr]:bg-gray-300
-            [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:shadow-md [&_img]:my-4
+            [&_img]:max-w-[48%] [&_img]:h-auto [&_img]:rounded-lg [&_img]:shadow-md [&_img]:my-2 [&_img]:inline-block [&_img]:mr-4 [&_img]:align-top
             [&_figure]:my-6 [&_figure]:text-center
             [&_figcaption]:text-sm [&_figcaption]:text-gray-500 [&_figcaption]:mt-2 [&_figcaption]:italic
           ">
