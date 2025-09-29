@@ -57,6 +57,37 @@ async function getPageData(slug: string): Promise<PageData | null> {
   }
 }
 
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const { slug } = await params
+  const pageData = await getPageData(slug)
+  
+  if (!pageData) {
+    return {
+      title: 'Consilienta - Biopharma Consulting Excellence',
+      description: 'Guiding your product from concept to approval. No matter how complex or innovative your development journey may be.',
+    }
+  }
+
+  return {
+    title: pageData.meta?.title || pageData.title || 'Consilienta - Biopharma Consulting Excellence',
+    description: pageData.meta?.description || 'Guiding your product from concept to approval. No matter how complex or innovative your development journey may be.',
+    ...(pageData.meta?.image && {
+      openGraph: {
+        images: [
+          {
+            url: pageData.meta.image.url,
+            alt: pageData.meta.image.alt,
+          },
+        ],
+      },
+    }),
+  }
+}
+
 
 export default async function DynamicPage({ 
   params 
