@@ -2,13 +2,18 @@
 
 import { useState, useEffect } from "react"
 
-export function useScrollHeader() {
+export function useScrollHeader(enableColorChange: boolean = true, threshold?: number) {
   const [isOverWhite, setIsOverWhite] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!enableColorChange) {
+        setIsOverWhite(false)
+        return
+      }
+      
       const scrollY = window.scrollY
-      const heroHeight = window.innerHeight * 0.55
+      const heroHeight = threshold ? (window.innerHeight * (threshold / 100)) : (window.innerHeight * 0.55)
       setIsOverWhite(scrollY > heroHeight)
     }
 

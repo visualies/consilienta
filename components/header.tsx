@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useScrollHeader } from "@/components/hooks/use-scroll-header"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 
 interface HeaderProps {
   data?: {
@@ -29,6 +30,10 @@ interface HeaderProps {
       platform: 'linkedin' | 'email' | 'twitter' | 'instagram' | 'facebook'
       url: string
       label?: string
+    }>
+    scrollThresholds?: Array<{
+      page: string
+      threshold: number
     }>
   }
 }
@@ -86,7 +91,14 @@ const getSocialIcon = (platform: string) => {
 }
 
 export function Header({ data = defaultData }: HeaderProps) {
-  const { isOverWhite } = useScrollHeader()
+  const pathname = usePathname()
+  
+  // Find threshold for current page
+  const pageThreshold = data.scrollThresholds?.find(config => config.page === pathname)
+  const shouldChangeColor = !!pageThreshold
+  const threshold = pageThreshold?.threshold
+  
+  const { isOverWhite } = useScrollHeader(shouldChangeColor, threshold)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   return (

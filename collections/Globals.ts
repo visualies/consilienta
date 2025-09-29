@@ -201,6 +201,36 @@ export const Globals: GlobalConfig = {
             description: 'Social media links displayed in the header',
           },
         },
+        {
+          name: 'scrollThresholds',
+          type: 'array',
+          label: 'Page Scroll Thresholds',
+          fields: [
+            {
+              name: 'page',
+              type: 'text',
+              required: true,
+              admin: {
+                description: 'Page path (e.g., "/about-us", "/contact"). Use "/" for home page.',
+                placeholder: '/contact',
+              },
+            },
+            {
+              name: 'threshold',
+              type: 'number',
+              required: true,
+              min: 0,
+              max: 100,
+              admin: {
+                description: 'Viewport height percentage where header changes color (e.g., 55 for 55% of viewport height).',
+                placeholder: '55',
+              },
+            },
+          ],
+          admin: {
+            description: 'Configure scroll thresholds for specific pages. Only pages listed here will have header color changes.',
+          },
+        },
       ],
     },
     {
