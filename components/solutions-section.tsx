@@ -85,7 +85,7 @@ export function SolutionsSection({ data = defaultData }: SolutionsSectionProps) 
                 delay={0.6 + (index * 0.1)}
               >
                 <Card
-                  className="bg-white shadow-lg h-full border-0 outline outline-2 outline-white/20 hover:shadow-xl transition-all duration-200 ease-out cursor-pointer"
+                  className="bg-white shadow-lg h-full border-0 outline outline-white/20 hover:shadow-xl transition-all duration-200 ease-out cursor-pointer"
                   onClick={() => solution.popupText && setSelectedSolution(solution)}
                 >
                   <CardContent className="p-8 space-y-4 relative">

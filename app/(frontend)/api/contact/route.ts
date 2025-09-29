@@ -5,7 +5,9 @@ import config from '@/payload.config'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { firstName, lastName, email, company, phone, service, message } = body
+    console.log('Received form data:', body)
+    const { firstName, lastName, title, email, company, phone, service, message } = body
+    console.log('Extracted title:', title)
 
     // Validate required fields
     if (!firstName || !lastName || !email || !message) {
@@ -33,6 +35,7 @@ export async function POST(request: NextRequest) {
       data: {
         firstName,
         lastName,
+        title: title || '',
         email,
         company: company || '',
         phone: phone || '',

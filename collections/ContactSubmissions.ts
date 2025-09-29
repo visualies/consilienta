@@ -60,6 +60,14 @@ export const ContactSubmissions: CollectionConfig = {
       ],
     },
     {
+      name: 'title',
+      type: 'text',
+      required: false,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       type: 'row',
       fields: [
         {

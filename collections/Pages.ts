@@ -616,6 +616,7 @@ export const Pages: CollectionConfig = {
               defaultValue: [
                 { name: 'firstName', type: 'text', label: 'First Name', required: true, placeholder: 'Enter your first name' },
                 { name: 'lastName', type: 'text', label: 'Last Name', required: true, placeholder: 'Enter your last name' },
+                { name: 'title', type: 'text', label: 'Title', required: false, placeholder: 'Enter your professional title' },
                 { name: 'email', type: 'email', label: 'Email Address', required: true, placeholder: 'Enter your email address' },
                 { name: 'company', type: 'text', label: 'Company', required: false, placeholder: 'Enter your company name' },
                 { name: 'phone', type: 'tel', label: 'Phone Number', required: false, placeholder: 'Enter your phone number' },
@@ -964,6 +965,21 @@ export const Pages: CollectionConfig = {
               ],
               admin: {
                 description: 'Text alignment for headline and subtitle',
+              },
+            },
+            {
+              name: 'size',
+              type: 'select',
+              required: false,
+              defaultValue: 'default',
+              options: [
+                { label: 'Default (3xl)', value: 'default' },
+                { label: 'Large (5xl)', value: 'large' },
+                { label: 'Extra Large (6xl)', value: 'xl' },
+                { label: 'Hero Size (7xl)', value: 'hero' },
+              ],
+              admin: {
+                description: 'Text size for the headline',
               },
             },
           ],

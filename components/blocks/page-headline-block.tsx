@@ -7,6 +7,7 @@ interface PageHeadlineBlockProps {
     title?: string
     subtitle?: string
     alignment?: 'center' | 'left'
+    size?: 'default' | 'large' | 'xl' | 'hero'
   }
 }
 
@@ -14,10 +15,18 @@ export function PageHeadlineBlock({ data }: PageHeadlineBlockProps) {
   const title = data?.title || "Page Title"
   const subtitle = data?.subtitle
   const alignment = data?.alignment || 'center'
+  const size = data?.size || 'default'
 
   const alignmentClasses = {
     center: 'text-center',
     left: 'text-left'
+  }
+
+  const sizeClasses = {
+    default: 'text-4xl',
+    large: 'text-5xl',
+    xl: 'text-6xl',
+    hero: 'text-5xl lg:text-7xl'
   }
 
   const subtitleClasses = {
@@ -30,7 +39,7 @@ export function PageHeadlineBlock({ data }: PageHeadlineBlockProps) {
       <div className={`${alignment === 'center' ? 'max-w-4xl mx-auto text-center' : 'max-w-7xl mx-auto'}`}>
         <div className="mb-8">
           <FadeUpAnimation>
-            <h1 className={`text-4xl font-serif font-medium text-white mb-4 ${alignmentClasses[alignment]}`}>
+            <h1 className={`${sizeClasses[size]} font-serif font-medium text-white mb-4 ${alignmentClasses[alignment]}`}>
               {title}
             </h1>
           </FadeUpAnimation>
