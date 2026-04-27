@@ -63,7 +63,8 @@ The contact page is fully configurable through the Payload admin panel:
 The contact form submits to `/api/contact` which:
 - Validates required fields
 - Validates email format
-- Logs submissions (currently to console)
+- Saves submissions to Payload CMS
+- Optionally sends a simple notification to `CONTACT_FORM_WEBHOOK_URL`
 - Returns success/error responses
 
 ## Customization
@@ -104,4 +105,3 @@ For production use, consider:
 - Spam protection (reCAPTCHA)
 - Rate limiting
 - Email templates
-
