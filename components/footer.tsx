@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 
 interface FooterProps {
   data?: {
@@ -138,9 +138,9 @@ export function Footer({ data = defaultData }: FooterProps) {
                 {link.name}
               </a>
             ))}
-            <a href="/legal-notice" className="text-white/70 hover:text-white text-sm transition-colors">
-                Legal Notice (Impressum)
-            </a>
+            <Link href="/legal-notice" className="text-white/70 hover:text-white text-sm transition-colors">
+              Legal Notice (Impressum)
+            </Link>
           </div>
         </div>
       </div>
