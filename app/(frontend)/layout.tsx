@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Providers } from '@/components/providers'
 import localFont from 'next/font/local'
 import { Rubik } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { getGlobals, generateBrandGradientCSS, generateBrandColorCSS, generateFrostingCSS } from '@/lib/get-globals'
@@ -45,9 +46,14 @@ const qurova = localFont({
   variable: '--font-qurova',
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Consilienta - Biopharma Consulting Excellence',
   description: 'Guiding your product from concept to approval. No matter how complex or innovative your development journey may be.',
+  manifest: '/manifest.webmanifest',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#4041D5',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
