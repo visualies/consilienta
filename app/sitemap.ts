@@ -3,6 +3,8 @@ import { getPayload } from 'payload'
 import config from '../payload.config'
 import { getSiteUrl, type PostSummary } from '@/lib/posts'
 
+export const dynamic = 'force-dynamic'
+
 type PageDoc = {
   slug?: string
   updatedAt?: string
