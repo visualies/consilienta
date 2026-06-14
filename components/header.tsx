@@ -51,7 +51,7 @@ const defaultData = {
     { label: 'Home', link: '/' },
     { label: 'How We Help', link: '/how-we-help' },
     { label: 'About Us', link: '/about-us' },
-    { label: 'Insights', link: '/insights' },
+    { label: 'Insights & News', link: '/insights' },
     { label: 'Careers', link: '/careers' }
   ],
   contactButton: {
@@ -70,6 +70,19 @@ const defaultData = {
       label: 'Email'
     }
   ]
+}
+
+function normalizeNavigation(navigation: NonNullable<HeaderProps['data']>['navigation']) {
+  return navigation.map((item) => {
+    if (item.link === '/insights') {
+      return {
+        ...item,
+        label: 'Insights & News',
+      }
+    }
+
+    return item
+  })
 }
 
 // Helper function to get the appropriate icon for each platform
@@ -92,6 +105,7 @@ const getSocialIcon = (platform: string) => {
 
 export function Header({ data = defaultData }: HeaderProps) {
   const pathname = usePathname()
+  const navigation = normalizeNavigation(data.navigation)
   
   // Find threshold for current page
   const pageThreshold = data.scrollThresholds?.find(config => config.page === pathname)
@@ -124,7 +138,7 @@ export function Header({ data = defaultData }: HeaderProps) {
         <div className="flex items-center space-x-4">
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {data.navigation.map((item, index) => (
+            {navigation.map((item, index) => (
               <Link 
                 key={index}
                 href={item.link} 
@@ -182,7 +196,7 @@ export function Header({ data = defaultData }: HeaderProps) {
     {isMobileMenuOpen && (
       <div className={`lg:hidden fixed top-[88px] left-0 right-0 z-40 frosted-glass-navbar border-t border-white/10 ${isOverWhite ? 'navbar-over-white' : ''}`}>
         <div className="px-6 py-4 space-y-4">
-          {data.navigation.map((item, index) => (
+          {navigation.map((item, index) => (
             <Link 
               key={index}
               href={item.link} 

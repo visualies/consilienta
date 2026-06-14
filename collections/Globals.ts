@@ -13,8 +13,14 @@ export const Globals: GlobalConfig = {
   hooks: {
     afterChange: [
       async () => {
-        // Revalidate cache when global settings change
-        revalidatePath('/', 'layout') // Revalidate entire layout
+        try {
+          // Revalidate cache when global settings change
+          revalidatePath('/')
+          revalidatePath('/', 'layout') // Revalidate entire layout
+        } catch {
+          // Ignore revalidation errors during seeding
+          console.log('Skipping revalidation (likely during seeding)')
+        }
       },
     ],
   },
@@ -141,7 +147,7 @@ export const Globals: GlobalConfig = {
             { label: 'Home', link: '/' },
             { label: 'How We Help', link: '/how-we-help' },
             { label: 'About Us', link: '/about-us' },
-            { label: 'Insights', link: '/insights' },
+            { label: 'Insights & News', link: '/insights' },
             { label: 'Careers', link: '/careers' },
           ],
         },
@@ -234,6 +240,70 @@ export const Globals: GlobalConfig = {
       ],
     },
     {
+      name: 'homepageAnnouncement',
+      type: 'group',
+      label: 'Homepage Announcement',
+      fields: [
+        {
+          name: 'enabled',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          defaultValue: 'Catalent/Consilienta Workshop',
+        },
+        {
+          name: 'title',
+          type: 'text',
+          defaultValue: 'Catalent/Consilienta Workshop',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          defaultValue: 'Unlocking Biotech Value: Speed to First-in-Human Matters',
+        },
+        {
+          name: 'dateText',
+          type: 'text',
+          defaultValue: 'Tuesday, 23 June 2026 from 1.00 - 5.30 pm',
+        },
+        {
+          name: 'locationText',
+          type: 'text',
+          defaultValue: 'BioM Biotech Cluster Development GmbH, Am Klopferspitz 19a, 82152 Martinsried, Germany',
+        },
+        {
+          name: 'ctaText',
+          type: 'text',
+          defaultValue: 'Registration Link',
+        },
+        {
+          name: 'ctaLink',
+          type: 'text',
+          admin: {
+            description: 'Direct registration link. The event details button uses the selected post.',
+          },
+        },
+        {
+          name: 'post',
+          type: 'relationship',
+          relationTo: 'posts',
+          admin: {
+            description: 'Post used for the event details button.',
+          },
+        },
+        {
+          name: 'hideAfter',
+          type: 'date',
+          admin: {
+            description: 'Announcement will stop rendering after this date and time.',
+          },
+        },
+      ],
+    },
+    {
       name: 'footer',
       type: 'group',
       fields: [
@@ -259,8 +329,8 @@ export const Globals: GlobalConfig = {
           minRows: 1,
           maxRows: 5,
           defaultValue: [
-            '+49 (0)163 2457821',
-            '+49 (0) 157 87414589'
+            { phone: '+49 (0)163 2457821' },
+            { phone: '+49 (0) 157 87414589' },
           ],
           fields: [
             {
@@ -328,7 +398,7 @@ export const Globals: GlobalConfig = {
           defaultValue: [
             { name: 'About Us', link: '#about' },
             { name: 'Careers', link: '#careers' },
-            { name: 'Insights', link: '#insights' },
+            { name: 'Insights & News', link: '/insights' },
             { name: 'Contact', link: '#contact' },
             { name: 'Privacy Policy', link: '#privacy' },
           ],

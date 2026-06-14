@@ -42,6 +42,22 @@ interface FooterData {
   }>
 }
 
+export interface HomepageAnnouncementData {
+  enabled?: boolean
+  label?: string
+  title?: string
+  description?: string
+  dateText?: string
+  locationText?: string
+  ctaText?: string
+  ctaLink?: string
+  post?: {
+    slug?: string
+    registrationUrl?: string
+  } | string | number
+  hideAfter?: string
+}
+
 interface BrandingData {
   brandColor: string
   frostingStrength: number
@@ -57,26 +73,23 @@ interface BrandingData {
 interface GlobalsData {
   branding: BrandingData
   header: HeaderData
+  homepageAnnouncement?: HomepageAnnouncementData
   footer: FooterData
 }
 
 export async function getGlobals(): Promise<GlobalsData | null> {
-  try {
-    const payload = await getPayload({ config })
-    
-    const globals = await payload.findGlobal({
-      slug: 'globals',
-    })
+  const payload = await getPayload({ config })
+  
+  const globals = await payload.findGlobal({
+    slug: 'globals',
+    depth: 1,
+  })
 
-    if (!globals) {
-      return null
-    }
-
-    return globals as GlobalsData
-  } catch (error) {
-    console.error('Error fetching globals:', error)
+  if (!globals) {
     return null
   }
+
+  return globals as GlobalsData
 }
 
 export function generateBrandGradientStyles(brandGradient: BrandingData['brandGradient']) {

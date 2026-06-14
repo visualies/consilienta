@@ -41,13 +41,24 @@ async function seedGlobals() {
             { label: 'Home', link: '/' },
             { label: 'How We Help', link: '/how-we-help' },
             { label: 'About Us', link: '/about-us' },
-            { label: 'Insights', link: '/insights' },
+            { label: 'Insights & News', link: '/insights' },
             { label: 'Careers', link: '/careers' },
           ],
           contactButton: {
             text: 'Contact Us',
             link: '/contact',
           },
+        },
+        homepageAnnouncement: {
+          enabled: true,
+          label: 'Catalent/Consilienta Workshop',
+          title: 'Catalent/Consilienta Workshop',
+          description: 'Unlocking Biotech Value: Speed to First-in-Human Matters',
+          dateText: 'Tuesday, 23 June 2026 from 1.00 - 5.30 pm',
+          locationText: 'BioM Biotech Cluster Development GmbH, Am Klopferspitz 19a, 82152 Martinsried, Germany',
+          ctaText: 'Registration Link',
+          ctaLink: '/insights/unlocking-biotech-value-speed-to-first-in-human-matters',
+          hideAfter: '2026-06-23T17:30:00+02:00',
         },
         footer: {
           logo: 5, // logo-transparent-with-claim.svg
@@ -63,7 +74,7 @@ async function seedGlobals() {
           companyLinks: [
             { name: 'About Us', link: '/about-us' },
             { name: 'Careers', link: '/careers' },
-            { name: 'Insights', link: '/insights' },
+            { name: 'Insights & News', link: '/insights' },
             { name: 'Contact', link: '/contact' },
             { name: 'Privacy Policy', link: '/privacy' },
           ],
