@@ -9,6 +9,8 @@ import { Footer } from '@/components/footer'
 import { getGlobals, generateBrandGradientCSS, generateBrandColorCSS, generateFrostingCSS } from '@/lib/get-globals'
 import './globals.css'
 
+export const dynamic = 'force-dynamic'
+
 const rubik = Rubik({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
