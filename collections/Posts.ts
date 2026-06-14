@@ -199,11 +199,25 @@ export const Posts: CollectionConfig = {
         {
           name: 'eventStartAt',
           type: 'date',
+          admin: {
+            date: {
+              pickerAppearance: 'dayAndTime',
+              timeIntervals: 15,
+              displayFormat: 'dd/MM/yyyy HH:mm',
+            },
+          },
           validate: requiredWhenPublishedEvent('Event start'),
         },
         {
           name: 'eventEndAt',
           type: 'date',
+          admin: {
+            date: {
+              pickerAppearance: 'dayAndTime',
+              timeIntervals: 15,
+              displayFormat: 'dd/MM/yyyy HH:mm',
+            },
+          },
           validate: requiredWhenPublishedEvent('Event end'),
         },
         {
