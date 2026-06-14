@@ -6,7 +6,9 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "seed:posts": "tsx scripts/seed-posts.ts",
+    "seed:biom-event": "tsx scripts/seed-posts.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -91,5 +93,8 @@
     "tsx": "^4.20.4",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "drizzle-kit": "0.31.10"
   }
 }

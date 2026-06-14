@@ -1,63 +1,60 @@
 "use client"
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion"
-import { useRef, ReactNode } from "react"
+import * as motion from "framer-motion/client"
+import { type CSSProperties, type ReactNode } from "react"
 
-// Basic motion components
+type WrapperProps = {
+  children: ReactNode
+  delay?: number
+  className?: string
+  style?: CSSProperties
+}
+
+type StaggeredFadeUpProps = WrapperProps & {
+  staggerDelay?: number
+}
+
+type ParallaxAnimationProps = WrapperProps & {
+  offset?: [number, number]
+}
+
 export const MotionDiv = motion.div
 export const MotionSection = motion.section
 export const MotionH2 = motion.h2
 export const MotionH3 = motion.h3
 export const MotionP = motion.p
 
-// Reusable animation wrappers
-interface FadeUpAnimationProps {
-  children: ReactNode
-  delay?: number
-  className?: string
-}
-
-export function FadeUpAnimation({ children, delay = 0, className }: FadeUpAnimationProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
+export function FadeUpAnimation({ children, delay = 0, className, style }: WrapperProps) {
   return (
     <motion.div
-      ref={ref}
       className={className}
+      style={style}
       initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, delay }}
     >
       {children}
     </motion.div>
   )
 }
 
-interface StaggeredFadeUpProps {
-  children: ReactNode
-  className?: string
-  staggerDelay?: number
-}
-
-export function StaggeredFadeUp({ children, className, staggerDelay = 0.1 }: StaggeredFadeUpProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
+export function StaggeredFadeUp({ children, className, staggerDelay = 0.1, style }: StaggeredFadeUpProps) {
   return (
     <motion.div
-      ref={ref}
       className={className}
+      style={style}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
       variants={{
         hidden: { opacity: 0 },
         visible: {
           opacity: 1,
           transition: {
-            staggerChildren: staggerDelay
-          }
-        }
+            staggerChildren: staggerDelay,
+          },
+        },
       }}
     >
       {children}
@@ -65,95 +62,49 @@ export function StaggeredFadeUp({ children, className, staggerDelay = 0.1 }: Sta
   )
 }
 
-interface CardAnimationProps {
-  children: ReactNode
-  delay?: number
-  className?: string
-}
-
-export function CardAnimation({ children, delay = 0, className }: CardAnimationProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
+export function CardAnimation({ children, delay = 0, className, style }: WrapperProps) {
   return (
     <motion.div
-      ref={ref}
       className={className}
+      style={{ ...style, willChange: 'transform' }}
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      animate={isInView ? { 
-        opacity: 1, 
-        y: 0, 
-        scale: 1 
-      } : { 
-        opacity: 0, 
-        y: 30,
-        scale: 0.95
-      }}
-      transition={{ 
-        duration: 0.6, 
-        delay: 0,
-        ease: "easeOut"
-      }}
-      whileHover={{ 
-        scale: 1.015, 
-        transition: { duration: 0.25, ease: "easeOut" }
-      }}
-      style={{ willChange: 'transform' }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      whileHover={{ scale: 1.015, transition: { duration: 0.25, ease: "easeOut" } }}
     >
       {children}
     </motion.div>
   )
 }
 
-interface ParallaxAnimationProps {
-  children: ReactNode
-  className?: string
-  offset?: [number, number]
-}
-
-export function ParallaxAnimation({ children, className, offset = [0, 1] }: ParallaxAnimationProps) {
-  const { scrollYProgress } = useScroll()
-  const y = useTransform(scrollYProgress, offset, ['0%', '60%'])
-
+export function ParallaxAnimation({ children, className, style }: ParallaxAnimationProps) {
   return (
-    <motion.div
-      className={className}
-      style={{ y }}
-    >
+    <motion.div className={className} style={style}>
       {children}
     </motion.div>
   )
 }
 
-interface HeroAnimationProps {
-  children: ReactNode
-  delay?: number
-  className?: string
-}
-
-export function HeroAnimation({ children, delay = 0, className }: HeroAnimationProps) {
+export function HeroAnimation({ children, delay = 0, className, style }: WrapperProps) {
   return (
     <motion.div
       className={className}
+      style={style}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0, ease: "easeOut" }}
+      transition={{ duration: 0.8, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   )
 }
 
-interface ScaleAnimation {
-  children: ReactNode
-  delay?: number
-  className?: string
-}
-
-export function ScaleAnimation({ children, delay = 0, className }: ScaleAnimation) {
+export function ScaleAnimation({ children, delay = 0, className, style }: WrapperProps) {
   return (
     <motion.div
       className={className}
+      style={style}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, delay }}

@@ -14,6 +14,10 @@ import { BackgroundImageBlock } from './background-image-block'
 import { ContentSectionBlock } from './content-section-block'
 import { MultiContentBlock } from './multi-content-block'
 import { TextBlock } from './text-block'
+import { PostsArchiveBlock } from './posts-archive-block'
+import { HomepageAnnouncement } from '@/components/homepage-announcement'
+import { type HomepageAnnouncementData } from '@/lib/get-globals'
+import { type PostSummary } from '@/lib/posts'
 
 interface BlockData {
   blockType: string
@@ -22,9 +26,11 @@ interface BlockData {
 
 interface BlockRendererProps {
   blocks: BlockData[]
+  homepageAnnouncement?: HomepageAnnouncementData
+  posts?: PostSummary[]
 }
 
-export function BlockRenderer({ blocks }: BlockRendererProps) {
+export function BlockRenderer({ blocks, homepageAnnouncement, posts = [] }: BlockRendererProps) {
   // Group consecutive legal-notice blocks together
   const groupedBlocks: Array<BlockData | BlockData[]> = []
   let currentLegalNoticeGroup: BlockData[] = []
@@ -73,7 +79,12 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             // Skip header blocks - handled globally
             return null
           case 'hero':
-            return <HeroBlock key={index} data={block} helixConfig={block.helixConfig} />
+            return (
+              <div key={index}>
+                <HeroBlock data={block} helixConfig={block.helixConfig} />
+                <HomepageAnnouncement data={homepageAnnouncement} />
+              </div>
+            )
           case 'features':
             return <FeaturesBlock key={index} data={block} />
           case 'solutions':
@@ -105,6 +116,8 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
             return <PrivacyBlock key={index} data={block} />
           case 'textBlock':
             return <TextBlock key={index} data={block} />
+          case 'postsArchive':
+            return <PostsArchiveBlock key={index} data={block} posts={posts} />
           default:
             console.warn(`Unknown block type: ${block.blockType}`)
             return null

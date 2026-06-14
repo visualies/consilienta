@@ -43,7 +43,7 @@ const defaultData = {
   companyLinks: [
     { name: "About Us", link: "#about" },
     { name: "Careers", link: "#careers" },
-    { name: "Insights", link: "#insights" },
+    { name: "Insights & News", link: "/insights" },
     { name: "Contact", link: "#contact" },
     { name: "Privacy Policy", link: "#privacy" }
   ],

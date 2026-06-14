@@ -48,15 +48,19 @@ async function seedPages() {
         ]
       },
       {
-        title: 'Insights',
+        title: 'Insights & News',
         slug: 'insights',
         meta: {
-          title: 'Insights - Consilienta', 
-          description: 'Industry insights and expertise from our pharmaceutical consulting team.',
+          title: 'Insights & News | Consilienta',
+          description: '',
         },
         layout: [
           {
-            blockType: 'insights',
+            blockType: 'postsArchive',
+            eyebrow: 'Insights & News',
+            title: 'Insights & News',
+            intro: '',
+            showFilters: true,
           }
         ]
       },

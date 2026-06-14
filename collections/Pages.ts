@@ -107,7 +107,7 @@ export const Pages: CollectionConfig = {
                 { label: 'Home', link: '#home' },
                 { label: 'How We Help', link: '#how-we-help' },
                 { label: 'About Us', link: '#about' },
-                { label: 'Insights', link: '#insights' },
+                { label: 'Insights & News', link: '/insights' },
                 { label: 'Careers', link: '#careers' },
               ],
             },
@@ -353,6 +353,37 @@ export const Pages: CollectionConfig = {
                   description: 'Out-of-the-box solutions for complex challenges',
                 },
               ],
+            },
+          ],
+        },
+        {
+          slug: 'postsArchive',
+          labels: {
+            singular: 'Posts Archive',
+            plural: 'Posts Archives',
+          },
+          fields: [
+            {
+              name: 'eyebrow',
+              type: 'text',
+              required: true,
+              defaultValue: 'Insights & News',
+            },
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              defaultValue: 'Insights & News',
+            },
+            {
+              name: 'intro',
+              type: 'textarea',
+              required: false,
+            },
+            {
+              name: 'showFilters',
+              type: 'checkbox',
+              defaultValue: true,
             },
           ],
         },
@@ -731,7 +762,7 @@ export const Pages: CollectionConfig = {
               defaultValue: [
                 { name: 'About Us', link: '#about' },
                 { name: 'Careers', link: '#careers' },
-                { name: 'Insights', link: '#insights' },
+                { name: 'Insights & News', link: '/insights' },
                 { name: 'Contact', link: '#contact' },
                 { name: 'Privacy Policy', link: '#privacy' },
               ],

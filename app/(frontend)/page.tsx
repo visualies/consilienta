@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import config from '../../payload.config'
 import { BlockRenderer } from '@/components/blocks'
 import { notFound } from 'next/navigation'
+import { getGlobals } from '@/lib/get-globals'
 
 interface PageData {
   id: string
@@ -85,7 +86,10 @@ export async function generateMetadata() {
 
 
 export default async function ConsilientsLanding() {
-  const pageData = await getHomePageData()
+  const [pageData, globalsData] = await Promise.all([
+    getHomePageData(),
+    getGlobals(),
+  ])
 
   if (!pageData) {
     notFound()
@@ -93,7 +97,7 @@ export default async function ConsilientsLanding() {
 
   return (
     <div className="min-h-screen">
-      <BlockRenderer blocks={pageData.layout} />
+      <BlockRenderer blocks={pageData.layout} homepageAnnouncement={globalsData?.homepageAnnouncement} />
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Users, Target, Lightbulb, Globe, Zap, Award } from "lucide-react"
 import { FadeUpAnimation, StaggeredFadeUp } from "@/components/ui/motion-wrappers"
-import { motion } from "framer-motion"
+import * as motion from "framer-motion/client"
 
 const getIconComponent = (iconName: string) => {
   switch (iconName) {

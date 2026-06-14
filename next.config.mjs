@@ -32,6 +32,15 @@ const nextConfig = {
     }
     return webpackConfig
   },
+  async redirects() {
+    return [
+      {
+        source: '/posts/:slug',
+        destination: '/insights/:slug',
+        permanent: true,
+      },
+    ]
+  },
   reactStrictMode: true,
 }
 
