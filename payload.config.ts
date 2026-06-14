@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -15,6 +16,34 @@ import { Globals } from './collections/Globals'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const syncPostsSchemaForProduction = {
+  name: '20260614_sync_posts_schema',
+  up: async ({ payload }: MigrateUpArgs) => {
+    const adapter = payload.db
+    const { pushSchema } = adapter.requireDrizzleKit()
+    const { apply, hasDataLoss, warnings } = await pushSchema(
+      adapter.schema,
+      adapter.drizzle as any,
+      adapter.schemaName ? [adapter.schemaName] : undefined,
+      adapter.tablesFilter,
+      adapter.extensions.postgis ? ['postgis'] : undefined,
+    )
+
+    if (warnings.length) {
+      payload.logger.warn({
+        msg: `Schema push warnings:\n${warnings.join('\n')}`,
+      })
+    }
+
+    if (hasDataLoss) {
+      throw new Error('Production schema push reported possible data loss. Migration stopped.')
+    }
+
+    await apply()
+  },
+  down: async (_args: MigrateDownArgs) => {},
+}
 
 export default buildConfig({
   admin: {
@@ -38,6 +67,7 @@ export default buildConfig({
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
     },
+    prodMigrations: [syncPostsSchemaForProduction],
   }),
   sharp,
   plugins: [
