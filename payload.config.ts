@@ -1,8 +1,8 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
+import type { Payload } from 'payload'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -17,32 +17,33 @@ import { Globals } from './collections/Globals'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const syncPostsSchemaForProduction = {
-  name: '20260614_sync_posts_schema',
-  up: async ({ payload }: MigrateUpArgs) => {
-    const adapter = payload.db
-    const { pushSchema } = adapter.requireDrizzleKit()
-    const { apply, hasDataLoss, warnings } = await pushSchema(
-      adapter.schema,
-      adapter.drizzle as any,
-      adapter.schemaName ? [adapter.schemaName] : undefined,
-      adapter.tablesFilter,
-      adapter.extensions.postgis ? ['postgis'] : undefined,
-    )
+const syncProductionSchema = async (payload: Payload) => {
+  if (process.env.NODE_ENV !== 'production' || process.env.PAYLOAD_SYNC_SCHEMA !== 'true') {
+    return
+  }
 
-    if (warnings.length) {
-      payload.logger.warn({
-        msg: `Schema push warnings:\n${warnings.join('\n')}`,
-      })
-    }
+  const adapter = payload.db
+  const { pushSchema } = adapter.requireDrizzleKit()
+  const { apply, hasDataLoss, warnings } = await pushSchema(
+    adapter.schema,
+    adapter.drizzle as any,
+    adapter.schemaName ? [adapter.schemaName] : undefined,
+    adapter.tablesFilter,
+    adapter.extensions.postgis ? ['postgis'] : undefined,
+  )
 
-    if (hasDataLoss) {
-      throw new Error('Production schema push reported possible data loss. Migration stopped.')
-    }
+  if (warnings.length) {
+    payload.logger.warn({
+      msg: `Schema push warnings:\n${warnings.join('\n')}`,
+    })
+  }
 
-    await apply()
-  },
-  down: async (_args: MigrateDownArgs) => {},
+  if (hasDataLoss) {
+    throw new Error('Production schema push reported possible data loss. Schema sync stopped.')
+  }
+
+  await apply()
+  payload.logger.info({ msg: 'Production schema sync completed.' })
 }
 
 export default buildConfig({
@@ -55,6 +56,7 @@ export default buildConfig({
   collections: [Users, Media, Pages, Posts, ContactSubmissions],
   globals: [Globals],
   editor: lexicalEditor(),
+  onInit: syncProductionSchema,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -67,7 +69,6 @@ export default buildConfig({
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
     },
-    prodMigrations: [syncPostsSchemaForProduction],
   }),
   sharp,
   plugins: [
